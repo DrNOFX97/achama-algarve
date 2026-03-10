@@ -758,7 +758,7 @@
         <button id="obs-close-btn" class="obs-close" aria-label="Fechar observatório">&#x2715;</button>
         <div class="obs-head__label">Observatório da Habitação · ACHAMA</div>
         <h2 class="obs-head__title" id="obs-title">16 Concelhos do Algarve</h2>
-        <div class="obs-head__sub">Idealista Índice Dez 2024 · INE Q1 2025 · IHRU · Preços venda: INE Q1–Q3 2025</div>
+        <div class="obs-head__sub">Idealista Índice Dez 2025 · INE 2025 · IHRU · Preços venda: Terraruiva Dez 2025</div>
       </div>
 
       <div class="obs-kpis">
@@ -779,14 +779,14 @@
         </div>
         <div class="obs-kpi">
           <div class="obs-kpi__label">Algarve vs nacional</div>
-          <div class="obs-kpi__value">+21%</div>
-          <div class="obs-kpi__sub">9,92&nbsp;€ vs 8,22&nbsp;€/m² (INE Q1 2025)</div>
+          <div class="obs-kpi__value" id="obs-kpi-vs-nac">+30%</div>
+          <div class="obs-kpi__sub" id="obs-kpi-vs-nac-sub">Idealista Dez 2025 · média regional vs nacional</div>
         </div>
       </div>
 
       <div class="obs-tabs-bar" role="tablist">
         <button class="obs-tab is-active" role="tab" data-tab="tabela" aria-selected="true">Por Concelho</button>
-        <button class="obs-tab" role="tab" data-tab="evolucao" aria-selected="false">Evolução 2023→2024</button>
+        <button class="obs-tab" role="tab" data-tab="evolucao" aria-selected="false">Evolução 2023→2025</button>
         <button class="obs-tab" role="tab" data-tab="ranking" aria-selected="false">Ranking</button>
         <button class="obs-tab" role="tab" data-tab="fontes" aria-selected="false">Fontes</button>
       </div>
@@ -801,7 +801,7 @@
                   <th>#</th>
                   <th>Concelho</th>
                   <th data-sort="renda">Renda/m²</th>
-                  <th data-sort="variacao">Var. 2023→2024</th>
+                  <th data-sort="variacao">Var. 2024→2025</th>
                   <th data-sort="venda">Venda/m²</th>
                   <th data-sort="esforco">Esforço fam.</th>
                   <th>Pressão</th>
@@ -812,7 +812,7 @@
           </div>
           <p style="font-family:var(--font-body);font-size:.72rem;color:var(--color-muted);margin-top:.85rem;">
             Esforço familiar: % do rendimento mediano do Algarve (~1050€/mês) gasto em arrendamento de T2 a 75m².
-            <strong>Mkt.</strong> = Índice Idealista Dez 2024 · <strong>Est.</strong> = estimativa com base no INE.
+            <strong>Mkt.</strong> = Índice Idealista Dez 2025 · <strong>Est.</strong> = estimativa com base no INE.
             Clicar nos cabeçalhos para ordenar.
           </p>
         </div>
@@ -820,24 +820,27 @@
         <div id="obs-panel-evolucao" class="obs-tabpanel">
           <div id="obs-evolucao"></div>
           <p style="font-family:var(--font-body);font-size:.72rem;color:var(--color-muted);margin-top:1.25rem;">
-            Comparação renda mediana Dezembro 2023 (estimada) vs Dezembro 2024 (Idealista Índice). Ordenado por maior subida absoluta.
+            Renda mediana: 2023 estimada · 2024 Idealista Dez 2024 · 2025 Idealista Dez 2025. Ordenado por renda 2025
+            (maior para menor).
           </p>
         </div>
 
         <div id="obs-panel-ranking" class="obs-tabpanel">
           <div class="obs-ranking" id="obs-ranking"></div>
           <p style="font-family:var(--font-body);font-size:.72rem;color:var(--color-muted);margin-top:1.25rem;">
-            Ordenado por renda mediana de arrendamento (€/m²), Q4 2024.
+            Ordenado por renda mediana de arrendamento (€/m²), Dezembro 2025 (Idealista Índice).
           </p>
         </div>
 
         <div id="obs-panel-fontes" class="obs-tabpanel">
           <div class="obs-fontes">
             <div class="obs-fonte">
-              <div class="obs-fonte__cod">Idealista Índice Dez 2024</div>
+              <div class="obs-fonte__cod">Idealista Índice Dez 2025</div>
               <div>
                 <div class="obs-fonte__desc">Renda mediana de mercado por município (preços de oferta)</div>
-                <div class="obs-fonte__sub">10 concelhos com dados directos: Albufeira, Faro, Lagoa, Lagos, Loulé, Olhão, Portimão, Silves, Tavira, VRSA · Crescimento regional: +7,7%</div>
+                <div class="obs-fonte__sub">10 concelhos com dados directos: Lagoa (+23,4%), Lagos (+15,1%), Portimão
+                  (+10,2%), Olhão (+6,5%), Silves (+3,0%), VRSA (+2,9%), Loulé (+2,2%) · Albufeira, Faro, Tavira com
+                  estimativa regional</div>
               </div>
             </div>
             <div class="obs-fonte">
@@ -850,10 +853,11 @@
               </div>
             </div>
             <div class="obs-fonte">
-              <div class="obs-fonte__cod">INE Q1–Q3 2025</div>
+              <div class="obs-fonte__cod">Terraruiva · Dez 2025</div>
               <div>
-                <div class="obs-fonte__desc">Preço mediano/m² transações · Lagos 3.582€ (Q1) · Loulé ~4.200€</div>
-                <div class="obs-fonte__sub">Algarve NUTS III: ~3.200€/m² (Q3 2025, +16,6% YoY) · Indicador 0009827 · Restantes concelhos: estimativa com base no crescimento regional</div>
+                <div class="obs-fonte__desc">Preço mediano/m² transações — todos os 16 concelhos do Algarve</div>
+                <div class="obs-fonte__sub">Loulé 4.567€ · Lagos 4.434€ · Lagoa 3.881€ · Albufeira 3.853€ · Faro 3.435€
+                  · Algarve NUTS III: ~3.200€/m² (INE Q3 2025, +16,6% YoY)</div>
               </div>
             </div>
             <div class="obs-fonte">
@@ -861,7 +865,7 @@
               <div>
                 <div class="obs-fonte__desc">6 concelhos sem dados Idealista directos (badge "Est.")</div>
                 <div class="obs-fonte__sub">Alcoutim, Aljezur, Castro Marim, Monchique, São Brás de Alportel, Vila do
-                  Bispo · Base: INE Anuário 2023 + crescimento regional 2024</div>
+                  Bispo · Base: INE Anuário 2023 + crescimento regional 2024–2025</div>
               </div>
             </div>
             <div class="obs-fonte">
