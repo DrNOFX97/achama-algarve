@@ -5,9 +5,13 @@ export function initObservatory(OBS_DATA) {
     const closeBtn = document.getElementById("obs-close-btn");
     if (!openBtn || !overlay) return;
 
-    // Derived fields
+    // Process data
     OBS_DATA.forEach(function (m) {
-        m.esforco = Math.round((m.renda * 75) / 1050 * 1000) / 10;
+        m.renda2023 = Math.round((m.renda2024 / (1 + m.var24 / 100)) * 10) / 10;
+        m.renda = m.renda2025;
+        m.variacao = m.var25;
+        m.venda = m.venda2025;
+        m.esforco = Math.round((m.renda2025 * 75) / 1050 * 1000) / 10;
     });
 
     function obsColor(renda) {
@@ -55,36 +59,46 @@ export function initObservatory(OBS_DATA) {
     function obsRenderEvolucao() {
         const el = document.getElementById("obs-evolucao");
         if (!el) return;
-        const data = OBS_DATA.slice().sort((a, b) => Math.abs(b.variacao) - Math.abs(a.variacao));
-        const maxRenda = Math.max(...OBS_DATA.map(m => m.renda));
-        el.innerHTML = `<div style="display:flex;flex-direction:column;gap:.7rem;">
+        const data = OBS_DATA.slice().sort((a, b) => b.renda2025 - a.renda2025);
+        const maxRenda = Math.max(...OBS_DATA.map(m => m.renda2025));
+        el.innerHTML = `<div style="display:flex;flex-direction:column;gap:.8rem;">
       ${data.map(m => {
-            const r2023 = Math.round((m.renda / (1 + m.variacao / 100)) * 10) / 10;
-            const pct23 = Math.round((r2023 / maxRenda) * 100);
-            const pct24 = Math.round((m.renda / maxRenda) * 100);
-            const hc = obsColor(m.renda);
-            const varColor = m.variacao < 0 ? "#16a34a" : obsVarColor(Math.abs(m.variacao));
-            const varSign = m.variacao >= 0 ? "+" : "";
-            return `<div style="display:grid;grid-template-columns:130px 1fr 70px;align-items:center;gap:.6rem;font-family:var(--font-body);font-size:.8rem;">
-          <div style="text-align:right;color:var(--color-text);font-weight:500;font-size:.78rem;">${m.nome}</div>
+            const pct23 = Math.round((m.renda2023 / maxRenda) * 100);
+            const pct24 = Math.round((m.renda2024 / maxRenda) * 100);
+            const pct25 = Math.round((m.renda2025 / maxRenda) * 100);
+            const hc25 = obsColor(m.renda2025);
+            const v25Color = m.var25 < 0 ? "#16a34a" : obsVarColor(Math.abs(m.var25));
+            const v25Sign = m.var25 >= 0 ? "+" : "";
+            return `<div style="display:grid;grid-template-columns:130px 1fr 72px;align-items:center;gap:.6rem;font-family:var(--font-body);font-size:.8rem;">
+          <div style="text-align:right;color:var(--color-text);font-weight:600;font-size:.78rem;">${m.nome}</div>
           <div style="display:flex;flex-direction:column;gap:3px;">
             <div style="display:flex;align-items:center;gap:5px;">
               <span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2023</span>
-              <div style="flex:1;background:#ede9e3;border-radius:3px;height:10px;overflow:hidden;">
-                <div style="width:${pct23}%;height:100%;background:#9ca3af;border-radius:3px;transition:width .8s ease;"></div>
+              <div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;">
+                <div style="width:${pct23}%;height:100%;background:#b0b7c3;border-radius:3px;transition:width .8s ease;"></div>
               </div>
-              <span style="width:42px;font-size:.72rem;color:var(--color-muted);font-weight:500;">${r2023.toFixed(1)}€</span>
+              <span style="width:42px;font-size:.7rem;color:var(--color-muted);font-weight:500;">${m.renda2023.toFixed(1)}€</span>
             </div>
             <div style="display:flex;align-items:center;gap:5px;">
               <span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2024</span>
-              <div style="flex:1;background:#ede9e3;border-radius:3px;height:10px;overflow:hidden;">
-                <div style="width:${pct24}%;height:100%;background:${hc};border-radius:3px;transition:width .8s ease;"></div>
+              <div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;">
+                <div style="width:${pct24}%;height:100%;background:#7c9dc4;border-radius:3px;transition:width .8s ease;"></div>
               </div>
-              <span style="width:42px;font-size:.72rem;color:${hc};font-weight:700;">${m.renda.toFixed(1)}€</span>
+              <span style="width:42px;font-size:.7rem;color:#1B3A6B;font-weight:600;">${m.renda2024.toFixed(1)}€</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;">
+              <span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2025</span>
+              <div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;">
+                <div style="width:${pct25}%;height:100%;background:${hc25};border-radius:3px;transition:width .8s ease;"></div>
+              </div>
+              <span style="width:42px;font-size:.72rem;color:${hc25};font-weight:700;">${m.renda2025.toFixed(1)}€</span>
             </div>
           </div>
-          <div style="text-align:center;font-weight:700;font-size:.82rem;color:${varColor};padding:.2rem .4rem;background:${varColor}15;border-radius:4px;">
-            ${varSign}${m.variacao.toFixed(1)}%
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;">
+            <div style="text-align:center;font-weight:700;font-size:.78rem;color:${v25Color};padding:.15rem .35rem;background:${v25Color}18;border-radius:4px;">
+              ${v25Sign}${m.var25.toFixed(1)}%
+            </div>
+            <div style="font-size:.6rem;color:var(--color-muted);">24→25</div>
           </div>
         </div>`;
         }).join("")}
