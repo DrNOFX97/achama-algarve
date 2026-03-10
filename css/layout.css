@@ -1,0 +1,125 @@
+/* ===== Layout ===== */
+.container {
+    width: min(var(--container), 100% - 2rem);
+    margin-inline: auto;
+}
+
+.section {
+    padding-block: 5rem;
+}
+
+.section--alt {
+    background: var(--color-white);
+}
+
+.section__label {
+    font-family: var(--font-body);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: .75rem;
+}
+
+.section__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+}
+
+.section__subtitle {
+    font-size: 1.1rem;
+    color: var(--color-muted);
+    max-width: 55ch;
+}
+
+.section__header {
+    margin-bottom: 3rem;
+}
+
+.section__header--center {
+    text-align: center;
+}
+
+.section__header--center .section__subtitle {
+    margin-inline: auto;
+}
+
+/* ===== Fade-in animation ===== */
+@media (prefers-reduced-motion: no-preference) {
+    .fade-in {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .fade-in.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    .fade-in:nth-child(2) {
+        transition-delay: .1s;
+    }
+
+    .fade-in:nth-child(3) {
+        transition-delay: .2s;
+    }
+
+    .fade-in:nth-child(4) {
+        transition-delay: .3s;
+    }
+}
+
+/* ===== Buttons ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .8rem 1.75rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: .95rem;
+    transition: var(--transition);
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.btn--primary {
+    background: var(--color-accent);
+    color: var(--color-white);
+    border-color: var(--color-accent);
+}
+
+.btn--primary:hover {
+    background: var(--color-accent-light);
+    border-color: var(--color-accent-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn--outline {
+    background: transparent;
+    color: var(--color-white);
+    border-color: rgba(255, 255, 255, .7);
+}
+
+.btn--outline:hover {
+    background: rgba(255, 255, 255, .12);
+    border-color: var(--white);
+}
+
+.btn--outline-dark {
+    background: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn--outline-dark:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+}

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="ACHAMA – Associação Cívica e Habitação de Munícipes do Algarve. Defendemos o direito à habitação digna para todos os algarvios.">
+  <title>ACHAMA – Habitação para o Algarve</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header>
+    <nav class="nav" id="main-nav" aria-label="Navegação principal">
+      <div class="container nav__inner">
+        <a href="#inicio" class="nav__logo" aria-label="ACHAMA — Página inicial">
+          <img src="assets/images/Logo1_clean.png" alt="ACHAMA" class="nav__logo-img">
+        </a>
+
+        <ul class="nav__links" role="list">
+          <li><a href="#crise">A Crise</a></li>
+          <li><a href="#missao">Missão</a></li>
+          <li><a href="#projetos">Projetos</a></li>
+          <li><a href="#quem-somos">Quem Somos</a></li>
+          <li><a href="#noticias">Notícias</a></li>
+          <li><a href="#contactos">Contactos</a></li>
+        </ul>
+
+        <a href="#associar" class="btn btn--primary nav__cta">Associar-me</a>
+
+        <button class="nav__hamburger" id="hamburger-btn" aria-label="Abrir menu" aria-expanded="false"
+          aria-controls="mobile-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="nav__menu" id="mobile-menu" role="dialog" aria-label="Menu de navegação móvel">
+      <button class="nav__menu-close" id="menu-close-btn" aria-label="Fechar menu">✕</button>
+      <ul role="list">
+        <li><a href="#crise">A Crise</a></li>
+        <li><a href="#missao">Missão</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#quem-somos">Quem Somos</a></li>
+        <li><a href="#noticias">Notícias</a></li>
+        <li><a href="#associar">Associar-me</a></li>
+        <li><a href="#participar">Participar</a></li>
+        <li><a href="#contactos">Contactos</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section id="inicio" aria-label="Início">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <div class="hero__badge">Associação Cívica · Algarve</div>
+          <h1 class="hero__title">
+            Habitação digna<br>
+            é um <em>direito</em>,<br>
+            não um privilégio
+          </h1>
+          <p class="hero__desc">
+            A ACHAMA luta pelo direito à habitação acessível para todos os munícipes do Algarve. Juntos, construímos
+            soluções reais para a crise que afeta as nossas comunidades.
+          </p>
+          <div class="hero__actions">
+            <a href="#associar" class="btn btn--primary">Associar-me agora</a>
+            <a href="#missao" class="btn btn--outline">Conhecer a missão</a>
+          </div>
+        </div>
+        <div class="hero__photos" aria-hidden="true">
+          <img class="hero__photo hero__photo--active" src="assets/images/Hero1.png" alt="">
+          <img class="hero__photo" src="assets/images/Hero2.png" alt="">
+          <img class="hero__photo" src="assets/images/Hero3.png" alt="">
+        </div>
+      </div>
+      <div class="hero__scroll" aria-hidden="true">
+        <span>Explorar</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ===== CRISE ===== -->
+    <section id="crise" class="section section--alt" aria-labelledby="crise-title">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__label">O problema</p>
+          <h2 class="section__title" id="crise-title">A crise habitacional no Algarve</h2>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card fade-in">
+            <div class="stat-card__number">+<span>180</span>%</div>
+            <div class="stat-card__label">Aumento das rendas</div>
+            <div class="stat-card__desc">Nos últimos 10 anos, as rendas na região algarviana triplicaram, superando a
+              média nacional.</div>
+          </div>
+          <div class="stat-card fade-in">
+            <div class="stat-card__number"><span>68</span>%</div>
+            <div class="stat-card__label">Esforço de rendimento</div>
+            <div class="stat-card__desc">Das famílias do Algarve gastam mais de 40% do rendimento em habitação, acima do
+              limiar de esforço sustentável.</div>
+          </div>
+          <div class="stat-card fade-in">
+            <div class="stat-card__number"><span>12</span>k</div>
+            <div class="stat-card__label">Famílias em lista de espera</div>
+            <div class="stat-card__desc">Aguardam habitação social na região, com tempo médio de espera superior a 8
+              anos.</div>
+          </div>
+        </div>
+
+        <p class="crise__text fade-in">
+          O Algarve vive uma <strong>contradição profunda</strong>: é a região com maior PIB per capita do país,
+          impulsionada pelo turismo, mas também aquela onde os trabalhadores locais menos conseguem pagar a sua própria
+          habitação. A especulação imobiliária, o alojamento de curta duração e a ausência de políticas habitacionais
+          adequadas criaram uma crise sem precedentes. <strong>A ACHAMA nasce para mudar esta realidade.</strong>
+        </p>
+        <div style="text-align:center;margin-top:2.5rem;">
+          <button id="obs-open-btn" class="btn btn--primary">
+            Ver Observatório da Habitação &rarr;
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MISSÃO ===== -->
+    <section id="missao" class="section" aria-labelledby="missao-title">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__label">O nosso propósito</p>
+          <h2 class="section__title" id="missao-title">A nossa missão</h2>
+        </div>
+
+        <div class="missao__grid">
+          <div class="missao__quote fade-in">
+            <p class="missao__quote-text">
+              Toda a pessoa tem direito a um nível de vida suficiente que lhe assegure, a si e à sua família, a saúde e
+              o bem-estar, incluindo habitação.
+            </p>
+            <cite class="missao__quote-cite">— Artigo 25.º, Declaração Universal dos Direitos Humanos</cite>
+          </div>
+
+          <div class="missao__pillars fade-in">
+            <div class="pillar">
+              <div class="pillar__icon" aria-hidden="true">🏛️</div>
+              <div>
+                <div class="pillar__title">Advocacia Cívica</div>
+                <p class="pillar__text">Representamos os munícipes junto das autarquias e da Assembleia da República,
+                  exigindo políticas habitacionais justas e eficazes para o Algarve.</p>
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar__icon" aria-hidden="true">🤝</div>
+              <div>
+                <div class="pillar__title">Apoio às Famílias</div>
+                <p class="pillar__text">Fornecemos apoio jurídico, informação e orientação às famílias em situação de
+                  vulnerabilidade habitacional na região.</p>
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar__icon" aria-hidden="true">🔬</div>
+              <div>
+                <div class="pillar__title">Investigação e Dados</div>
+                <p class="pillar__text">Produzimos relatórios, estudos e dados concretos sobre a realidade habitacional
+                  algarviana para fundamentar políticas públicas baseadas em evidência.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJETOS ===== -->
+    <section id="projetos" class="section section--alt" aria-labelledby="projetos-title">
+      <div class="container">
+        <div class="section__header section__header--center">
+          <p class="section__label">O que fazemos</p>
+          <h2 class="section__title" id="projetos-title">Os nossos projetos</h2>
+          <p class="section__subtitle">Iniciativas concretas para combater a crise habitacional e devolver dignidade às
+            famílias algarvias.</p>
+        </div>
+
+        <div class="projetos-grid">
+          <article class="project-card fade-in">
+            <div class="project-card__header project-card__header--alt1">
+              <span class="project-card__emoji" aria-hidden="true">⚖️</span>
+            </div>
+            <div class="project-card__body">
+              <p class="project-card__tag">Apoio Jurídico</p>
+              <h3 class="project-card__title">Clínica de Habitação</h3>
+              <p class="project-card__text">Consultório jurídico gratuito para inquilinos e proprietários, com apoio em
+                casos de despejo, incumprimento e litígios habitacionais. Atendimento semanal em Faro, Portimão e Lagos.
+              </p>
+              <a href="#associar" class="project-card__link">Saber mais →</a>
+            </div>
+          </article>
+
+          <article class="project-card fade-in">
+            <div class="project-card__header project-card__header--alt2">
+              <span class="project-card__emoji" aria-hidden="true">🗺️</span>
+            </div>
+            <div class="project-card__body">
+              <p class="project-card__tag">Investigação</p>
+              <h3 class="project-card__title">Observatório da Habitação</h3>
+              <p class="project-card__text">Plataforma de dados abertos com monitorização de preços, disponibilidade e
+                condições do parque habitacional em todos os 16 municípios do Algarve em tempo real.</p>
+              <a href="#obs-overlay" id="obs-link-card" class="project-card__link">Saber mais →</a>
+            </div>
+          </article>
+
+          <article class="project-card fade-in">
+            <div class="project-card__header project-card__header--alt3">
+              <span class="project-card__emoji" aria-hidden="true">🏘️</span>
+            </div>
+            <div class="project-card__body">
+              <p class="project-card__tag">Comunidade</p>
+              <h3 class="project-card__title">Algarve Cohabita</h3>
+              <p class="project-card__text">Programa de mediação e acompanhamento de coabitação e cooperativas
+                habitacionais, criando soluções alternativas e acessíveis para trabalhadores e jovens da região.</p>
+              <a href="#associar" class="project-card__link">Saber mais →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== QUEM SOMOS ===== -->
+    <section id="quem-somos" class="section" aria-labelledby="quem-somos-title">
+      <div class="container">
+        <div class="section__header section__header--center">
+          <p class="section__label">A nossa identidade</p>
+          <h2 class="section__title" id="quem-somos-title">Quem somos</h2>
+          <p class="section__subtitle">Uma associação cívica apartidária, constituída por munícipes do Algarve
+            comprometidos com o direito à habitação digna.</p>
+        </div>
+
+        <div class="tabs fade-in" role="tablist" aria-label="Informação sobre a ACHAMA">
+          <div class="tabs__list">
+            <button class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-missao"
+              id="tab-missao">Missão</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-visao"
+              id="tab-visao">Visão</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-valores"
+              id="tab-valores">Valores</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-orgaos" id="tab-orgaos">Órgãos
+              Sociais</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-documentos"
+              id="tab-documentos">Documentos</button>
+          </div>
+
+          <div id="panel-missao" role="tabpanel" aria-labelledby="tab-missao" aria-hidden="false" class="tab-panel">
+            <h3 class="tab-panel__title">A nossa missão</h3>
+            <p class="tab-panel__text">
+              A ACHAMA – Associação Cívica e Habitação de Munícipes do Algarve tem como missão defender e promover o
+              direito à habitação condigna e acessível para todos os residentes da região algarvia, através da advocacia
+              cívica, da prestação de apoio às famílias vulneráveis, da produção de conhecimento e da mobilização
+              comunitária.
+            </p>
+            <p class="tab-panel__text" style="margin-top:1rem;">
+              Somos uma associação apartidária, independente e sem fins lucrativos, aberta a todos os cidadãos que
+              partilhem os nossos valores e objetivos. Nascemos da urgência de responder à crise habitacional que afeta
+              profundamente o Algarve e que coloca em causa a coesão social e o direito a uma vida digna.
+            </p>
+          </div>
+
+          <div id="panel-visao" role="tabpanel" aria-labelledby="tab-visao" aria-hidden="true" class="tab-panel">
+            <h3 class="tab-panel__title">A nossa visão</h3>
+            <p class="tab-panel__text">
+              Queremos um Algarve onde todas as pessoas tenham acesso a habitação digna, segura e economicamente
+              acessível — independentemente do seu rendimento, origem ou condição social. Uma região onde o crescimento
+              económico beneficie quem aqui vive e trabalha, e não apenas quem investe e especula.
+            </p>
+            <p class="tab-panel__text" style="margin-top:1rem;">
+              Acreditamos que é possível conciliar o desenvolvimento turístico com a sustentabilidade social, desde que
+              existam políticas públicas corajosas e uma sociedade civil organizada e exigente. A ACHAMA quer ser o
+              motor dessa transformação.
+            </p>
+          </div>
+
+          <div id="panel-valores" role="tabpanel" aria-labelledby="tab-valores" aria-hidden="true" class="tab-panel">
+            <h3 class="tab-panel__title">Os nossos valores</h3>
+            <div class="tab-panel__values">
+              <div class="value-item">
+                <div class="value-item__bullet"></div>
+                <div>
+                  <div class="value-item__name">Justiça Social</div>
+                  <div class="value-item__desc">Acreditamos que a habitação é um direito humano fundamental e que o
+                    Estado e a sociedade têm a responsabilidade de garantir o seu acesso a todos.</div>
+                </div>
+              </div>
+              <div class="value-item">
+                <div class="value-item__bullet"></div>
+                <div>
+                  <div class="value-item__name">Transparência</div>
+                  <div class="value-item__desc">Agimos com integridade e responsabilidade, tornando públicos os nossos
+                    processos, finanças e tomadas de decisão.</div>
+                </div>
+              </div>
+              <div class="value-item">
+                <div class="value-item__bullet"></div>
+                <div>
+                  <div class="value-item__name">Participação Cívica</div>
+                  <div class="value-item__desc">Valorizamos a voz de todos os munícipes e promovemos a participação
+                    ativa na vida democrática e nas decisões que afetam as comunidades.</div>
+                </div>
+              </div>
+              <div class="value-item">
+                <div class="value-item__bullet"></div>
+                <div>
+                  <div class="value-item__name">Rigor e Evidência</div>
+                  <div class="value-item__desc">Baseamos as nossas posições em dados, investigação e análise rigorosa,
+                    recusando o populismo e a demagogia.</div>
+                </div>
+              </div>
+              <div class="value-item">
+                <div class="value-item__bullet"></div>
+                <div>
+                  <div class="value-item__name">Inclusão</div>
+                  <div class="value-item__desc">Somos uma associação aberta à diversidade e comprometida com a
+                    não-discriminação em razão de origem, género, idade ou qualquer outra condição.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-orgaos" role="tabpanel" aria-labelledby="tab-orgaos" aria-hidden="true" class="tab-panel">
+            <h3 class="tab-panel__title">Órgãos Sociais</h3>
+            <div class="orgaos-list">
+              <div class="orgao">
+                <div class="orgao__title">Assembleia Geral</div>
+                <div class="orgao__member">Presidente: <strong>Maria José Fernandes</strong></div>
+                <div class="orgao__member">1.º Secretário: <strong>Carlos Augusto Pinheiro</strong></div>
+                <div class="orgao__member">2.ª Secretária: <strong>Fátima Guerreiro</strong></div>
+              </div>
+              <div class="orgao">
+                <div class="orgao__title">Direção</div>
+                <div class="orgao__member">Presidente: <strong>António Rodrigues</strong></div>
+                <div class="orgao__member">Vice-Presidente: <strong>Sónia Marques</strong></div>
+                <div class="orgao__member">Secretário: <strong>João Paulo Correia</strong></div>
+                <div class="orgao__member">Tesoureiro: <strong>Ricardo Neves</strong></div>
+                <div class="orgao__member">Vogal: <strong>Ana Luísa Costa</strong></div>
+              </div>
+              <div class="orgao">
+                <div class="orgao__title">Conselho Fiscal</div>
+                <div class="orgao__member">Presidente: <strong>Isabel Campos</strong></div>
+                <div class="orgao__member">Relator: <strong>Mário Lopes</strong></div>
+                <div class="orgao__member">Suplente: <strong>Teresa Almeida</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-documentos" role="tabpanel" aria-labelledby="tab-documentos" aria-hidden="true"
+            class="tab-panel">
+            <h3 class="tab-panel__title">Documentos oficiais</h3>
+            <p class="tab-panel__text" style="margin-bottom:1.5rem;">Consulte os documentos constitutivos e
+              regulamentares da ACHAMA.</p>
+            <div style="display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+              <a href="estatutos.pdf" target="_blank" rel="noopener"
+                style="display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;border:2px solid var(--color-primary);border-radius:var(--radius);text-decoration:none;color:var(--color-primary);font-weight:600;transition:var(--transition);"
+                onmouseover="this.style.background='var(--color-primary)';this.style.color='#fff';"
+                onmouseout="this.style.background='';this.style.color='var(--color-primary)';">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24"
+                  aria-hidden="true">
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z" />
+                </svg>
+                <span>Estatutos</span>
+              </a>
+              <a href="regulamento.pdf" target="_blank" rel="noopener"
+                style="display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;border:2px solid var(--color-accent);border-radius:var(--radius);text-decoration:none;color:var(--color-accent);font-weight:600;transition:var(--transition);"
+                onmouseover="this.style.background='var(--color-accent)';this.style.color='#fff';"
+                onmouseout="this.style.background='';this.style.color='var(--color-accent)';">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24"
+                  aria-hidden="true">
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z" />
+                </svg>
+                <span>Regulamento Interno</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NOTÍCIAS ===== -->
+    <section id="noticias" class="section section--alt" aria-labelledby="noticias-title">
+      <div class="container">
+        <div class="section__header section__header--center">
+          <p class="section__label">Acontecimentos</p>
+          <h2 class="section__title" id="noticias-title">Notícias e comunicados</h2>
+          <p class="section__subtitle">Acompanhe as últimas novidades da ACHAMA e os desenvolvimentos da crise
+            habitacional no Algarve.</p>
+        </div>
+
+        <div class="noticias-grid">
+          <article class="noticia-card fade-in">
+            <div class="noticia-card__img" aria-hidden="true">🏛️</div>
+            <div class="noticia-card__body">
+              <div class="noticia-card__meta">
+                <span class="noticia-card__cat">Advocacia</span>
+                <span class="noticia-card__date">28 Fev 2025</span>
+              </div>
+              <h3 class="noticia-card__title">ACHAMA apresenta proposta ao Parlamento sobre renda acessível no Algarve
+              </h3>
+              <p class="noticia-card__excerpt">A nossa delegação esteve reunida na Assembleia da República com a
+                Comissão de Habitação para apresentar um conjunto de medidas urgentes para a região.</p>
+            </div>
+          </article>
+
+          <article class="noticia-card fade-in">
+            <div class="noticia-card__img noticia-card__img--orange" aria-hidden="true">📊</div>
+            <div class="noticia-card__body">
+              <div class="noticia-card__meta">
+                <span class="noticia-card__cat">Investigação</span>
+                <span class="noticia-card__date">15 Fev 2025</span>
+              </div>
+              <h3 class="noticia-card__title">Relatório: 42% dos trabalhadores do setor turístico não conseguem habitar
+                no Algarve</h3>
+              <p class="noticia-card__excerpt">O novo estudo do Observatório da Habitação revela dados alarmantes sobre
+                a relação entre rendimentos do turismo e custo de habitação na região.</p>
+            </div>
+          </article>
+
+          <article class="noticia-card fade-in">
+            <div class="noticia-card__img noticia-card__img--teal" aria-hidden="true">🤝</div>
+            <div class="noticia-card__body">
+              <div class="noticia-card__meta">
+                <span class="noticia-card__cat">Comunidade</span>
+                <span class="noticia-card__date">3 Fev 2025</span>
+              </div>
+              <h3 class="noticia-card__title">Algarve Cohabita registra 120 famílias em soluções cooperativas no
+                primeiro
+                ano</h3>
+              <p class="noticia-card__excerpt">O programa de cooperativas habitacionais da ACHAMA supera as metas do
+                primeiro ano, com parceria confirmada com três câmaras municipais.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ASSOCIAR ===== -->
+    <section id="associar" class="section" aria-labelledby="associar-title">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__label">Junte-se a nós</p>
+          <h2 class="section__title" id="associar-title">Torne-se membro da ACHAMA</h2>
+          <p class="section__subtitle">A nossa força vem dos cidadãos que partilham a visão de um Algarve mais justo.
+            Associe-se e faça parte desta mudança.</p>
+        </div>
+
+        <div class="associar__grid">
+          <div>
+            <div class="benefits-list">
+              <div class="benefit fade-in">
+                <div class="benefit__icon" aria-hidden="true">📋</div>
+                <div>
+                  <div class="benefit__title">Acesso à Clínica Jurídica</div>
+                  <div class="benefit__text">Consultas gratuitas com advogados especializados em direito habitacional.
+                  </div>
+                </div>
+              </div>
+              <div class="benefit fade-in">
+                <div class="benefit__icon" aria-hidden="true">📊</div>
+                <div>
+                  <div class="benefit__title">Relatórios e Dados Exclusivos</div>
+                  <div class="benefit__text">Acesso antecipado aos relatórios do Observatório da Habitação e estudos de
+                    mercado.</div>
+                </div>
+              </div>
+              <div class="benefit fade-in">
+                <div class="benefit__icon" aria-hidden="true">🗳️</div>
+                <div>
+                  <div class="benefit__title">Direito de Voto</div>
+                  <div class="benefit__text">Participação com voto nas Assembleias Gerais e eleição dos órgãos sociais.
+                  </div>
+                </div>
+              </div>
+              <div class="benefit fade-in">
+                <div class="benefit__icon" aria-hidden="true">🌐</div>
+                <div>
+                  <div class="benefit__title">Rede de Contactos</div>
+                  <div class="benefit__text">Acesso à rede de membros, parceiros institucionais e eventos exclusivos da
+                    associação.</div>
+                </div>
+              </div>
+              <div class="benefit fade-in">
+                <div class="benefit__icon" aria-hidden="true">📣</div>
+                <div>
+                  <div class="benefit__title">Voz Ativa</div>
+                  <div class="benefit__text">A sua opinião conta. Os membros podem propor iniciativas e participar em
+                    grupos de trabalho temáticos.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="membership-form">
+            <div class="form__fields" id="membership-fields">
+              <h3 class="form__title">Formulário de adesão</h3>
+              <form id="membership-form" name="adesao" method="POST" data-netlify="true" novalidate>
+                <input type="hidden" name="form-name" value="adesao">
+                <div class="form__row">
+                  <div class="form__group">
+                    <label class="form__label" for="mem-nome">Nome completo <span aria-hidden="true">*</span></label>
+                    <input class="form__control" type="text" id="mem-nome" name="nome" placeholder=" " required
+                      minlength="3" autocomplete="name">
+                    <span class="form__error">Por favor, introduza o seu nome completo.</span>
+                  </div>
+                  <div class="form__group">
+                    <label class="form__label" for="mem-apelido">Apelido <span aria-hidden="true">*</span></label>
+                    <input class="form__control" type="text" id="mem-apelido" name="apelido" placeholder=" " required
+                      minlength="2" autocomplete="family-name">
+                    <span class="form__error">Por favor, introduza o seu apelido.</span>
+                  </div>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="mem-email">Endereço de e-mail <span
+                      aria-hidden="true">*</span></label>
+                  <input class="form__control" type="email" id="mem-email" name="email" placeholder=" " required
+                    autocomplete="email">
+                  <span class="form__error">Por favor, introduza um endereço de e-mail válido.</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="mem-tel">Telefone / Telemóvel</label>
+                  <input class="form__control" type="tel" id="mem-tel" name="telefone" placeholder=" "
+                    autocomplete="tel">
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="mem-municipio">Município de residência <span
+                      aria-hidden="true">*</span></label>
+                  <select class="form__control" id="mem-municipio" name="municipio" required>
+                    <option value="">Selecionar município…</option>
+                    <option value="albufeira">Albufeira</option>
+                    <option value="alcoutim">Alcoutim</option>
+                    <option value="aljezur">Aljezur</option>
+                    <option value="castro-marim">Castro Marim</option>
+                    <option value="faro">Faro</option>
+                    <option value="lagoa">Lagoa</option>
+                    <option value="lagos">Lagos</option>
+                    <option value="loule">Loulé</option>
+                    <option value="monchique">Monchique</option>
+                    <option value="olhao">Olhão</option>
+                    <option value="portimao">Portimão</option>
+                    <option value="sao-bras">São Brás de Alportel</option>
+                    <option value="silves">Silves</option>
+                    <option value="tavira">Tavira</option>
+                    <option value="vila-do-bispo">Vila do Bispo</option>
+                    <option value="vrsa">Vila Real de Santo António</option>
+                  </select>
+                  <span class="form__error">Por favor, selecione o seu município de residência.</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="mem-motivo">Motivação para aderir</label>
+                  <textarea class="form__control" id="mem-motivo" name="motivo" rows="3"
+                    placeholder="Porque quer juntar-se à ACHAMA?"></textarea>
+                </div>
+                <div class="form__group">
+                  <label style="display:flex;gap:.75rem;align-items:flex-start;cursor:pointer;">
+                    <input type="checkbox" id="mem-rgpd" name="rgpd" required style="margin-top:.25rem;flex-shrink:0;">
+                    <span style="font-size:.875rem;color:var(--color-muted);">
+                      Concordo com o tratamento dos meus dados pessoais pela ACHAMA para fins de gestão de sócios,
+                      conforme a <a href="#" style="color:var(--color-primary);font-weight:600;">Política de
+                        Privacidade</a>. <span style="color:var(--color-accent);">*</span>
+                    </span>
+                  </label>
+                </div>
+                <button type="submit" class="btn btn--primary"
+                  style="width:100%;justify-content:center;margin-top:.5rem;">
+                  Submeter pedido de adesão
+                </button>
+              </form>
+            </div>
+
+            <div class="form__success" id="membership-success" aria-live="polite">
+              <div class="form__success-icon" aria-hidden="true">✅</div>
+              <h3 class="form__success-title">Pedido recebido!</h3>
+              <p class="form__success-text">Obrigado pelo seu interesse em aderir à ACHAMA. Entraremos em contacto por
+                e-mail nas próximas 48 horas para concluir o processo de adesão.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PARTICIPAR ===== -->
+    <section id="participar" class="section section--alt" aria-labelledby="participar-title">
+      <div class="container">
+        <div class="section__header section__header--center">
+          <p class="section__label">Envolvimento</p>
+          <h2 class="section__title" id="participar-title">Como participar</h2>
+          <p class="section__subtitle">Há muitas formas de contribuir para a missão da ACHAMA, mesmo sem ser membro
+            formal.</p>
+        </div>
+
+        <div class="participar-grid">
+          <div class="participar-card fade-in">
+            <div class="participar-card__icon" aria-hidden="true">🎤</div>
+            <h3 class="participar-card__title">Testemunhar</h3>
+            <p class="participar-card__text">Partilhe a sua experiência com a crise habitacional. Os seus testemunhos
+              fortalecem a nossa advocacia e humanizam os dados.</p>
+            <a href="#contactos" class="participar-card__cta">Partilhar experiência →</a>
+          </div>
+          <div class="participar-card fade-in">
+            <div class="participar-card__icon" aria-hidden="true">🙋</div>
+            <h3 class="participar-card__title">Voluntariar</h3>
+            <p class="participar-card__text">Junte-se à nossa rede de voluntários. Procuramos juristas, investigadores,
+              comunicadores e organizadores comunitários.</p>
+            <a href="#contactos" class="participar-card__cta">Candidatar-me →</a>
+          </div>
+          <div class="participar-card fade-in">
+            <div class="participar-card__icon" aria-hidden="true">💬</div>
+            <h3 class="participar-card__title">Divulgar</h3>
+            <p class="participar-card__text">Partilhe o nosso trabalho nas redes sociais, fale com os seus vizinhos e
+              ajude a crescer o movimento por habitação digna no Algarve.</p>
+            <a href="#contactos" class="participar-card__cta">Seguir nas redes →</a>
+          </div>
+          <div class="participar-card fade-in">
+            <div class="participar-card__icon" aria-hidden="true">💶</div>
+            <h3 class="participar-card__title">Apoiar</h3>
+            <p class="participar-card__text">A ACHAMA é financiada por quotas e doações dos seus membros e
+              simpatizantes. O seu apoio financeiro permite-nos agir com independência.</p>
+            <a href="#associar" class="participar-card__cta">Contribuir →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACTOS ===== -->
+    <section id="contactos" class="section" aria-labelledby="contactos-title">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__label">Fale connosco</p>
+          <h2 class="section__title" id="contactos-title">Contactos</h2>
+          <p class="section__subtitle">Estamos disponíveis para responder às suas questões, receber sugestões ou marcar
+            atendimento.</p>
+        </div>
+
+        <div class="contactos__grid">
+          <div class="fade-in">
+            <h3 class="contact-info__title">Informação de contacto</h3>
+
+            <div class="contact-item">
+              <div class="contact-item__icon" aria-hidden="true">📍</div>
+              <div>
+                <div class="contact-item__label">Morada</div>
+                <div class="contact-item__value">Rua Conselheiro Sebastião Teles, 2A<br>8000-256 Faro</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-item__icon" aria-hidden="true">✉️</div>
+              <div>
+                <div class="contact-item__label">E-mail geral</div>
+                <div class="contact-item__value">achama@gmail.com</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-item__icon" aria-hidden="true">📞</div>
+              <div>
+                <div class="contact-item__label">Telefone</div>
+                <div class="contact-item__value">289 820 840<br>917 812 379 · 962 409 570</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-item__icon" aria-hidden="true">🕐</div>
+              <div>
+                <div class="contact-item__label">Horário de atendimento</div>
+                <div class="contact-item__value">Seg – Sex: 09h00 – 18h00</div>
+              </div>
+            </div>
+
+            <div class="social-links" aria-label="Redes sociais">
+              <a href="#" class="social-link" aria-label="Facebook da ACHAMA">f</a>
+              <a href="#" class="social-link" aria-label="Instagram da ACHAMA">ig</a>
+              <a href="#" class="social-link" aria-label="Twitter/X da ACHAMA">𝕏</a>
+              <a href="#" class="social-link" aria-label="LinkedIn da ACHAMA">in</a>
+            </div>
+          </div>
+
+          <div class="contact-form fade-in">
+            <div class="form__fields" id="contact-fields">
+              <h3 class="form__title"
+                style="color:var(--color-primary);font-family:var(--font-heading);font-size:1.35rem;margin-bottom:1.5rem;">
+                Envie-nos uma mensagem</h3>
+              <form id="contact-form" novalidate>
+                <div class="form__group">
+                  <label class="form__label" for="ct-nome">Nome <span aria-hidden="true">*</span></label>
+                  <input class="form__control" type="text" id="ct-nome" name="nome" placeholder=" " required
+                    minlength="2" autocomplete="name">
+                  <span class="form__error">Por favor, introduza o seu nome.</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="ct-email">E-mail <span aria-hidden="true">*</span></label>
+                  <input class="form__control" type="email" id="ct-email" name="email" placeholder=" " required
+                    autocomplete="email">
+                  <span class="form__error">Por favor, introduza um endereço de e-mail válido.</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="ct-assunto">Assunto <span aria-hidden="true">*</span></label>
+                  <select class="form__control" id="ct-assunto" name="assunto" required>
+                    <option value="">Selecionar assunto…</option>
+                    <option value="informacao">Pedido de informação</option>
+                    <option value="apoio-juridico">Apoio jurídico</option>
+                    <option value="voluntariado">Voluntariado</option>
+                    <option value="imprensa">Imprensa e media</option>
+                    <option value="parceria">Proposta de parceria</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                  <span class="form__error">Por favor, selecione o assunto da sua mensagem.</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="ct-mensagem">Mensagem <span aria-hidden="true">*</span></label>
+                  <textarea class="form__control" id="ct-mensagem" name="mensagem" rows="5" placeholder=" " required
+                    minlength="20"></textarea>
+                  <span class="form__error">Por favor, escreva a sua mensagem (mínimo 20 caracteres).</span>
+                </div>
+                <button type="submit" class="btn btn--outline-dark" style="width:100%;justify-content:center;">
+                  Enviar mensagem
+                </button>
+              </form>
+            </div>
+
+            <div class="form__success" id="contact-success" aria-live="polite">
+              <div class="form__success-icon" aria-hidden="true">📨</div>
+              <h3 class="form__success-title">Mensagem enviada!</h3>
+              <p class="form__success-text">Obrigado pelo seu contacto. Responderemos em até 2 dias úteis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== OBSERVATÓRIO MODAL ===== -->
+  <div id="obs-overlay" class="obs-overlay" role="dialog" aria-modal="true" aria-labelledby="obs-title">
+    <div class="obs-panel">
+
+      <div class="obs-head">
+        <button id="obs-close-btn" class="obs-close" aria-label="Fechar observatório">&#x2715;</button>
+        <div class="obs-head__label">Observatório da Habitação · ACHAMA</div>
+        <h2 class="obs-head__title" id="obs-title">16 Concelhos do Algarve</h2>
+        <div class="obs-head__sub">Idealista Índice Dez 2025 · INE 2025 · IHRU · Preços venda: Terraruiva Dez 2025</div>
+      </div>
+
+      <div class="obs-kpis">
+        <div class="obs-kpi">
+          <div class="obs-kpi__label">Renda mediana</div>
+          <div class="obs-kpi__value obs-kpi__value--accent" id="obs-kpi-renda">–</div>
+          <div class="obs-kpi__sub">média dos 16 concelhos</div>
+        </div>
+        <div class="obs-kpi">
+          <div class="obs-kpi__label">Maior subida anual</div>
+          <div class="obs-kpi__value obs-kpi__value--accent" id="obs-kpi-var">–</div>
+          <div class="obs-kpi__sub" id="obs-kpi-var-nome">–</div>
+        </div>
+        <div class="obs-kpi">
+          <div class="obs-kpi__label">Concelhos críticos</div>
+          <div class="obs-kpi__value obs-kpi__value--accent" id="obs-kpi-criticos">–</div>
+          <div class="obs-kpi__sub">renda &gt;11&nbsp;€/m²</div>
+        </div>
+        <div class="obs-kpi">
+          <div class="obs-kpi__label">Algarve vs nacional</div>
+          <div class="obs-kpi__value" id="obs-kpi-vs-nac">+30%</div>
+          <div class="obs-kpi__sub" id="obs-kpi-vs-nac-sub">Idealista Dez 2025 · média regional vs nacional</div>
+        </div>
+      </div>
+
+      <div class="obs-tabs-bar" role="tablist">
+        <button class="obs-tab is-active" role="tab" data-tab="tabela" aria-selected="true">Por Concelho</button>
+        <button class="obs-tab" role="tab" data-tab="evolucao" aria-selected="false">Evolução 2023→2025</button>
+        <button class="obs-tab" role="tab" data-tab="ranking" aria-selected="false">Ranking</button>
+        <button class="obs-tab" role="tab" data-tab="fontes" aria-selected="false">Fontes</button>
+      </div>
+
+      <div class="obs-body">
+
+        <div id="obs-panel-tabela" class="obs-tabpanel is-active">
+          <div class="obs-table-wrap">
+            <table class="obs-table" aria-label="Dados habitacionais por concelho">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Concelho</th>
+                  <th data-sort="renda">Renda/m²</th>
+                  <th data-sort="variacao">Var. 2024→2025</th>
+                  <th data-sort="venda">Venda/m²</th>
+                  <th data-sort="esforco">Esforço fam.</th>
+                  <th>Pressão</th>
+                </tr>
+              </thead>
+              <tbody id="obs-tbody"></tbody>
+            </table>
+          </div>
+          <p style="font-family:var(--font-body);font-size:.72rem;color:var(--color-muted);margin-top:.85rem;">
+            Esforço familiar: % do rendimento mediano do Algarve (~1050€/mês) gasto em arrendamento de T2 a 75m².
+            <strong>Mkt.</strong> = Índice Idealista Dez 2025 · <strong>Est.</strong> = estimativa com base no INE.
+            Clicar nos cabeçalhos para ordenar.
+          </p>
+        </div>
+
+        <div id="obs-panel-evolucao" class="obs-tabpanel">
+          <div id="obs-evolucao"></div>
+          <p style="font-family:var(--font-body);font-size:.72rem;color:var(--color-muted);margin-top:1.25rem;">
+            Renda mediana: 2023 estimada · 2024 Idealista Dez 2024 · 2025 Idealista Dez 2025. Ordenado por renda 2025
+            (maior para menor).
+          </p>
+        </div>
+
+        <div id="obs-panel-ranking" class="obs-tabpanel">
+          <div class="obs-ranking" id="obs-ranking"></div>
+          <p style="font-family:var(--font-body);font-size:.72rem;color:var(--color-muted);margin-top:1.25rem;">
+            Ordenado por renda mediana de arrendamento (€/m²), Dezembro 2025 (Idealista Índice).
+          </p>
+        </div>
+
+        <div id="obs-panel-fontes" class="obs-tabpanel">
+          <div class="obs-fontes">
+            <div class="obs-fonte">
+              <div class="obs-fonte__cod">Idealista Índice Dez 2025</div>
+              <div>
+                <div class="obs-fonte__desc">Renda mediana de mercado por município (preços de oferta)</div>
+                <div class="obs-fonte__sub">10 concelhos com dados directos: Lagoa (+23,4%), Lagos (+15,1%), Portimão
+                  (+10,2%), Olhão (+6,5%), Silves (+3,0%), VRSA (+2,9%), Loulé (+2,2%) · Albufeira, Faro, Tavira com
+                  estimativa regional</div>
+              </div>
+            </div>
+            <div class="obs-fonte">
+              <div class="obs-fonte__cod">INE Q1 2025</div>
+              <div>
+                <div class="obs-fonte__desc">Renda mediana novos contratos · Algarve NUTS III: 9,92€/m² (+10% YoY) —
+                  dado INE mais recente disponível</div>
+                <div class="obs-fonte__sub">Cobertura municipal INE limitada a municípios &gt;100k hab. (Faro, Portimão)
+                  · Indicador 0010732 · Dados de mercado Idealista complementam a cobertura municipal</div>
+              </div>
+            </div>
+            <div class="obs-fonte">
+              <div class="obs-fonte__cod">Terraruiva · Dez 2025</div>
+              <div>
+                <div class="obs-fonte__desc">Preço mediano/m² transações — todos os 16 concelhos do Algarve</div>
+                <div class="obs-fonte__sub">Loulé 4.567€ · Lagos 4.434€ · Lagoa 3.881€ · Albufeira 3.853€ · Faro 3.435€
+                  · Algarve NUTS III: ~3.200€/m² (INE Q3 2025, +16,6% YoY)</div>
+              </div>
+            </div>
+            <div class="obs-fonte">
+              <div class="obs-fonte__cod">Estimativas</div>
+              <div>
+                <div class="obs-fonte__desc">6 concelhos sem dados Idealista directos (badge "Est.")</div>
+                <div class="obs-fonte__sub">Alcoutim, Aljezur, Castro Marim, Monchique, São Brás de Alportel, Vila do
+                  Bispo · Base: INE Anuário 2023 + crescimento regional 2024–2025</div>
+              </div>
+            </div>
+            <div class="obs-fonte">
+              <div class="obs-fonte__cod">IHRU 2024</div>
+              <div>
+                <div class="obs-fonte__desc">Instituto da Habitação e Reabilitação Urbana · Relatório de Habitação 2024
+                </div>
+                <div class="obs-fonte__sub">Indicadores de esforço familiar e habitação social · salário mediano
+                  Algarve: ~1.050€/mês</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="obs-footer">
+        <span>ACHAMA · Observatório da Habitação do Algarve · Q4 2024 / Q1 2025</span>
+        <span>Dados: <a href="https://www.ine.pt" target="_blank" rel="noopener"
+            style="color:var(--color-primary);font-weight:600;">ine.pt</a> · <a href="https://www.ihru.pt"
+            target="_blank" rel="noopener" style="color:var(--color-primary);font-weight:600;">ihru.pt</a></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img src="assets/images/Logo1_clean.png" alt="ACHAMA" style="height:144px;width:auto;margin-bottom:.75rem;">
+          <p class="footer__desc">Defendemos o direito à habitação digna para todos os algarvios, com rigor,
+            independência e compromisso cívico.</p>
+        </div>
+        <div>
+          <div class="footer__col-title">A Associação</div>
+          <ul class="footer__links" role="list">
+            <li><a href="#missao">Missão e Visão</a></li>
+            <li><a href="#quem-somos">Quem Somos</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#noticias">Notícias</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Participar</div>
+          <ul class="footer__links" role="list">
+            <li><a href="#associar">Tornar-me membro</a></li>
+            <li><a href="#participar">Voluntariado</a></li>
+            <li><a href="#participar">Doações</a></li>
+            <li><a href="#contactos">Contactos</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Legal</div>
+          <ul class="footer__links" role="list">
+            <li><a href="#">Estatutos</a></li>
+            <li><a href="#">Política de Privacidade</a></li>
+            <li><a href="#">Relatórios de Atividade</a></li>
+            <li><a href="#">Livro de Reclamações</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© 2025 ACHAMA – Associação Cívica e Habitação de Munícipes do Algarve</span>
+        <span>NIPC: 000 000 000 · Registo n.º 00000/2024</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>

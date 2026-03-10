@@ -1,0 +1,57 @@
+/* ===== TABS (Quem Somos & Observatory) ===== */
+.tabs {
+    background: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.tabs__list {
+    display: flex;
+    overflow-x: auto;
+    background: var(--color-primary);
+    scrollbar-width: none;
+}
+
+.tabs__list::-webkit-scrollbar {
+    display: none;
+}
+
+.tab-btn {
+    flex: none;
+    padding: 1.1rem 1.5rem;
+    font-size: .9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, .65);
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: var(--transition);
+}
+
+.tab-btn[aria-selected="true"],
+.tab-btn:hover {
+    color: var(--color-white);
+    background: rgba(255, 255, 255, .08);
+}
+
+.tab-btn[aria-selected="true"] {
+    border-bottom-color: var(--color-accent);
+}
+
+.tab-panel {
+    display: none;
+    padding: 2.5rem;
+}
+
+.tab-panel[aria-hidden="false"] {
+    display: block;
+}
+
+.tab-panel__title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+/* ... additional tab panel styles ... */

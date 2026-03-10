@@ -1,0 +1,18 @@
+export const OBS_DATA = [
+  { nome: "Albufeira",              renda2024: 15.0, var24: 13.9, renda2025: 15.8, var25:  5.6, venda2025: 3853, live: false },
+  { nome: "Alcoutim",               renda2024:  5.5, var24:  1.5, renda2025:  5.8, var25:  5.6, venda2025: 1061, live: false },
+  { nome: "Aljezur",                renda2024: 12.5, var24: 18.9, renda2025: 13.2, var25:  5.6, venda2025: 3446, live: false },
+  { nome: "Castro Marim",           renda2024:  7.3, var24:  3.5, renda2025:  7.7, var25:  5.6, venda2025: 2915, live: false },
+  { nome: "Faro",                   renda2024: 14.1, var24: 13.9, renda2025: 14.9, var25:  5.6, venda2025: 3435, live: false },
+  { nome: "Lagoa",                  renda2024: 12.3, var24: -6.9, renda2025: 15.2, var25: 23.4, venda2025: 3881, live: true  },
+  { nome: "Lagos",                  renda2024: 13.7, var24:  1.8, renda2025: 15.8, var25: 15.1, venda2025: 4434, live: true  },
+  { nome: "Loulé",                  renda2024: 16.3, var24:  0.3, renda2025: 16.7, var25:  2.2, venda2025: 4567, live: true  },
+  { nome: "Monchique",              renda2024:  6.7, var24:  2.6, renda2025:  7.1, var25:  5.6, venda2025: 2660, live: false },
+  { nome: "Olhão",                  renda2024: 11.5, var24:  2.7, renda2025: 12.2, var25:  6.5, venda2025: 3101, live: true  },
+  { nome: "Portimão",               renda2024: 12.9, var24:  2.7, renda2025: 14.2, var25: 10.2, venda2025: 3305, live: true  },
+  { nome: "São Brás de Alportel",   renda2024:  8.4, var24:  6.4, renda2025:  8.9, var25:  5.6, venda2025: 3354, live: false },
+  { nome: "Silves",                 renda2024: 12.6, var24: 10.3, renda2025: 13.0, var25:  3.0, venda2025: 3292, live: true  },
+  { nome: "Tavira",                 renda2024: 14.6, var24:  7.7, renda2025: 15.4, var25:  5.6, venda2025: 3451, live: false },
+  { nome: "Vila do Bispo",          renda2024: 11.7, var24: 16.2, renda2025: 12.4, var25:  5.6, venda2025: 3719, live: false },
+  { nome: "Vila Real Sto. António", renda2024: 11.7, var24: 13.2, renda2025: 12.0, var25:  2.9, venda2025: 3408, live: true  },
+];
