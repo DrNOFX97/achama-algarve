@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/components/forms.css">
   <link rel="stylesheet" href="css/components/inscricao.css">
+  <link rel="stylesheet" href="css/components/contact-modal.css">
 </head>
 
 <body>
@@ -624,54 +625,14 @@
             </div>
           </div>
 
-          <div class="contact-form fade-in">
-            <div class="form__fields" id="contact-fields">
-              <h3 class="form__title"
-                style="color:var(--color-primary);font-family:var(--font-heading);font-size:1.35rem;margin-bottom:1.5rem;">
-                Envie-nos uma mensagem</h3>
-              <form id="contact-form" novalidate>
-                <div class="form__group">
-                  <label class="form__label" for="ct-nome">Nome <span aria-hidden="true">*</span></label>
-                  <input class="form__control" type="text" id="ct-nome" name="nome" placeholder=" " required
-                    minlength="2" autocomplete="name">
-                  <span class="form__error">Por favor, introduza o seu nome.</span>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="ct-email">E-mail <span aria-hidden="true">*</span></label>
-                  <input class="form__control" type="email" id="ct-email" name="email" placeholder=" " required
-                    autocomplete="email">
-                  <span class="form__error">Por favor, introduza um endereço de e-mail válido.</span>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="ct-assunto">Assunto <span aria-hidden="true">*</span></label>
-                  <select class="form__control" id="ct-assunto" name="assunto" required>
-                    <option value="">Selecionar assunto…</option>
-                    <option value="informacao">Pedido de informação</option>
-                    <option value="apoio-juridico">Apoio jurídico</option>
-                    <option value="voluntariado">Voluntariado</option>
-                    <option value="imprensa">Imprensa e media</option>
-                    <option value="parceria">Proposta de parceria</option>
-                    <option value="outro">Outro</option>
-                  </select>
-                  <span class="form__error">Por favor, selecione o assunto da sua mensagem.</span>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="ct-mensagem">Mensagem <span aria-hidden="true">*</span></label>
-                  <textarea class="form__control" id="ct-mensagem" name="mensagem" rows="5" placeholder=" " required
-                    minlength="20"></textarea>
-                  <span class="form__error">Por favor, escreva a sua mensagem (mínimo 20 caracteres).</span>
-                </div>
-                <button type="submit" class="btn btn--outline-dark" style="width:100%;justify-content:center;">
-                  Enviar mensagem
-                </button>
-              </form>
-            </div>
-
-            <div class="form__success" id="contact-success" aria-live="polite">
-              <div class="form__success-icon" aria-hidden="true">📨</div>
-              <h3 class="form__success-title">Mensagem enviada!</h3>
-              <p class="form__success-text">Obrigado pelo seu contacto. Responderemos em até 2 dias úteis.</p>
-            </div>
+          <div class="contact-cta-card fade-in">
+            <div class="contact-cta-card__icon" aria-hidden="true">✉️</div>
+            <h3 class="contact-cta-card__title">Envie-nos uma mensagem</h3>
+            <p class="contact-cta-card__text">Estamos disponíveis para responder às suas questões, receber sugestões ou
+              marcar atendimento. Responderemos em até 2 dias úteis.</p>
+            <button type="button" class="btn btn--outline" data-modal-open="contact" style="margin-top:.5rem;">
+              Enviar mensagem
+            </button>
           </div>
         </div>
       </div>
@@ -876,12 +837,20 @@
         <p class="inscricao-head__label">Associação Cívica de Munícipes e Habitação do Algarve</p>
         <h2 class="inscricao-head__title" id="inscricao-title">Ficha de Inscrição de Associado</h2>
         <button class="inscricao-close" id="inscricao-close" aria-label="Fechar formulário">✕</button>
+        <div class="inscricao-head__steps" aria-hidden="true">
+          <div class="inscricao-head__step"></div>
+          <div class="inscricao-head__step"></div>
+          <div class="inscricao-head__step"></div>
+          <div class="inscricao-head__step"></div>
+          <div class="inscricao-head__step"></div>
+          <div class="inscricao-head__step"></div>
+        </div>
       </div>
 
       <!-- Corpo -->
       <div class="inscricao-body">
 
-        <div id="inscricao-fields">
+        <div id="inscricao-fields" class="form__fields">
           <form id="inscricao-form" name="inscricao" method="POST" data-netlify="true" novalidate>
             <input type="hidden" name="form-name" value="inscricao">
 
@@ -889,7 +858,7 @@
             <div class="ins-section">
               <h3 class="ins-section__title">
                 <span class="ins-section__num" aria-hidden="true">1</span>
-                Dados Pessoais
+                <span class="ins-section__label">Dados Pessoais</span>
               </h3>
               <div class="form__group">
                 <label class="form__label" for="ins-nome">Nome completo <span aria-hidden="true">*</span></label>
@@ -932,7 +901,7 @@
             <div class="ins-section">
               <h3 class="ins-section__title">
                 <span class="ins-section__num" aria-hidden="true">2</span>
-                Contactos
+                <span class="ins-section__label">Contactos</span>
               </h3>
               <div class="form__group">
                 <label class="form__label" for="ins-morada">Morada <span aria-hidden="true">*</span></label>
@@ -975,9 +944,8 @@
             <div class="ins-section">
               <h3 class="ins-section__title">
                 <span class="ins-section__num" aria-hidden="true">3</span>
-                Situação Profissional
-                <span
-                  style="font-size:.7rem;font-weight:400;color:var(--color-muted);text-transform:none;letter-spacing:0;">(opcional)</span>
+                <span class="ins-section__label">Situação Profissional <span
+                    style="font-size:.7rem;font-weight:400;color:var(--color-muted);text-transform:none;letter-spacing:0;">(opcional)</span></span>
               </h3>
               <div class="form__row">
                 <div class="form__group">
@@ -995,7 +963,7 @@
             <div class="ins-section">
               <h3 class="ins-section__title">
                 <span class="ins-section__num" aria-hidden="true">4</span>
-                Tipo de Associado
+                <span class="ins-section__label">Tipo de Associado</span>
               </h3>
               <div class="ins-radio-group" role="radiogroup">
                 <label class="ins-radio-label ins-radio-label--disabled">
@@ -1028,7 +996,7 @@
             <div class="ins-section">
               <h3 class="ins-section__title">
                 <span class="ins-section__num" aria-hidden="true">5</span>
-                Quotas
+                <span class="ins-section__label">Quotas</span>
               </h3>
               <div class="ins-quota-box">
                 <span class="ins-quota-box__value">5€</span>
@@ -1056,7 +1024,7 @@
             <div class="ins-section">
               <h3 class="ins-section__title">
                 <span class="ins-section__num" aria-hidden="true">6</span>
-                Declaração
+                <span class="ins-section__label">Declaração</span>
               </h3>
               <label class="ins-check-row">
                 <input type="checkbox" id="ins-estatutos" name="aceita_estatutos" required>
@@ -1103,6 +1071,111 @@
         </div>
 
       </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL DE CONTACTO ===== -->
+  <div class="contact-overlay" id="contact-overlay" role="dialog" aria-modal="true"
+    aria-labelledby="contact-modal-title">
+    <div class="contact-modal">
+
+      <!-- Painel esquerdo — info -->
+      <aside class="contact-modal__aside">
+        <button class="contact-modal__close" id="contact-modal-close" aria-label="Fechar">✕</button>
+        <div class="contact-modal__aside-inner">
+          <div class="contact-modal__icon" aria-hidden="true">✉️</div>
+          <h2 class="contact-modal__title" id="contact-modal-title">Fale connosco</h2>
+          <p class="contact-modal__subtitle">Estamos aqui para ajudar. Responderemos à sua mensagem em até 2 dias
+            úteis.</p>
+
+          <div class="contact-modal__info">
+            <div class="contact-modal__info-item">
+              <span class="contact-modal__info-icon" aria-hidden="true">📍</span>
+              <div>
+                <div class="contact-modal__info-label">Morada</div>
+                <div class="contact-modal__info-value">Rua Conselheiro Sebastião Teles, 2A<br>8000-256 Faro</div>
+              </div>
+            </div>
+            <div class="contact-modal__info-item">
+              <span class="contact-modal__info-icon" aria-hidden="true">✉️</span>
+              <div>
+                <div class="contact-modal__info-label">E-mail</div>
+                <div class="contact-modal__info-value">acimha@gmail.com</div>
+              </div>
+            </div>
+            <div class="contact-modal__info-item">
+              <span class="contact-modal__info-icon" aria-hidden="true">📞</span>
+              <div>
+                <div class="contact-modal__info-label">Telefone</div>
+                <div class="contact-modal__info-value">289 820 840<br>917 812 379 · 962 409 570</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-modal__response">
+            <span class="contact-modal__dot" aria-hidden="true"></span>
+            Resposta em até 2 dias úteis
+          </div>
+        </div>
+      </aside>
+
+      <!-- Painel direito — formulário -->
+      <div class="contact-modal__main">
+        <div class="form__fields" id="contact-modal-fields">
+          <div class="contact-modal__form-head">
+            <h3 class="contact-modal__form-title">Envie-nos uma mensagem</h3>
+            <p class="contact-modal__form-sub">Preencha o formulário abaixo e entraremos em contacto brevemente.</p>
+          </div>
+
+          <form id="contact-modal-form" name="contacto" method="POST" data-netlify="true" novalidate>
+            <input type="hidden" name="form-name" value="contacto">
+            <div class="form__group">
+              <label class="form__label" for="cm-nome">Nome <span aria-hidden="true">*</span></label>
+              <input class="form__control" type="text" id="cm-nome" name="nome" placeholder=" " required minlength="2"
+                autocomplete="name">
+              <span class="form__error">Por favor, introduza o seu nome.</span>
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="cm-email">E-mail <span aria-hidden="true">*</span></label>
+              <input class="form__control" type="email" id="cm-email" name="email" placeholder=" " required
+                autocomplete="email">
+              <span class="form__error">Por favor, introduza um endereço de e-mail válido.</span>
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="cm-assunto">Assunto <span aria-hidden="true">*</span></label>
+              <select class="form__control" id="cm-assunto" name="assunto" required>
+                <option value="">Selecionar assunto…</option>
+                <option value="informacao">Pedido de informação</option>
+                <option value="apoio-juridico">Apoio jurídico</option>
+                <option value="voluntariado">Voluntariado</option>
+                <option value="imprensa">Imprensa e media</option>
+                <option value="parceria">Proposta de parceria</option>
+                <option value="outro">Outro</option>
+              </select>
+              <span class="form__error">Por favor, selecione o assunto da sua mensagem.</span>
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="cm-mensagem">Mensagem <span aria-hidden="true">*</span></label>
+              <textarea class="form__control" id="cm-mensagem" name="mensagem" rows="4" placeholder=" " required
+                minlength="20"></textarea>
+              <span class="form__error">Por favor, escreva a sua mensagem (mínimo 20 caracteres).</span>
+            </div>
+            <div class="contact-modal__submit-row">
+              <span class="contact-modal__note">* Campos obrigatórios</span>
+              <button type="submit" class="btn btn--primary">Enviar mensagem</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Estado de sucesso -->
+        <div class="contact-modal__success form__success" id="contact-modal-success" aria-live="polite" tabindex="-1">
+          <div class="contact-modal__success-icon" aria-hidden="true">📨</div>
+          <h3 class="contact-modal__success-title">Mensagem enviada!</h3>
+          <p class="contact-modal__success-text">Obrigado pelo seu contacto.<br>Responderemos em até 2 dias úteis.</p>
+          <button type="button" class="btn btn--outline-dark" id="contact-modal-reset">Enviar outra mensagem</button>
+        </div>
+      </div>
+
     </div>
   </div>
 

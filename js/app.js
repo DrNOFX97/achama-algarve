@@ -4,6 +4,7 @@ import { initTabs } from './modules/tabs.js';
 import { initObservatory } from './modules/observatory.js';
 import { OBS_DATA } from './data/observatory-data.js';
 import { initInscricaoModal } from './modules/inscricao-modal.js';
+import { initContactModal } from './modules/contact-modal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Navigation
@@ -37,16 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabList = document.querySelector('.tabs__list');
     if (tabList) initTabs(tabList);
 
-    // Forms
+    // Forms (legacy inline membership form, if present)
     handleFormSubmit(
         document.getElementById('membership-form'),
         document.getElementById('membership-fields'),
         document.getElementById('membership-success')
-    );
-    handleFormSubmit(
-        document.getElementById('contact-form'),
-        document.getElementById('contact-fields'),
-        document.getElementById('contact-success')
     );
 
     // Observatory
@@ -54,4 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Ficha de Inscrição (modal)
     initInscricaoModal();
+
+    // Modal de Contacto
+    initContactModal();
 });
