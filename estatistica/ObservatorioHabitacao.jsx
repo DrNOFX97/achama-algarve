@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 // Em desenvolvimento: http://localhost:8000
-// Em produção (ex: Railway, Render): https://achama-observatorio.railway.app
+// Em produção (ex: Railway, Render): https://acimha-observatorio.railway.app
 const API_BASE = "http://localhost:8000";
 
 // ─── COMPONENTES AUXILIARES ───────────────────────────────────────────────────
@@ -153,7 +153,7 @@ export default function ObservatorioHabitacao() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 22, flexWrap: "wrap", gap: 10 }}>
           <div>
             <div style={{ fontSize: 9, letterSpacing: 4, color: "#334155", textTransform: "uppercase", marginBottom: 3 }}>
-              ACHAMA · Observatório da Habitação
+              ACIMHA · Observatório da Habitação
             </div>
             <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700, color: "#f8fafc" }}>
               Algarve · 16 Municípios
@@ -393,7 +393,7 @@ export default function ObservatorioHabitacao() {
         )}
 
         <div style={{ marginTop: 10, fontSize: 8, color: "#1e293b", textAlign: "right" }}>
-          ACHAMA · Observatório da Habitação · {new Date().getFullYear()}
+          ACIMHA · Observatório da Habitação · {new Date().getFullYear()}
         </div>
       </div>
 

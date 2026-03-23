@@ -1,8 +1,8 @@
-# ACHAMA
+# ACIMHA
 
-**Associação Cívica e Habitação de Munícipes do Algarve**
+**Associação Cívica de Munícipes e Habitação do Algarve**
 
-Website institucional da ACHAMA — associação que defende o direito à habitação digna para todos os algarvios.
+Website institucional da ACIMHA — associação que defende o direito à habitação digna para todos os algarvios.
 
 ---
 
@@ -28,7 +28,7 @@ python3 -m http.server 8000
 ## Estrutura
 
 ```
-ACHAMA/
+ACIMHA/
 ├── index.html          # Toda a aplicação (HTML + CSS + JS inline)
 ├── Logo 1-13.png       # Variantes do logótipo
 └── Mapa_dos_municípios_do_Algarve.png

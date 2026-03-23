@@ -5,14 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="ACHAMA – Associação Cívica e Habitação de Munícipes do Algarve. Defendemos o direito à habitação digna para todos os algarvios.">
-  <title>ACHAMA – Habitação para o Algarve</title>
+    content="ACIMHA – Associação Cívica de Munícipes e Habitação do Algarve. Defendemos o direito à habitação digna para todos os algarvios.">
+  <title>ACIMHA – Habitação para o Algarve</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components/forms.css">
+  <link rel="stylesheet" href="css/components/inscricao.css">
 </head>
 
 <body>
@@ -21,8 +23,8 @@
   <header>
     <nav class="nav" id="main-nav" aria-label="Navegação principal">
       <div class="container nav__inner">
-        <a href="#inicio" class="nav__logo" aria-label="ACHAMA — Página inicial">
-          <img src="assets/images/Logo1_clean.png" alt="ACHAMA" class="nav__logo-img">
+        <a href="#inicio" class="nav__logo" aria-label="ACIMHA — Página inicial">
+          <img src="assets/images/ACIMHA.png" alt="ACIMHA" class="nav__logo-img">
         </a>
 
         <ul class="nav__links" role="list">
@@ -34,7 +36,7 @@
           <li><a href="#contactos">Contactos</a></li>
         </ul>
 
-        <a href="#associar" class="btn btn--primary nav__cta">Associar-me</a>
+        <button type="button" class="btn btn--primary nav__cta" data-modal-open="inscricao">Associar-me</button>
 
         <button class="nav__hamburger" id="hamburger-btn" aria-label="Abrir menu" aria-expanded="false"
           aria-controls="mobile-menu">
@@ -74,11 +76,11 @@
             não um privilégio
           </h1>
           <p class="hero__desc">
-            A ACHAMA luta pelo direito à habitação acessível para todos os munícipes do Algarve. Juntos, construímos
+            A ACIMHA luta pelo direito à habitação acessível para todos os munícipes do Algarve. Juntos, construímos
             soluções reais para a crise que afeta as nossas comunidades.
           </p>
           <div class="hero__actions">
-            <a href="#associar" class="btn btn--primary">Associar-me agora</a>
+            <button type="button" class="btn btn--primary" data-modal-open="inscricao">Associar-me agora</button>
             <a href="#missao" class="btn btn--outline">Conhecer a missão</a>
           </div>
         </div>
@@ -127,7 +129,7 @@
           O Algarve vive uma <strong>contradição profunda</strong>: é a região com maior PIB per capita do país,
           impulsionada pelo turismo, mas também aquela onde os trabalhadores locais menos conseguem pagar a sua própria
           habitação. A especulação imobiliária, o alojamento de curta duração e a ausência de políticas habitacionais
-          adequadas criaram uma crise sem precedentes. <strong>A ACHAMA nasce para mudar esta realidade.</strong>
+          adequadas criaram uma crise sem precedentes. <strong>A ACIMHA nasce para mudar esta realidade.</strong>
         </p>
         <div style="text-align:center;margin-top:2.5rem;">
           <button id="obs-open-btn" class="btn btn--primary">
@@ -248,7 +250,7 @@
             comprometidos com o direito à habitação digna.</p>
         </div>
 
-        <div class="tabs fade-in" role="tablist" aria-label="Informação sobre a ACHAMA">
+        <div class="tabs fade-in" role="tablist" aria-label="Informação sobre a ACIMHA">
           <div class="tabs__list">
             <button class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-missao"
               id="tab-missao">Missão</button>
@@ -265,7 +267,7 @@
           <div id="panel-missao" role="tabpanel" aria-labelledby="tab-missao" aria-hidden="false" class="tab-panel">
             <h3 class="tab-panel__title">A nossa missão</h3>
             <p class="tab-panel__text">
-              A ACHAMA – Associação Cívica e Habitação de Munícipes do Algarve tem como missão defender e promover o
+              A ACIMHA – Associação Cívica de Munícipes e Habitação do Algarve tem como missão defender e promover o
               direito à habitação condigna e acessível para todos os residentes da região algarvia, através da advocacia
               cívica, da prestação de apoio às famílias vulneráveis, da produção de conhecimento e da mobilização
               comunitária.
@@ -286,7 +288,7 @@
             </p>
             <p class="tab-panel__text" style="margin-top:1rem;">
               Acreditamos que é possível conciliar o desenvolvimento turístico com a sustentabilidade social, desde que
-              existam políticas públicas corajosas e uma sociedade civil organizada e exigente. A ACHAMA quer ser o
+              existam políticas públicas corajosas e uma sociedade civil organizada e exigente. A ACIMHA quer ser o
               motor dessa transformação.
             </p>
           </div>
@@ -367,7 +369,7 @@
             class="tab-panel">
             <h3 class="tab-panel__title">Documentos oficiais</h3>
             <p class="tab-panel__text" style="margin-bottom:1.5rem;">Consulte os documentos constitutivos e
-              regulamentares da ACHAMA.</p>
+              regulamentares da ACIMHA.</p>
             <div style="display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
               <a href="estatutos.pdf" target="_blank" rel="noopener"
                 style="display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;border:2px solid var(--color-primary);border-radius:var(--radius);text-decoration:none;color:var(--color-primary);font-weight:600;transition:var(--transition);"
@@ -403,7 +405,7 @@
         <div class="section__header section__header--center">
           <p class="section__label">Acontecimentos</p>
           <h2 class="section__title" id="noticias-title">Notícias e comunicados</h2>
-          <p class="section__subtitle">Acompanhe as últimas novidades da ACHAMA e os desenvolvimentos da crise
+          <p class="section__subtitle">Acompanhe as últimas novidades da ACIMHA e os desenvolvimentos da crise
             habitacional no Algarve.</p>
         </div>
 
@@ -415,7 +417,7 @@
                 <span class="noticia-card__cat">Advocacia</span>
                 <span class="noticia-card__date">28 Fev 2025</span>
               </div>
-              <h3 class="noticia-card__title">ACHAMA apresenta proposta ao Parlamento sobre renda acessível no Algarve
+              <h3 class="noticia-card__title">ACIMHA apresenta proposta ao Parlamento sobre renda acessível no Algarve
               </h3>
               <p class="noticia-card__excerpt">A nossa delegação esteve reunida na Assembleia da República com a
                 Comissão de Habitação para apresentar um conjunto de medidas urgentes para a região.</p>
@@ -446,7 +448,7 @@
               <h3 class="noticia-card__title">Algarve Cohabita registra 120 famílias em soluções cooperativas no
                 primeiro
                 ano</h3>
-              <p class="noticia-card__excerpt">O programa de cooperativas habitacionais da ACHAMA supera as metas do
+              <p class="noticia-card__excerpt">O programa de cooperativas habitacionais da ACIMHA supera as metas do
                 primeiro ano, com parceria confirmada com três câmaras municipais.</p>
             </div>
           </article>
@@ -459,7 +461,7 @@
       <div class="container">
         <div class="section__header">
           <p class="section__label">Junte-se a nós</p>
-          <h2 class="section__title" id="associar-title">Torne-se membro da ACHAMA</h2>
+          <h2 class="section__title" id="associar-title">Torne-se membro da ACIMHA</h2>
           <p class="section__subtitle">A nossa força vem dos cidadãos que partilham a visão de um Algarve mais justo.
             Associe-se e faça parte desta mudança.</p>
         </div>
@@ -510,89 +512,16 @@
             </div>
           </div>
 
-          <div class="membership-form">
-            <div class="form__fields" id="membership-fields">
-              <h3 class="form__title">Formulário de adesão</h3>
-              <form id="membership-form" name="adesao" method="POST" data-netlify="true" novalidate>
-                <input type="hidden" name="form-name" value="adesao">
-                <div class="form__row">
-                  <div class="form__group">
-                    <label class="form__label" for="mem-nome">Nome completo <span aria-hidden="true">*</span></label>
-                    <input class="form__control" type="text" id="mem-nome" name="nome" placeholder=" " required
-                      minlength="3" autocomplete="name">
-                    <span class="form__error">Por favor, introduza o seu nome completo.</span>
-                  </div>
-                  <div class="form__group">
-                    <label class="form__label" for="mem-apelido">Apelido <span aria-hidden="true">*</span></label>
-                    <input class="form__control" type="text" id="mem-apelido" name="apelido" placeholder=" " required
-                      minlength="2" autocomplete="family-name">
-                    <span class="form__error">Por favor, introduza o seu apelido.</span>
-                  </div>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="mem-email">Endereço de e-mail <span
-                      aria-hidden="true">*</span></label>
-                  <input class="form__control" type="email" id="mem-email" name="email" placeholder=" " required
-                    autocomplete="email">
-                  <span class="form__error">Por favor, introduza um endereço de e-mail válido.</span>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="mem-tel">Telefone / Telemóvel</label>
-                  <input class="form__control" type="tel" id="mem-tel" name="telefone" placeholder=" "
-                    autocomplete="tel">
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="mem-municipio">Município de residência <span
-                      aria-hidden="true">*</span></label>
-                  <select class="form__control" id="mem-municipio" name="municipio" required>
-                    <option value="">Selecionar município…</option>
-                    <option value="albufeira">Albufeira</option>
-                    <option value="alcoutim">Alcoutim</option>
-                    <option value="aljezur">Aljezur</option>
-                    <option value="castro-marim">Castro Marim</option>
-                    <option value="faro">Faro</option>
-                    <option value="lagoa">Lagoa</option>
-                    <option value="lagos">Lagos</option>
-                    <option value="loule">Loulé</option>
-                    <option value="monchique">Monchique</option>
-                    <option value="olhao">Olhão</option>
-                    <option value="portimao">Portimão</option>
-                    <option value="sao-bras">São Brás de Alportel</option>
-                    <option value="silves">Silves</option>
-                    <option value="tavira">Tavira</option>
-                    <option value="vila-do-bispo">Vila do Bispo</option>
-                    <option value="vrsa">Vila Real de Santo António</option>
-                  </select>
-                  <span class="form__error">Por favor, selecione o seu município de residência.</span>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="mem-motivo">Motivação para aderir</label>
-                  <textarea class="form__control" id="mem-motivo" name="motivo" rows="3"
-                    placeholder="Porque quer juntar-se à ACHAMA?"></textarea>
-                </div>
-                <div class="form__group">
-                  <label style="display:flex;gap:.75rem;align-items:flex-start;cursor:pointer;">
-                    <input type="checkbox" id="mem-rgpd" name="rgpd" required style="margin-top:.25rem;flex-shrink:0;">
-                    <span style="font-size:.875rem;color:var(--color-muted);">
-                      Concordo com o tratamento dos meus dados pessoais pela ACHAMA para fins de gestão de sócios,
-                      conforme a <a href="#" style="color:var(--color-primary);font-weight:600;">Política de
-                        Privacidade</a>. <span style="color:var(--color-accent);">*</span>
-                    </span>
-                  </label>
-                </div>
-                <button type="submit" class="btn btn--primary"
-                  style="width:100%;justify-content:center;margin-top:.5rem;">
-                  Submeter pedido de adesão
-                </button>
-              </form>
-            </div>
-
-            <div class="form__success" id="membership-success" aria-live="polite">
-              <div class="form__success-icon" aria-hidden="true">✅</div>
-              <h3 class="form__success-title">Pedido recebido!</h3>
-              <p class="form__success-text">Obrigado pelo seu interesse em aderir à ACHAMA. Entraremos em contacto por
-                e-mail nas próximas 48 horas para concluir o processo de adesão.</p>
-            </div>
+          <div class="associar-cta-card">
+            <div class="associar-cta-card__icon" aria-hidden="true">📋</div>
+            <h3 class="associar-cta-card__title">Pronto para aderir?</h3>
+            <p class="associar-cta-card__text">Preencha a nossa ficha de inscrição oficial e torne-se membro da
+              ACIMHA. O processo é simples e a quota é de apenas 5€.</p>
+            <button type="button" class="btn btn--outline" data-modal-open="inscricao"
+              style="margin-top:.5rem;">
+              Preencher Ficha de Inscrição
+            </button>
+            <p class="associar-cta-card__quota">Quota: 5€ · Semestral ou Anual</p>
           </div>
         </div>
       </div>
@@ -604,7 +533,7 @@
         <div class="section__header section__header--center">
           <p class="section__label">Envolvimento</p>
           <h2 class="section__title" id="participar-title">Como participar</h2>
-          <p class="section__subtitle">Há muitas formas de contribuir para a missão da ACHAMA, mesmo sem ser membro
+          <p class="section__subtitle">Há muitas formas de contribuir para a missão da ACIMHA, mesmo sem ser membro
             formal.</p>
         </div>
 
@@ -633,7 +562,7 @@
           <div class="participar-card fade-in">
             <div class="participar-card__icon" aria-hidden="true">💶</div>
             <h3 class="participar-card__title">Apoiar</h3>
-            <p class="participar-card__text">A ACHAMA é financiada por quotas e doações dos seus membros e
+            <p class="participar-card__text">A ACIMHA é financiada por quotas e doações dos seus membros e
               simpatizantes. O seu apoio financeiro permite-nos agir com independência.</p>
             <a href="#associar" class="participar-card__cta">Contribuir →</a>
           </div>
@@ -667,7 +596,7 @@
               <div class="contact-item__icon" aria-hidden="true">✉️</div>
               <div>
                 <div class="contact-item__label">E-mail geral</div>
-                <div class="contact-item__value">achama@gmail.com</div>
+                <div class="contact-item__value">acimha@gmail.com</div>
               </div>
             </div>
 
@@ -688,10 +617,10 @@
             </div>
 
             <div class="social-links" aria-label="Redes sociais">
-              <a href="#" class="social-link" aria-label="Facebook da ACHAMA">f</a>
-              <a href="#" class="social-link" aria-label="Instagram da ACHAMA">ig</a>
-              <a href="#" class="social-link" aria-label="Twitter/X da ACHAMA">𝕏</a>
-              <a href="#" class="social-link" aria-label="LinkedIn da ACHAMA">in</a>
+              <a href="#" class="social-link" aria-label="Facebook da ACIMHA">f</a>
+              <a href="#" class="social-link" aria-label="Instagram da ACIMHA">ig</a>
+              <a href="#" class="social-link" aria-label="Twitter/X da ACIMHA">𝕏</a>
+              <a href="#" class="social-link" aria-label="LinkedIn da ACIMHA">in</a>
             </div>
           </div>
 
@@ -756,7 +685,7 @@
 
       <div class="obs-head">
         <button id="obs-close-btn" class="obs-close" aria-label="Fechar observatório">&#x2715;</button>
-        <div class="obs-head__label">Observatório da Habitação · ACHAMA</div>
+        <div class="obs-head__label">Observatório da Habitação · ACIMHA</div>
         <h2 class="obs-head__title" id="obs-title">16 Concelhos do Algarve</h2>
         <div class="obs-head__sub">Idealista Índice Dez 2025 · INE 2025 · IHRU · Preços venda: Terraruiva Dez 2025</div>
       </div>
@@ -883,7 +812,7 @@
       </div>
 
       <div class="obs-footer">
-        <span>ACHAMA · Observatório da Habitação do Algarve · Q4 2024 / Q1 2025</span>
+        <span>ACIMHA · Observatório da Habitação do Algarve · Q4 2024 / Q1 2025</span>
         <span>Dados: <a href="https://www.ine.pt" target="_blank" rel="noopener"
             style="color:var(--color-primary);font-weight:600;">ine.pt</a> · <a href="https://www.ihru.pt"
             target="_blank" rel="noopener" style="color:var(--color-primary);font-weight:600;">ihru.pt</a></span>
@@ -897,7 +826,7 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <img src="assets/images/Logo1_clean.png" alt="ACHAMA" style="height:144px;width:auto;margin-bottom:.75rem;">
+          <img src="assets/images/ACIMHA.png" alt="ACIMHA" style="height:144px;width:auto;margin-bottom:.75rem;">
           <p class="footer__desc">Defendemos o direito à habitação digna para todos os algarvios, com rigor,
             independência e compromisso cívico.</p>
         </div>
@@ -931,11 +860,251 @@
       </div>
 
       <div class="footer__bottom">
-        <span>© 2025 ACHAMA – Associação Cívica e Habitação de Munícipes do Algarve</span>
+        <span>© 2025 ACIMHA – Associação Cívica de Munícipes e Habitação do Algarve</span>
         <span>NIPC: 000 000 000 · Registo n.º 00000/2024</span>
       </div>
     </div>
   </footer>
+
+  <!-- ===== MODAL FICHA DE INSCRIÇÃO ===== -->
+  <div class="inscricao-overlay" id="inscricao-overlay" role="dialog" aria-modal="true"
+    aria-labelledby="inscricao-title">
+    <div class="inscricao-panel">
+
+      <!-- Cabeçalho -->
+      <div class="inscricao-head">
+        <p class="inscricao-head__label">Associação Cívica de Munícipes e Habitação do Algarve</p>
+        <h2 class="inscricao-head__title" id="inscricao-title">Ficha de Inscrição de Associado</h2>
+        <button class="inscricao-close" id="inscricao-close" aria-label="Fechar formulário">✕</button>
+      </div>
+
+      <!-- Corpo -->
+      <div class="inscricao-body">
+
+        <div id="inscricao-fields">
+          <form id="inscricao-form" name="inscricao" method="POST" data-netlify="true" novalidate>
+            <input type="hidden" name="form-name" value="inscricao">
+
+            <!-- 1. Dados Pessoais -->
+            <div class="ins-section">
+              <h3 class="ins-section__title">
+                <span class="ins-section__num" aria-hidden="true">1</span>
+                Dados Pessoais
+              </h3>
+              <div class="form__group">
+                <label class="form__label" for="ins-nome">Nome completo <span aria-hidden="true">*</span></label>
+                <input class="form__control" type="text" id="ins-nome" name="nome" required minlength="3"
+                  autocomplete="name" placeholder=" ">
+                <span class="form__error">Por favor, introduza o seu nome completo.</span>
+              </div>
+              <div class="form__row">
+                <div class="form__group">
+                  <label class="form__label" for="ins-nascimento">Data de nascimento <span
+                      aria-hidden="true">*</span></label>
+                  <input class="form__control" type="date" id="ins-nascimento" name="data_nascimento" required>
+                  <span class="form__error">Por favor, introduza a sua data de nascimento.</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="ins-nacionalidade">Nacionalidade <span
+                      aria-hidden="true">*</span></label>
+                  <input class="form__control" type="text" id="ins-nacionalidade" name="nacionalidade" required
+                    value="Portuguesa" placeholder=" ">
+                  <span class="form__error">Por favor, introduza a sua nacionalidade.</span>
+                </div>
+              </div>
+              <div class="form__row">
+                <div class="form__group">
+                  <label class="form__label" for="ins-nif">NIF <span aria-hidden="true">*</span></label>
+                  <input class="form__control" type="text" id="ins-nif" name="nif" required pattern="[0-9]{9}"
+                    maxlength="9" placeholder="123456789" inputmode="numeric">
+                  <span class="form__error">Introduza um NIF válido com 9 dígitos.</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="ins-cc">Cartão de Cidadão / Passaporte n.º <span
+                      aria-hidden="true">*</span></label>
+                  <input class="form__control" type="text" id="ins-cc" name="cc_passaporte" required placeholder=" ">
+                  <span class="form__error">Por favor, introduza o número do documento.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Contactos -->
+            <div class="ins-section">
+              <h3 class="ins-section__title">
+                <span class="ins-section__num" aria-hidden="true">2</span>
+                Contactos
+              </h3>
+              <div class="form__group">
+                <label class="form__label" for="ins-morada">Morada <span aria-hidden="true">*</span></label>
+                <input class="form__control" type="text" id="ins-morada" name="morada" required
+                  autocomplete="street-address" placeholder=" ">
+                <span class="form__error">Por favor, introduza a sua morada.</span>
+              </div>
+              <div class="form__row">
+                <div class="form__group">
+                  <label class="form__label" for="ins-cp">Código Postal <span aria-hidden="true">*</span></label>
+                  <input class="form__control" type="text" id="ins-cp" name="codigo_postal" required
+                    pattern="[0-9]{4}-[0-9]{3}" placeholder="0000-000" inputmode="numeric">
+                  <span class="form__error">Formato: 0000-000</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="ins-localidade">Localidade <span aria-hidden="true">*</span></label>
+                  <input class="form__control" type="text" id="ins-localidade" name="localidade" required
+                    autocomplete="address-level2" placeholder=" ">
+                  <span class="form__error">Por favor, introduza a localidade.</span>
+                </div>
+              </div>
+              <div class="form__row">
+                <div class="form__group">
+                  <label class="form__label" for="ins-tel">Telefone / Telemóvel <span
+                      aria-hidden="true">*</span></label>
+                  <input class="form__control" type="tel" id="ins-tel" name="telefone" required autocomplete="tel"
+                    placeholder=" ">
+                  <span class="form__error">Por favor, introduza o seu contacto telefónico.</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="ins-email">E-mail <span aria-hidden="true">*</span></label>
+                  <input class="form__control" type="email" id="ins-email" name="email" required autocomplete="email"
+                    placeholder=" ">
+                  <span class="form__error">Por favor, introduza um e-mail válido.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Situação Profissional (opcional) -->
+            <div class="ins-section">
+              <h3 class="ins-section__title">
+                <span class="ins-section__num" aria-hidden="true">3</span>
+                Situação Profissional
+                <span
+                  style="font-size:.7rem;font-weight:400;color:var(--color-muted);text-transform:none;letter-spacing:0;">(opcional)</span>
+              </h3>
+              <div class="form__row">
+                <div class="form__group">
+                  <label class="form__label" for="ins-profissao">Profissão</label>
+                  <input class="form__control" type="text" id="ins-profissao" name="profissao" placeholder=" ">
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="ins-empresa">Empresa / Organização</label>
+                  <input class="form__control" type="text" id="ins-empresa" name="empresa" placeholder=" ">
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Tipo de Associado -->
+            <div class="ins-section">
+              <h3 class="ins-section__title">
+                <span class="ins-section__num" aria-hidden="true">4</span>
+                Tipo de Associado
+              </h3>
+              <div class="ins-radio-group" role="radiogroup">
+                <label class="ins-radio-label ins-radio-label--disabled">
+                  <input type="radio" name="tipo_associado" value="fundador" disabled>
+                  <span>
+                    <span class="ins-radio-label__title">Fundador</span>
+                    <span class="ins-radio-label__desc">Reservado a Órgãos Sociais ou mediante autorização
+                      destes.</span>
+                  </span>
+                </label>
+                <label class="ins-radio-label">
+                  <input type="radio" name="tipo_associado" value="civico" required>
+                  <span>
+                    <span class="ins-radio-label__title">Cívico</span>
+                    <span class="ins-radio-label__desc">Cidadão que apoia a missão cívica da ACIMHA.</span>
+                  </span>
+                </label>
+                <label class="ins-radio-label">
+                  <input type="radio" name="tipo_associado" value="habitacional">
+                  <span>
+                    <span class="ins-radio-label__title">Habitacional</span>
+                    <span class="ins-radio-label__desc">Cidadão diretamente afetado pela crise habitacional no
+                      Algarve.</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- 5. Quotas -->
+            <div class="ins-section">
+              <h3 class="ins-section__title">
+                <span class="ins-section__num" aria-hidden="true">5</span>
+                Quotas
+              </h3>
+              <div class="ins-quota-box">
+                <span class="ins-quota-box__value">5€</span>
+                <span class="ins-quota-box__label">por período · selecione a periodicidade</span>
+              </div>
+              <div class="ins-radio-group" role="radiogroup">
+                <label class="ins-radio-label">
+                  <input type="radio" name="periodicidade" value="semestral" required>
+                  <span>
+                    <span class="ins-radio-label__title">Semestral</span>
+                    <span class="ins-radio-label__desc">Pagamento de 6 em 6 meses</span>
+                  </span>
+                </label>
+                <label class="ins-radio-label">
+                  <input type="radio" name="periodicidade" value="anual">
+                  <span>
+                    <span class="ins-radio-label__title">Anual</span>
+                    <span class="ins-radio-label__desc">Pagamento único anual</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- 6. Declaração -->
+            <div class="ins-section">
+              <h3 class="ins-section__title">
+                <span class="ins-section__num" aria-hidden="true">6</span>
+                Declaração
+              </h3>
+              <label class="ins-check-row">
+                <input type="checkbox" id="ins-estatutos" name="aceita_estatutos" required>
+                <span class="ins-check-row__text">Declaro que pretendo inscrever-me como associado(a) da ACIMHA,
+                  aceitando os seus estatutos e regulamentos internos. <span
+                    style="color:var(--color-accent)">*</span></span>
+              </label>
+              <label class="ins-check-row">
+                <input type="checkbox" id="ins-rgpd" name="autoriza_dados" required>
+                <span class="ins-check-row__text">Autorizo o tratamento dos meus dados pessoais para fins associativos,
+                  nos termos da legislação em vigor (RGPD). <span
+                    style="color:var(--color-accent)">*</span></span>
+              </label>
+              <div class="form__row" style="margin-top:1rem;">
+                <div class="form__group">
+                  <label class="form__label" for="ins-local">Local <span aria-hidden="true">*</span></label>
+                  <input class="form__control" type="text" id="ins-local" name="local" required
+                    placeholder="Cidade / Localidade">
+                  <span class="form__error">Por favor, introduza o local.</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="ins-data">Data</label>
+                  <input class="form__control" type="text" id="ins-data" name="data_inscricao" readonly
+                    style="background:var(--color-bg);cursor:default;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Submissão -->
+            <div class="ins-submit-row">
+              <span class="ins-submit-row__note">* Campos obrigatórios</span>
+              <button type="submit" class="btn btn--primary">Submeter inscrição</button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Estado de sucesso -->
+        <div id="inscricao-success" class="form__success" aria-live="polite" tabindex="-1">
+          <div class="form__success-icon" aria-hidden="true">✅</div>
+          <h3 class="form__success-title">Inscrição submetida!</h3>
+          <p class="form__success-text">Obrigado pelo seu pedido de adesão à ACIMHA. Entraremos em contacto por e-mail
+            nas próximas 48 horas para confirmar a sua inscrição e informar sobre o processo de pagamento da quota.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="js/app.js"></script>
 </body>

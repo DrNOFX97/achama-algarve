@@ -1,5 +1,5 @@
 """
-ACHAMA — Observatório da Habitação
+ACIMHA — Observatório da Habitação
 Backend FastAPI · Dados INE + dados.gov
 
 Endpoints:
@@ -22,17 +22,17 @@ from typing import Optional
 import logging
 
 logging.basicConfig(level=logging.INFO)
-log = logging.getLogger("achama")
+log = logging.getLogger("acimha")
 
 app = FastAPI(
-    title="ACHAMA · Observatório da Habitação",
+    title="ACIMHA · Observatório da Habitação",
     description="API de dados habitacionais do Algarve — 16 municípios",
     version="1.0.0",
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],          # Em produção: ["https://achama-algarve.netlify.app"]
+    allow_origins=["*"],          # Em produção: ["https://acimha-algarve.netlify.app"]
     allow_methods=["GET"],
     allow_headers=["*"],
 )
@@ -191,7 +191,7 @@ async def construir_dados() -> list:
     """
     fontes_usadas = []
 
-    async with httpx.AsyncClient(headers={"User-Agent": "ACHAMA-Observatorio/1.0"}) as client:
+    async with httpx.AsyncClient(headers={"User-Agent": "ACIMHA-Observatorio/1.0"}) as client:
         # Fetch paralelo das 3 fontes
         rendas_trim, precos_trim, rendas_social = await asyncio.gather(
             fetch_ine_indicator(client, "0010732"),
@@ -202,7 +202,7 @@ async def construir_dados() -> list:
     if rendas_trim:  fontes_usadas.append("INE API — Rendas trimestrais (0010732)")
     if precos_trim:  fontes_usadas.append("INE API — Preços venda trimestrais (0009827)")
     if rendas_social: fontes_usadas.append("INE/dados.gov — Hab. social anual (0007509)")
-    fontes_usadas.append("Baseline ACHAMA 2024 (estimativas complementares)")
+    fontes_usadas.append("Baseline ACIMHA 2024 (estimativas complementares)")
 
     # Série histórica Algarve 2020–2024 (INE NUTS III, valores reais)
     serie_algarve = [5.82, 6.41, 7.18, 8.45, 9.71, 10.39]
@@ -258,7 +258,7 @@ async def garantir_cache():
 
 @app.on_event("startup")
 async def startup():
-    log.info("A iniciar ACHAMA Observatório — pré-carregar dados INE…")
+    log.info("A iniciar ACIMHA Observatório — pré-carregar dados INE…")
     await garantir_cache()
 
 
@@ -316,7 +316,7 @@ async def status():
 @app.get("/")
 async def root():
     return {
-        "projeto": "ACHAMA — Observatório da Habitação do Algarve",
+        "projeto": "ACIMHA — Observatório da Habitação do Algarve",
         "endpoints": [
             "GET /api/habitacao/algarve",
             "GET /api/habitacao/municipio/{cod}",

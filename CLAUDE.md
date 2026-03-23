@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-**ACHAMA** (Associação Cívica e Habitação de Munícipes do Algarve) is a Portuguese civic association website focused on housing rights in the Algarve region. It is a **pure static single-page site** — no build process, no package manager, no backend.
+**ACIMHA** (Associação Cívica de Munícipes e Habitação do Algarve) is a Portuguese civic association website focused on housing rights in the Algarve region. It is a **pure static single-page site** — no build process, no package manager, no backend.
 
 ## Running Locally
 

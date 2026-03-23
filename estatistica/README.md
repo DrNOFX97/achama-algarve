@@ -1,11 +1,11 @@
-# ACHAMA — Observatório da Habitação
+# ACIMHA — Observatório da Habitação
 
 API + Dashboard para monitorização do mercado habitacional nos 16 municípios do Algarve.
 
 ## Estrutura
 
 ```
-achama-observatorio/
+acimha-observatorio/
 ├── backend/
 │   ├── main.py           ← FastAPI — fetch INE + endpoints
 │   └── requirements.txt
@@ -70,7 +70,7 @@ uvicorn main:app --reload --port 8000
 
 ## Frontend
 
-### Integrar no projeto React (ACHAMA)
+### Integrar no projeto React (ACIMHA)
 
 ```jsx
 // Copiar ObservatorioHabitacao.jsx para src/components/
@@ -112,7 +112,7 @@ Ou **Render.com** (também gratuito):
 No `main.py`, alterar a linha do CORS:
 
 ```python
-allow_origins=["https://achama-algarve.netlify.app"],
+allow_origins=["https://acimha-algarve.netlify.app"],
 ```
 
 ## Fontes de dados

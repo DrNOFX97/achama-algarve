@@ -3,6 +3,7 @@ import { handleFormSubmit } from './modules/forms.js';
 import { initTabs } from './modules/tabs.js';
 import { initObservatory } from './modules/observatory.js';
 import { OBS_DATA } from './data/observatory-data.js';
+import { initInscricaoModal } from './modules/inscricao-modal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Navigation
@@ -50,4 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Observatory
     initObservatory(OBS_DATA);
+
+    // Ficha de Inscrição (modal)
+    initInscricaoModal();
 });

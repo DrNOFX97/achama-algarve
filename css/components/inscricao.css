@@ -1,0 +1,314 @@
+/* ===== FICHA DE INSCRIÇÃO MODAL ===== */
+.inscricao-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 18, 40, 0.72);
+    backdrop-filter: blur(4px);
+    z-index: 1500;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 3rem;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.inscricao-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.inscricao-panel {
+    background: var(--color-white);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 680px;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, .4);
+    transform: translateY(24px);
+    transition: transform 0.35s ease;
+    overflow: hidden;
+    margin: auto;
+}
+
+.inscricao-overlay.is-open .inscricao-panel {
+    transform: translateY(0);
+}
+
+/* Cabeçalho */
+.inscricao-head {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    padding: 1.75rem 2rem 1.5rem;
+    position: relative;
+}
+
+.inscricao-head__label {
+    font-size: .7rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: #F4A57A;
+    font-weight: 600;
+    margin-bottom: .3rem;
+}
+
+.inscricao-head__title {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: white;
+    line-height: 1.2;
+    padding-right: 3rem;
+}
+
+.inscricao-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .25);
+    color: rgba(255, 255, 255, .85);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s;
+}
+
+.inscricao-close:hover {
+    background: rgba(255, 255, 255, .25);
+}
+
+/* Corpo */
+.inscricao-body {
+    padding: 1.75rem 2rem;
+    overflow-y: auto;
+    max-height: calc(90vh - 9rem);
+}
+
+/* Secções do formulário */
+.ins-section {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid #ede9e3;
+}
+
+.ins-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.ins-section__title {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.ins-section__num {
+    background: var(--color-accent);
+    color: white;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .7rem;
+    flex-shrink: 0;
+}
+
+/* Caixa de quota */
+.ins-quota-box {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ins-quota-box__value {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.ins-quota-box__label {
+    font-size: .85rem;
+    opacity: .8;
+}
+
+/* Opções de rádio */
+.ins-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.ins-radio-label {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .75rem 1rem;
+    border: 2px solid #e2ddd8;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+}
+
+.ins-radio-label:hover:not(.ins-radio-label--disabled) {
+    border-color: var(--color-primary);
+    background: rgba(27, 58, 107, .04);
+}
+
+.ins-radio-label.is-checked {
+    border-color: var(--color-primary);
+    background: rgba(27, 58, 107, .06);
+}
+
+.ins-radio-label--disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.ins-radio-label input[type="radio"] {
+    margin-top: .2rem;
+    flex-shrink: 0;
+    accent-color: var(--color-primary);
+}
+
+.ins-radio-label__title {
+    font-weight: 600;
+    color: var(--color-text);
+    display: block;
+    font-size: .9rem;
+}
+
+.ins-radio-label__desc {
+    font-size: .8rem;
+    color: var(--color-muted);
+    display: block;
+    margin-top: .1rem;
+}
+
+/* Linhas de checkbox */
+.ins-check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .75rem 1rem;
+    border: 2px solid #e2ddd8;
+    border-radius: var(--radius);
+    margin-bottom: .5rem;
+    cursor: pointer;
+    transition: border-color .2s;
+}
+
+.ins-check-row:hover {
+    border-color: var(--color-primary);
+}
+
+.ins-check-row input[type="checkbox"] {
+    margin-top: .25rem;
+    flex-shrink: 0;
+    accent-color: var(--color-primary);
+}
+
+.ins-check-row__text {
+    font-size: .875rem;
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+/* Linha de submissão */
+.ins-submit-row {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.ins-submit-row__note {
+    font-size: .8rem;
+    color: var(--color-muted);
+}
+
+/* Cartão CTA na secção #associar */
+.associar-cta-card {
+    background: var(--color-primary);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    height: 100%;
+    min-height: 360px;
+    justify-content: center;
+}
+
+.associar-cta-card__icon {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.associar-cta-card__title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-white);
+    font-weight: 700;
+}
+
+.associar-cta-card__text {
+    font-size: .95rem;
+    opacity: .85;
+    line-height: 1.6;
+}
+
+.associar-cta-card__quota {
+    font-size: .8rem;
+    opacity: .6;
+    margin-top: -.25rem;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .inscricao-body {
+        padding: 1.25rem 1rem;
+        max-height: calc(90vh - 7rem);
+    }
+
+    .inscricao-head {
+        padding: 1.5rem 1rem 1.25rem;
+    }
+
+    .inscricao-head__title {
+        font-size: 1.3rem;
+    }
+
+    .ins-submit-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ins-submit-row .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
