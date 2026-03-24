@@ -7,50 +7,60 @@ import { initInscricaoModal } from './modules/inscricao-modal.js';
 import { initContactModal } from './modules/contact-modal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const safe = (fn) => { try { fn(); } catch (e) { console.error(e); } };
+
     // Navigation
-    const nav = document.getElementById('main-nav');
-    if (nav) initNavScroll(nav);
+    safe(() => {
+        const nav = document.getElementById('main-nav');
+        if (nav) initNavScroll(nav);
+    });
 
     // Mobile Menu
-    const hamburger = document.getElementById('hamburger-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuClose = document.getElementById('menu-close-btn');
-    if (hamburger && mobileMenu && menuClose) {
-        initMobileMenu(hamburger, mobileMenu, menuClose);
-    }
+    safe(() => {
+        const hamburger = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuClose = document.getElementById('menu-close-btn');
+        if (hamburger && mobileMenu && menuClose) initMobileMenu(hamburger, mobileMenu, menuClose);
+    });
 
     // Scroll Spy
-    const sections = document.querySelectorAll('main > section[id]');
-    const navLinks = document.querySelectorAll('.nav__links a, .nav__menu a');
-    if (sections.length && navLinks.length) {
-        initScrollSpy(sections, navLinks);
-    }
+    safe(() => {
+        const sections = document.querySelectorAll('main > section[id]');
+        const navLinks = document.querySelectorAll('.nav__links a, .nav__menu a');
+        if (sections.length && navLinks.length) initScrollSpy(sections, navLinks);
+    });
 
     // Fade In
-    const fadeElements = document.querySelectorAll('.fade-in');
-    if (fadeElements.length) initFadeIn(fadeElements);
+    safe(() => {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        if (fadeElements.length) initFadeIn(fadeElements);
+    });
 
     // Hero Photos
-    const heroPhotos = document.querySelectorAll('.hero__photo');
-    if (heroPhotos.length) initHeroPhotos(heroPhotos);
+    safe(() => {
+        const heroPhotos = document.querySelectorAll('.hero__photo');
+        if (heroPhotos.length) initHeroPhotos(heroPhotos);
+    });
 
     // Tabs
-    const tabList = document.querySelector('.tabs__list');
-    if (tabList) initTabs(tabList);
+    safe(() => {
+        const tabList = document.querySelector('.tabs__list');
+        if (tabList) initTabs(tabList);
+    });
 
     // Forms (legacy inline membership form, if present)
-    handleFormSubmit(
+    safe(() => handleFormSubmit(
         document.getElementById('membership-form'),
         document.getElementById('membership-fields'),
         document.getElementById('membership-success')
-    );
+    ));
 
     // Observatory
-    initObservatory(OBS_DATA);
+    safe(() => initObservatory(OBS_DATA));
 
     // Ficha de Inscrição (modal)
-    initInscricaoModal();
+    safe(() => initInscricaoModal());
 
     // Modal de Contacto
-    initContactModal();
+    safe(() => initContactModal());
 });

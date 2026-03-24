@@ -10,7 +10,7 @@ export function initInscricaoModal() {
     function openModal() {
         overlay.classList.add('is-open');
         document.body.style.overflow = 'hidden';
-        closeBtn.focus();
+        closeBtn?.focus();
 
         // Pré-preencher data de hoje
         const dataEl = document.getElementById('ins-data');

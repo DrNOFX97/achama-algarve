@@ -13,7 +13,7 @@ export function initContactModal() {
     function openModal() {
         overlay.classList.add('is-open');
         document.body.style.overflow = 'hidden';
-        closeBtn.focus();
+        closeBtn?.focus();
     }
 
     function closeModal() {
