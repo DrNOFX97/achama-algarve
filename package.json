@@ -1,0 +1,12 @@
+{
+  "name": "acimha-noticias",
+  "private": true,
+  "type": "module",
+  "description": "Script auxiliar de build para o site estático da ACIMHA — não afeta o runtime do site.",
+  "scripts": {
+    "fetch:noticias": "node scripts/fetch-noticias.mjs"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.0.0"
+  }
+}

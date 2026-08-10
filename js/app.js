@@ -5,6 +5,7 @@ import { initObservatory } from './modules/observatory.js';
 import { OBS_DATA } from './data/observatory-data.js';
 import { initInscricaoModal } from './modules/inscricao-modal.js';
 import { initContactModal } from './modules/contact-modal.js';
+import { initNoticias } from './modules/noticias.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const safe = (fn) => { try { fn(); } catch (e) { console.error(e); } };
@@ -63,4 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modal de Contacto
     safe(() => initContactModal());
+
+    // Notícias (data/noticias.json, gerado pelo workflow do GitHub Actions)
+    safe(() => initNoticias());
 });

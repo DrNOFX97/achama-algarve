@@ -1,0 +1,45 @@
+name: Atualizar notícias
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atualizar-noticias
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Ir buscar notícias
+        run: npm run fetch:noticias
+
+      - name: Commit e push se houver alterações
+        run: |
+          if git diff --quiet -- data/noticias.json; then
+            echo "Sem alterações em data/noticias.json — nada a fazer."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/noticias.json
+          git commit -m "Atualiza notícias automaticamente"
+          git pull --rebase
+          git push

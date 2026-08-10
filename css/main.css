@@ -823,6 +823,17 @@ footer {
     margin-bottom: .5rem;
 }
 
+.project-card__title a {
+    color: inherit;
+    transition: color var(--transition);
+}
+
+.project-card__title a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 .project-card__link {
     display: inline-block;
     font-family: var(--font-sans);
@@ -836,6 +847,13 @@ footer {
 .project-card__link:hover { color: var(--color-accent-light); }
 
 /* ===== NOTÍCIAS — editorial rows, dated like a news index ===== */
+.news-updated {
+    font-family: var(--font-sans);
+    font-size: .78rem;
+    color: var(--color-muted);
+    margin-bottom: 1.5rem;
+}
+
 .news-feature {
     border-top: 1px solid var(--color-hairline);
 }
@@ -843,6 +861,13 @@ footer {
 .news-feature__row {
     padding-block: 2rem;
     border-bottom: 1px solid var(--color-hairline);
+}
+
+.news-feature__loading,
+.news-feature__error {
+    font-size: .95rem;
+    color: var(--color-muted);
+    padding-block: 2rem;
 }
 
 .noticia-card__meta {

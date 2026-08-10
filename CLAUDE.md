@@ -53,6 +53,10 @@ The site was overhauled to an editorial-magazine visual language (cream/ink/red 
 
 `#inscricao-form` and `#contact-modal-form` use the `data-netlify="true"` + hidden `form-name` input convention and are submitted via `js/modules/forms.js` (`handleFormSubmit`), which POSTs URL-encoded data to `/`. **This only actually delivers anywhere when the site is deployed on Netlify.** On any other static host the POST silently fails and the success state still shows (the fetch failure is swallowed) — if you change hosting or need real delivery confirmation, this is the place to fix.
 
+### `#noticias` is fed by a scheduled GitHub Action, not live at page-load
+
+The site itself has zero runtime dependencies, but `scripts/fetch-noticias.mjs` is a small **build-time** Node script (declared in `package.json`, needs `npm install`) that fetches the Google News RSS feed for "crise habitacional Algarve", parses it with `fast-xml-parser`, and writes the 10 most recent items to `data/noticias.json`. `.github/workflows/atualizar-noticias.yml` runs that script hourly (cron) and on manual dispatch, committing `data/noticias.json` back to the repo when it changes. `js/modules/noticias.js` (`initNoticias`, called from `app.js`) `fetch()`es that JSON file client-side on page load and renders it into `#noticias-list`, reusing the `.news-feature__row` / `.noticia-card__*` / `.project-card__title` classes; it shows a discreet fallback message if the fetch fails or the file doesn't exist yet. To refresh the data locally: `npm install && npm run fetch:noticias`.
+
 ### Observatory modal is static data, not the `estatistica/` backend
 
 The "Observatório da Habitação" modal (`#obs-overlay`, driven by `js/modules/observatory.js`) renders entirely from the hardcoded dataset in `js/data/observatory-data.js` (16 Algarve municipalities, rent/sale/variation figures). The `estatistica/` folder (FastAPI backend + a standalone React `ObservatorioHabitacao.jsx`) is a **separate, unwired prototype** for a future live-data version — it is not imported or called by the static site. Don't assume the two are connected; updating one does not affect the other.
@@ -61,4 +65,4 @@ The "Observatório da Habitação" modal (`#obs-overlay`, driven by `js/modules/
 
 - Footer legal links "Estatutos", "Relatórios de Atividade", "Livro de Reclamações" and the four social links are still `href="#"`.
 - The "Documentos" tab in Quem Somos links to `estatutos.pdf` and `regulamento.pdf`, which don't exist in the repo yet (left as-is intentionally — real files pending).
-- `#projetos`, `#noticias`, `#quem-somos` (Órgãos Sociais) contain real-looking but placeholder content, not yet confirmed official copy.
+- `#projetos` and `#quem-somos` (Órgãos Sociais) contain real-looking but placeholder content, not yet confirmed official copy. `#noticias` is now live (see above) and pulls real third-party press coverage of the housing crisis, not ACIMHA's own news — there is currently no section for ACIMHA's own press releases/communicados.
