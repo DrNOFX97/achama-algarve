@@ -1,13 +1,7 @@
 {
-  "atualizado_em": "2026-08-10T12:42:10.212Z",
+  "atualizado_em": "2026-08-10T14:12:22.696Z",
   "query": "crise habitacional Algarve",
   "noticias": [
-    {
-      "titulo": "Crise habitacional leva Albufeira a disponibilizar alojamento a médicos durante época alta",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPNEhIVHhSZUhkVTRFbHdUYjkzak1jN19iV2k3QXNtYVluQjVjcFd3SVBQbThYUVpXdmZXLXNzbXZkRlN2cEIzbnI1VHJVWmhYTl8yVDVadmo2T1dZcFRMcHdmTHJDLXZDV1Bvd2VUQmVVTzhKeE1jYldwX1VaY05FaVVtdWxTYzcteXl3cmNuSUtnRnJQNGVobXJPMmpRWVJkTS1rYVlRSGlPUGVrV2g2bXdB?oc=5",
-      "fonte": "Presstur",
-      "data": "05 Ago 2026"
-    },
     {
       "titulo": "Crise da habitação, o modelo económico e as opções políticas",
       "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQX04tQ2NjT3hUeDRHT0FZR2JOb2VHNG9RSGNvSjRKNG92ZXFVeXpIclNXeWdycmxBSEY5T05jNVRBYkJvYkZDakZzeGpWSWZTTkI4LUhUQWUyVWlwSi1lRnp0cnNrQ29JTnQtOTNoeXFxVkd2MFpkdDdyWmlmSy1GcDhNaU44VEpTMHJXMnNYUjhLVVB2?oc=5",
@@ -17,7 +11,7 @@
     {
       "titulo": "Despejos em Portugal já superam total de 2024 e UE alerta para crise da habitação",
       "link": "https://news.google.com/rss/articles/CBMimAJBVV95cUxQaVg1U3VWakV0MjZYX09ST0FCdGtZQzZ6aXo0ZFhKYURmcHE0enA0UTEwbnc0cWxqLTlHR2Jfd2JjZEQ0M0I1Rzk1SWUzSDlsREYxTHZXSHBWTU9nclUxUDh0c3dmWi1DdS1pT2d5YWFNSVdUT2I4aUF1OVFsNERSel9YcTRuaVo2REhkQUZyTXVjNnE0bDg3TW5FVzA5aURCRktCTC1DQUZYWnpEVXdUX0J2ejBHYjRPUWFBRkxud0p1dnlfbVY4OE5PQ2JtSExzbldoQ1hQY3paNjVSUFNkTWg1ck0zN1NRTHkxcUd2MGRqblItdW9BMGJKRUQ4QzZaSjY0ekZod0FmR2hzLUhSRUtKMUpTa0RP?oc=5",
-      "fonte": "cnnportugal.iol.pt",
+      "fonte": "CNN Portugal",
       "data": "11 Jun 2026"
     },
     {
@@ -31,6 +25,12 @@
       "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQMnZUai1keHdxU1NNMjRzNkV3LTMtTF9iQXNBbUhpTDR5ZVBSX2tKc3owYzRrQVhpOU1XTFlrd19pT1BGeHl2Qy04YVh0SXVMSmRKLXZQcUlnckEydWJhUS10cDNoRzZGWkZHZjlNYXpzclVJbDN5NWJyTUJRcjJib2NxOHJSc0p1bzI0aGpRa0lIMW5Mem81QUstQUhHUVhoODZoRFpKRk5NcUlXcWtUeHA0V3NQY3JBWEE?oc=5",
       "fonte": "Jornal de Negócios",
       "data": "02 Jun 2026"
+    },
+    {
+      "titulo": "Parceria aposta na construção modular para resolver crise habitacional",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQNWZlQzM3N29GWmhZTG41UGhsVEV5RXlOU3lNNUlGQldtamJXNzIzQlJCRkZfQVZSUHRDS0dNQWtVVkQtRE9DMUZFbUxaak04MkNUOHVIbzRmQTh3ODdqNDFUdGNaRVdXcmtFSmcxeWMzdU1PTGpUM0VFMko0V3VkUDdPTm94Q0xPdTJqY2oyN0ZGNi0zWHdOWWZuaGNkQm5taUpIUkFsY0x6c21fdmcwSTFWQXJ0LXk1VGM3V2JxMGtCbjg5NzhWempmalo1SDdud3NqNGxB0gHbAUFVX3lxTE16M1hHYkZRM3VFQmk0YS1NWlNJVXdGdzdFbGYteGY2Y0JpajVsX05aNGhjaU5FRDZPbUtBbUMySlNMNFBldHFFQUpLS1g1TUhxYjBLQTQ4dE9DR2NrVmE4RTN2SVhJMktkcHdPVFB6RFdvVnlSbnNCUW00UTBoMWZZS3FNS3gxUGxMazYxR3B4SVFTRnpCMUhhSkFPQWlzRHhHemVsSjdybWdIQ3VKTFN0ZXdmSG9XSldRYl9TYWZKVlZJWnFFNlVnc25QUmc1aWhXS2pteV9yLW1Faw?oc=5",
+      "fonte": "Idealista",
+      "data": "22 Mai 2026"
     },
     {
       "titulo": "Crise na habitação exige resposta estrutural profunda em Portugal",
@@ -53,7 +53,7 @@
     {
       "titulo": "Crise da habitação em Portugal é “severa” e resulta de vários fatores",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQbUl6U2VfcER1ZndodnFVam11ZU9aaTVhS2x2elJIWkNDbmY1czQtT2Fjc01IcUtlMkphcm9ySzhwTUJyOHlZeld6d2ZiNlA1MVRzV0h0bndVSDF5aURJZHE2Z2JvMm5XRlozYl9NWUNuWXpZbU9OTjhOaHlzd2tSZXhWZkZvMEUtZTIwV04yaDczLW5Eakh3eVA3cVVBcFZ5WHBiWjg4WS1WdWxyZlJkRE40c2FTazA?oc=5",
-      "fonte": "cnnportugal.iol.pt",
+      "fonte": "CNN Portugal",
       "data": "06 Abr 2026"
     },
     {
