@@ -846,6 +846,19 @@ footer {
 
 .project-card__link:hover { color: var(--color-accent-light); }
 
+.projetos__subhead {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--color-primary);
+    margin-top: 3rem;
+    margin-bottom: .5rem;
+}
+
+.projetos__subhead--secondary {
+    color: var(--color-olive);
+}
+
 /* ===== NOTÍCIAS — editorial rows, dated like a news index ===== */
 .news-updated {
     font-family: var(--font-sans);
