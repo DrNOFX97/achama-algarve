@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/components/forms.css">
@@ -29,8 +29,8 @@
         </a>
 
         <ul class="nav__links" role="list">
-          <li><a href="#crise">A Crise</a></li>
           <li><a href="#missao">Missão</a></li>
+          <li><a href="#crise">A Crise</a></li>
           <li><a href="#projetos">Projetos</a></li>
           <li><a href="#quem-somos">Quem Somos</a></li>
           <li><a href="#noticias">Notícias</a></li>
@@ -68,7 +68,7 @@
 
     <!-- ===== HERO ===== -->
     <section id="inicio" aria-label="Início">
-      <div class="container hero__inner">
+      <div class="hero__inner">
         <div class="hero__content">
           <div class="hero__badge">Associação Cívica · Algarve</div>
           <h1 class="hero__title">
@@ -82,7 +82,7 @@
           </p>
           <div class="hero__actions">
             <button type="button" class="btn btn--primary" data-modal-open="inscricao">Associar-me agora</button>
-            <a href="#missao" class="btn btn--outline">Conhecer a missão</a>
+            <a href="#missao" class="btn btn--outline-dark">Conhecer a missão</a>
           </div>
         </div>
         <div class="hero__photos" aria-hidden="true">
@@ -91,57 +91,10 @@
           <img class="hero__photo" src="assets/images/Hero3.png" alt="">
         </div>
       </div>
-      <div class="hero__scroll" aria-hidden="true">
-        <span>Explorar</span>
-        <div class="hero__scroll-line"></div>
-      </div>
-    </section>
-
-    <!-- ===== CRISE ===== -->
-    <section id="crise" class="section section--alt" aria-labelledby="crise-title">
-      <div class="container">
-        <div class="section__header">
-          <p class="section__label">O problema</p>
-          <h2 class="section__title" id="crise-title">A crise habitacional no Algarve</h2>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card fade-in">
-            <div class="stat-card__number">+<span>180</span>%</div>
-            <div class="stat-card__label">Aumento das rendas</div>
-            <div class="stat-card__desc">Nos últimos 10 anos, as rendas na região algarviana triplicaram, superando a
-              média nacional.</div>
-          </div>
-          <div class="stat-card fade-in">
-            <div class="stat-card__number"><span>68</span>%</div>
-            <div class="stat-card__label">Esforço de rendimento</div>
-            <div class="stat-card__desc">Das famílias do Algarve gastam mais de 40% do rendimento em habitação, acima do
-              limiar de esforço sustentável.</div>
-          </div>
-          <div class="stat-card fade-in">
-            <div class="stat-card__number"><span>12</span>k</div>
-            <div class="stat-card__label">Famílias em lista de espera</div>
-            <div class="stat-card__desc">Aguardam habitação social na região, com tempo médio de espera superior a 8
-              anos.</div>
-          </div>
-        </div>
-
-        <p class="crise__text fade-in">
-          O Algarve vive uma <strong>contradição profunda</strong>: é a região com maior PIB per capita do país,
-          impulsionada pelo turismo, mas também aquela onde os trabalhadores locais menos conseguem pagar a sua própria
-          habitação. A especulação imobiliária, o alojamento de curta duração e a ausência de políticas habitacionais
-          adequadas criaram uma crise sem precedentes. <strong>A ACIMHA nasce para mudar esta realidade.</strong>
-        </p>
-        <div style="text-align:center;margin-top:2.5rem;">
-          <button id="obs-open-btn" class="btn btn--primary">
-            Ver Observatório da Habitação &rarr;
-          </button>
-        </div>
-      </div>
     </section>
 
     <!-- ===== MISSÃO ===== -->
-    <section id="missao" class="section" aria-labelledby="missao-title">
+    <section id="missao" class="section section--alt" aria-labelledby="missao-title">
       <div class="container">
         <div class="section__header">
           <p class="section__label">O nosso propósito</p>
@@ -159,7 +112,7 @@
 
           <div class="missao__pillars fade-in">
             <div class="pillar">
-              <div class="pillar__icon" aria-hidden="true">🏛️</div>
+              <div class="pillar__num" aria-hidden="true">01</div>
               <div>
                 <div class="pillar__title">Advocacia Cívica</div>
                 <p class="pillar__text">Representamos os munícipes junto das autarquias e da Assembleia da República,
@@ -167,7 +120,7 @@
               </div>
             </div>
             <div class="pillar">
-              <div class="pillar__icon" aria-hidden="true">🤝</div>
+              <div class="pillar__num" aria-hidden="true">02</div>
               <div>
                 <div class="pillar__title">Apoio às Famílias</div>
                 <p class="pillar__text">Fornecemos apoio jurídico, informação e orientação às famílias em situação de
@@ -175,7 +128,7 @@
               </div>
             </div>
             <div class="pillar">
-              <div class="pillar__icon" aria-hidden="true">🔬</div>
+              <div class="pillar__num" aria-hidden="true">03</div>
               <div>
                 <div class="pillar__title">Investigação e Dados</div>
                 <p class="pillar__text">Produzimos relatórios, estudos e dados concretos sobre a realidade habitacional
@@ -183,6 +136,58 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CRISE ===== -->
+    <section id="crise" class="section" aria-labelledby="crise-title">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__label">O problema</p>
+          <h2 class="section__title" id="crise-title">A crise habitacional no Algarve</h2>
+        </div>
+
+        <div class="stats-feature">
+          <div class="stats-feature__row fade-in">
+            <div class="stats-feature__num">01</div>
+            <div class="stats-feature__body">
+              <div class="stats-feature__stat">+180%</div>
+              <div class="stats-feature__label">Aumento das rendas</div>
+              <p class="stats-feature__desc">Nos últimos 10 anos, as rendas na região algarviana triplicaram, superando
+                a média nacional.</p>
+            </div>
+          </div>
+          <div class="stats-feature__row fade-in">
+            <div class="stats-feature__num">02</div>
+            <div class="stats-feature__body">
+              <div class="stats-feature__stat">68%</div>
+              <div class="stats-feature__label">Esforço de rendimento</div>
+              <p class="stats-feature__desc">Das famílias do Algarve gastam mais de 40% do rendimento em habitação,
+                acima do limiar de esforço sustentável.</p>
+            </div>
+          </div>
+          <div class="stats-feature__row fade-in">
+            <div class="stats-feature__num">03</div>
+            <div class="stats-feature__body">
+              <div class="stats-feature__stat">12k</div>
+              <div class="stats-feature__label">Famílias em lista de espera</div>
+              <p class="stats-feature__desc">Aguardam habitação social na região, com tempo médio de espera superior a
+                8 anos.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="crise__text fade-in">
+          O Algarve vive uma <strong>contradição profunda</strong>: é a região com maior PIB per capita do país,
+          impulsionada pelo turismo, mas também aquela onde os trabalhadores locais menos conseguem pagar a sua própria
+          habitação. A especulação imobiliária, o alojamento de curta duração e a ausência de políticas habitacionais
+          adequadas criaram uma crise sem precedentes. <strong>A ACIMHA nasce para mudar esta realidade.</strong>
+        </p>
+        <div style="text-align:center;margin-top:2.5rem;">
+          <button id="obs-open-btn" class="btn btn--primary">
+            Ver Observatório da Habitação &rarr;
+          </button>
         </div>
       </div>
     </section>
@@ -197,42 +202,36 @@
             famílias algarvias.</p>
         </div>
 
-        <div class="projetos-grid">
-          <article class="project-card fade-in">
-            <div class="project-card__header project-card__header--alt1">
-              <span class="project-card__emoji" aria-hidden="true">⚖️</span>
-            </div>
-            <div class="project-card__body">
+        <div class="stats-feature">
+          <article class="stats-feature__row fade-in">
+            <div class="stats-feature__num">01</div>
+            <div class="stats-feature__body">
               <p class="project-card__tag">Apoio Jurídico</p>
               <h3 class="project-card__title">Clínica de Habitação</h3>
-              <p class="project-card__text">Consultório jurídico gratuito para inquilinos e proprietários, com apoio em
+              <p class="stats-feature__desc">Consultório jurídico gratuito para inquilinos e proprietários, com apoio em
                 casos de despejo, incumprimento e litígios habitacionais. Atendimento semanal em Faro, Portimão e Lagos.
               </p>
               <a href="#associar" class="project-card__link">Saber mais →</a>
             </div>
           </article>
 
-          <article class="project-card fade-in">
-            <div class="project-card__header project-card__header--alt2">
-              <span class="project-card__emoji" aria-hidden="true">🗺️</span>
-            </div>
-            <div class="project-card__body">
+          <article class="stats-feature__row fade-in">
+            <div class="stats-feature__num">02</div>
+            <div class="stats-feature__body">
               <p class="project-card__tag">Investigação</p>
               <h3 class="project-card__title">Observatório da Habitação</h3>
-              <p class="project-card__text">Plataforma de dados abertos com monitorização de preços, disponibilidade e
+              <p class="stats-feature__desc">Plataforma de dados abertos com monitorização de preços, disponibilidade e
                 condições do parque habitacional em todos os 16 municípios do Algarve em tempo real.</p>
               <a href="#obs-overlay" id="obs-link-card" class="project-card__link">Saber mais →</a>
             </div>
           </article>
 
-          <article class="project-card fade-in">
-            <div class="project-card__header project-card__header--alt3">
-              <span class="project-card__emoji" aria-hidden="true">🏘️</span>
-            </div>
-            <div class="project-card__body">
+          <article class="stats-feature__row fade-in">
+            <div class="stats-feature__num">03</div>
+            <div class="stats-feature__body">
               <p class="project-card__tag">Comunidade</p>
               <h3 class="project-card__title">Algarve Cohabita</h3>
-              <p class="project-card__text">Programa de mediação e acompanhamento de coabitação e cooperativas
+              <p class="stats-feature__desc">Programa de mediação e acompanhamento de coabitação e cooperativas
                 habitacionais, criando soluções alternativas e acessíveis para trabalhadores e jovens da região.</p>
               <a href="#associar" class="project-card__link">Saber mais →</a>
             </div>
@@ -433,48 +432,38 @@
             habitacional no Algarve.</p>
         </div>
 
-        <div class="noticias-grid">
-          <article class="noticia-card fade-in">
-            <div class="noticia-card__img" aria-hidden="true">🏛️</div>
-            <div class="noticia-card__body">
-              <div class="noticia-card__meta">
-                <span class="noticia-card__cat">Advocacia</span>
-                <span class="noticia-card__date">28 Fev 2025</span>
-              </div>
-              <h3 class="noticia-card__title">ACIMHA apresenta proposta ao Parlamento sobre renda acessível no Algarve
-              </h3>
-              <p class="noticia-card__excerpt">A nossa delegação esteve reunida na Assembleia da República com a
-                Comissão de Habitação para apresentar um conjunto de medidas urgentes para a região.</p>
+        <div class="news-feature">
+          <article class="news-feature__row fade-in">
+            <div class="noticia-card__meta">
+              <span class="noticia-card__cat">Advocacia</span>
+              <span class="noticia-card__date">28 Fev 2025</span>
             </div>
+            <h3 class="project-card__title">ACIMHA apresenta proposta ao Parlamento sobre renda acessível no Algarve
+            </h3>
+            <p class="stats-feature__desc">A nossa delegação esteve reunida na Assembleia da República com a
+              Comissão de Habitação para apresentar um conjunto de medidas urgentes para a região.</p>
           </article>
 
-          <article class="noticia-card fade-in">
-            <div class="noticia-card__img noticia-card__img--orange" aria-hidden="true">📊</div>
-            <div class="noticia-card__body">
-              <div class="noticia-card__meta">
-                <span class="noticia-card__cat">Investigação</span>
-                <span class="noticia-card__date">15 Fev 2025</span>
-              </div>
-              <h3 class="noticia-card__title">Relatório: 42% dos trabalhadores do setor turístico não conseguem habitar
-                no Algarve</h3>
-              <p class="noticia-card__excerpt">O novo estudo do Observatório da Habitação revela dados alarmantes sobre
-                a relação entre rendimentos do turismo e custo de habitação na região.</p>
+          <article class="news-feature__row fade-in">
+            <div class="noticia-card__meta">
+              <span class="noticia-card__cat">Investigação</span>
+              <span class="noticia-card__date">15 Fev 2025</span>
             </div>
+            <h3 class="project-card__title">Relatório: 42% dos trabalhadores do setor turístico não conseguem habitar
+              no Algarve</h3>
+            <p class="stats-feature__desc">O novo estudo do Observatório da Habitação revela dados alarmantes sobre
+              a relação entre rendimentos do turismo e custo de habitação na região.</p>
           </article>
 
-          <article class="noticia-card fade-in">
-            <div class="noticia-card__img noticia-card__img--teal" aria-hidden="true">🤝</div>
-            <div class="noticia-card__body">
-              <div class="noticia-card__meta">
-                <span class="noticia-card__cat">Comunidade</span>
-                <span class="noticia-card__date">3 Fev 2025</span>
-              </div>
-              <h3 class="noticia-card__title">Algarve Cohabita registra 120 famílias em soluções cooperativas no
-                primeiro
-                ano</h3>
-              <p class="noticia-card__excerpt">O programa de cooperativas habitacionais da ACIMHA supera as metas do
-                primeiro ano, com parceria confirmada com três câmaras municipais.</p>
+          <article class="news-feature__row fade-in">
+            <div class="noticia-card__meta">
+              <span class="noticia-card__cat">Comunidade</span>
+              <span class="noticia-card__date">3 Fev 2025</span>
             </div>
+            <h3 class="project-card__title">Algarve Cohabita registra 120 famílias em soluções cooperativas no
+              primeiro ano</h3>
+            <p class="stats-feature__desc">O programa de cooperativas habitacionais da ACIMHA supera as metas do
+              primeiro ano, com parceria confirmada com três câmaras municipais.</p>
           </article>
         </div>
       </div>
@@ -494,7 +483,7 @@
           <div>
             <div class="benefits-list">
               <div class="benefit fade-in">
-                <div class="benefit__icon" aria-hidden="true">📋</div>
+                <div class="benefit__icon" aria-hidden="true"></div>
                 <div>
                   <div class="benefit__title">Acesso à Clínica Jurídica</div>
                   <div class="benefit__text">Consultas gratuitas com advogados especializados em direito habitacional.
@@ -502,7 +491,7 @@
                 </div>
               </div>
               <div class="benefit fade-in">
-                <div class="benefit__icon" aria-hidden="true">📊</div>
+                <div class="benefit__icon" aria-hidden="true"></div>
                 <div>
                   <div class="benefit__title">Relatórios e Dados Exclusivos</div>
                   <div class="benefit__text">Acesso antecipado aos relatórios do Observatório da Habitação e estudos de
@@ -510,7 +499,7 @@
                 </div>
               </div>
               <div class="benefit fade-in">
-                <div class="benefit__icon" aria-hidden="true">🗳️</div>
+                <div class="benefit__icon" aria-hidden="true"></div>
                 <div>
                   <div class="benefit__title">Direito de Voto</div>
                   <div class="benefit__text">Participação com voto nas Assembleias Gerais e eleição dos órgãos sociais.
@@ -518,7 +507,7 @@
                 </div>
               </div>
               <div class="benefit fade-in">
-                <div class="benefit__icon" aria-hidden="true">🌐</div>
+                <div class="benefit__icon" aria-hidden="true"></div>
                 <div>
                   <div class="benefit__title">Rede de Contactos</div>
                   <div class="benefit__text">Acesso à rede de membros, parceiros institucionais e eventos exclusivos da
@@ -526,7 +515,7 @@
                 </div>
               </div>
               <div class="benefit fade-in">
-                <div class="benefit__icon" aria-hidden="true">📣</div>
+                <div class="benefit__icon" aria-hidden="true"></div>
                 <div>
                   <div class="benefit__title">Voz Ativa</div>
                   <div class="benefit__text">A sua opinião conta. Os membros podem propor iniciativas e participar em
@@ -537,7 +526,7 @@
           </div>
 
           <div class="associar-cta-card">
-            <div class="associar-cta-card__icon" aria-hidden="true">📋</div>
+            <p class="hero__badge" style="color:var(--color-accent-pale);margin-bottom:0;">Ficha de inscrição</p>
             <h3 class="associar-cta-card__title">Pronto para aderir?</h3>
             <p class="associar-cta-card__text">Preencha a nossa ficha de inscrição oficial e torne-se membro da
               ACIMHA. O processo é simples e a quota é de apenas 5€.</p>
@@ -561,34 +550,42 @@
             formal.</p>
         </div>
 
-        <div class="participar-grid">
-          <div class="participar-card fade-in">
-            <div class="participar-card__icon" aria-hidden="true">🎤</div>
-            <h3 class="participar-card__title">Testemunhar</h3>
-            <p class="participar-card__text">Partilhe a sua experiência com a crise habitacional. Os seus testemunhos
-              fortalecem a nossa advocacia e humanizam os dados.</p>
-            <a href="#contactos" class="participar-card__cta">Partilhar experiência →</a>
+        <div class="stats-feature">
+          <div class="stats-feature__row fade-in">
+            <div class="stats-feature__num">01</div>
+            <div class="stats-feature__body">
+              <h3 class="participar-card__title">Testemunhar</h3>
+              <p class="stats-feature__desc">Partilhe a sua experiência com a crise habitacional. Os seus testemunhos
+                fortalecem a nossa advocacia e humanizam os dados.</p>
+              <a href="#contactos" class="participar-card__cta">Partilhar experiência →</a>
+            </div>
           </div>
-          <div class="participar-card fade-in">
-            <div class="participar-card__icon" aria-hidden="true">🙋</div>
-            <h3 class="participar-card__title">Voluntariar</h3>
-            <p class="participar-card__text">Junte-se à nossa rede de voluntários. Procuramos juristas, investigadores,
-              comunicadores e organizadores comunitários.</p>
-            <a href="#contactos" class="participar-card__cta">Candidatar-me →</a>
+          <div class="stats-feature__row fade-in">
+            <div class="stats-feature__num">02</div>
+            <div class="stats-feature__body">
+              <h3 class="participar-card__title">Voluntariar</h3>
+              <p class="stats-feature__desc">Junte-se à nossa rede de voluntários. Procuramos juristas, investigadores,
+                comunicadores e organizadores comunitários.</p>
+              <a href="#contactos" class="participar-card__cta">Candidatar-me →</a>
+            </div>
           </div>
-          <div class="participar-card fade-in">
-            <div class="participar-card__icon" aria-hidden="true">💬</div>
-            <h3 class="participar-card__title">Divulgar</h3>
-            <p class="participar-card__text">Partilhe o nosso trabalho nas redes sociais, fale com os seus vizinhos e
-              ajude a crescer o movimento por habitação digna no Algarve.</p>
-            <a href="#contactos" class="participar-card__cta">Seguir nas redes →</a>
+          <div class="stats-feature__row fade-in">
+            <div class="stats-feature__num">03</div>
+            <div class="stats-feature__body">
+              <h3 class="participar-card__title">Divulgar</h3>
+              <p class="stats-feature__desc">Partilhe o nosso trabalho nas redes sociais, fale com os seus vizinhos e
+                ajude a crescer o movimento por habitação digna no Algarve.</p>
+              <a href="#contactos" class="participar-card__cta">Seguir nas redes →</a>
+            </div>
           </div>
-          <div class="participar-card fade-in">
-            <div class="participar-card__icon" aria-hidden="true">💶</div>
-            <h3 class="participar-card__title">Apoiar</h3>
-            <p class="participar-card__text">A ACIMHA é financiada por quotas e doações dos seus membros e
-              simpatizantes. O seu apoio financeiro permite-nos agir com independência.</p>
-            <a href="#associar" class="participar-card__cta">Contribuir →</a>
+          <div class="stats-feature__row fade-in">
+            <div class="stats-feature__num">04</div>
+            <div class="stats-feature__body">
+              <h3 class="participar-card__title">Apoiar</h3>
+              <p class="stats-feature__desc">A ACIMHA é financiada por quotas e doações dos seus membros e
+                simpatizantes. O seu apoio financeiro permite-nos agir com independência.</p>
+              <a href="#associar" class="participar-card__cta">Contribuir →</a>
+            </div>
           </div>
         </div>
       </div>
@@ -649,7 +646,7 @@
           </div>
 
           <div class="contact-cta-card fade-in">
-            <div class="contact-cta-card__icon" aria-hidden="true">✉️</div>
+            <p class="hero__badge" style="color:rgba(255,255,255,.75);margin-bottom:0;">Contacto</p>
             <h3 class="contact-cta-card__title">Envie-nos uma mensagem</h3>
             <p class="contact-cta-card__text">Estamos disponíveis para responder às suas questões, receber sugestões ou
               marcar atendimento. Responderemos em até 2 dias úteis.</p>
@@ -810,7 +807,7 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <img src="assets/images/ACIMHA.png" alt="ACIMHA" style="height:144px;width:auto;margin-bottom:.75rem;">
+          <img src="assets/images/ACIMHA02.png" alt="ACIMHA" style="height:144px;width:auto;margin-bottom:.75rem;">
           <p class="footer__desc">Defendemos o direito à habitação digna para todos os algarvios, com rigor,
             independência e compromisso cívico.</p>
         </div>
