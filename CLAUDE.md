@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-**ACIMHA** (Associação Cívica de Munícipes e Habitação do Algarve) is a Portuguese civic association website advocating for housing rights in the Algarve. It is a **static multi-page site** — no build process, no package manager, no bundler, no backend. `index.html` is the main single-page site; `politica-privacidade.html` and `termos-condicoes.html` are separate standalone legal pages that share the same stylesheet.
+**ACIMHA** (Associação Cívica de Munícipes e Habitação do Algarve) is a Portuguese civic association website. It is a **static multi-page site** — no build process, no bundler, no backend. `index.html` is the main single-page site; `politica-privacidade.html` and `termos-condicoes.html` are separate standalone legal pages that share the same stylesheet.
+
+**ACIMHA is a general civic association, not a single-issue housing group** — this shapes copy across the whole site, so get it right before editing hero/mission/project text. It acts on four axes: Tertúlias (community debates), Queixas de Bairro (neighbourhood-complaint routing), Participação Cívica (mobilizing residents, liaising with municipalities), and Habitação a Custo Reduzido (affordable housing — the most developed axis, with three concrete projects: Clínica de Habitação, Observatório da Habitação, Algarve Cohabita). The hero (`#inicio`), the Missão pillars (`#missao`), and the Projetos section (`#projetos`, split into the housing projects plus an "Outras Frentes de Atuação" block for the other three axes) all need to keep reflecting housing as *prominent but not exclusive*. Don't revert to housing-only framing when touching this copy.
 
 ## Running Locally
 
@@ -13,7 +15,9 @@ python3 -m http.server 8000
 # Visit http://localhost:8000
 ```
 
-Or open `index.html` directly in a browser. No compilation or installation required. There is no lint or test command — verify changes by loading the page and exercising the interactive elements (nav, modals, tabs, forms, Observatory).
+Or open `index.html` directly in a browser. The site itself needs no compilation or install. There is no lint or test command — verify changes by loading the page and exercising the interactive elements (nav, modals, tabs, forms, Observatory).
+
+The one exception is the news fetcher (see below): `npm install` pulls in `fast-xml-parser`, needed only to run `scripts/fetch-noticias.mjs`. Nothing under `node_modules/` is loaded by the browser.
 
 ## Architecture
 
@@ -42,7 +46,7 @@ The site was overhauled to an editorial-magazine visual language (cream/ink/red 
 - `--color-bg` (cream `#F2EFE7`), `--color-primary` (ink, doubles as body text), `--color-accent` (editorial red), `--color-olive`, `--color-hairline`
 - `--font-heading` (Playfair Display), `--font-body` (Source Serif 4, for body copy), `--font-sans` (Source Sans 3, **only** for small uppercase kickers/labels — not body text)
 - `--radius*` are all `0` and `--shadow-*` are all `none` site-wide — the design language has no rounded corners, no drop shadows, and (outside the Observatory's semantic data colors) no decorative gradients. Match this when adding UI rather than reintroducing card/shadow/gradient patterns.
-- Repeated content blocks (crash stats, projects, news, ways to participate) use the shared `.stats-feature` / `.stats-feature__row` numbered-row pattern instead of card grids — reuse it for new list-like content instead of building a new card component.
+- Repeated content blocks (crisis stats, projects, news, ways to participate) use the shared `.stats-feature` / `.stats-feature__row` numbered-row pattern instead of card grids — reuse it for new list-like content instead of building a new card component.
 - Decorative emoji icons were removed in favor of serif numerals or small square accent marks; don't reintroduce emoji as icon substitutes.
 
 ### Page structure (`index.html`, section order top to bottom)
@@ -55,7 +59,11 @@ The site was overhauled to an editorial-magazine visual language (cream/ink/red 
 
 ### `#noticias` is fed by a scheduled GitHub Action, not live at page-load
 
-The site itself has zero runtime dependencies, but `scripts/fetch-noticias.mjs` is a small **build-time** Node script (declared in `package.json`, needs `npm install`) that fetches the Google News RSS feed for "crise habitacional Algarve", parses it with `fast-xml-parser`, and writes the 10 most recent items to `data/noticias.json`. `.github/workflows/atualizar-noticias.yml` runs that script hourly (cron) and on manual dispatch, committing `data/noticias.json` back to the repo when it changes. `js/modules/noticias.js` (`initNoticias`, called from `app.js`) `fetch()`es that JSON file client-side on page load and renders it into `#noticias-list`, reusing the `.news-feature__row` / `.noticia-card__*` / `.project-card__title` classes; it shows a discreet fallback message if the fetch fails or the file doesn't exist yet. To refresh the data locally: `npm install && npm run fetch:noticias`.
+`scripts/fetch-noticias.mjs` is a **build-time** Node script (needs `npm install`, run via `npm run fetch:noticias`) that queries the Google News RSS feed for *several* Algarve-housing topics — not just the crisis — defined in the `QUERIES` array (currently: crise habitacional, habitação social, arrendamento acessível, construção habitação). It merges all results, drops exact link duplicates and near-duplicate titles (Jaccard similarity on normalized words, stripping "| Por Nome Apelido" bylines first so the same article republished with/without a byline still matches), sorts by date, and writes the top 10 to `data/noticias.json` (`{ atualizado_em, queries, noticias: [{titulo, link, fonte, data}] }`). If you add a query, test it standalone first (`curl` the feed URL) — "alojamento local Algarve" was tried and dropped because it returned mostly tourism content, not housing.
+
+`.github/workflows/atualizar-noticias.yml` runs that script hourly (cron) and on manual dispatch, committing `data/noticias.json` back to `main` when it changes. **This means `git push` to `main` can be rejected by a bot commit made minutes earlier** — `git pull --rebase` before pushing; conflicts land in `data/noticias.json` and should normally be resolved by keeping your version (it reflects the current script/query set) rather than the bot's (generated with whatever script version was live an hour ago).
+
+`js/modules/noticias.js` (`initNoticias`, called from `app.js`) `fetch()`es `data/noticias.json` client-side on page load and renders it into `#noticias-list`, reusing the `.news-feature__row` / `.noticia-card__*` / `.project-card__title` classes; it shows a discreet fallback message if the fetch fails or the file doesn't exist yet. It does not read the `queries` field — that's informational only.
 
 ### Observatory modal is static data, not the `estatistica/` backend
 
@@ -65,4 +73,5 @@ The "Observatório da Habitação" modal (`#obs-overlay`, driven by `js/modules/
 
 - Footer legal links "Estatutos", "Relatórios de Atividade", "Livro de Reclamações" and the four social links are still `href="#"`.
 - The "Documentos" tab in Quem Somos links to `estatutos.pdf` and `regulamento.pdf`, which don't exist in the repo yet (left as-is intentionally — real files pending).
-- `#projetos` and `#quem-somos` (Órgãos Sociais) contain real-looking but placeholder content, not yet confirmed official copy. `#noticias` is now live (see above) and pulls real third-party press coverage of the housing crisis, not ACIMHA's own news — there is currently no section for ACIMHA's own press releases/communicados.
+- The three housing projects in `#projetos` (Clínica de Habitação, Observatório da Habitação, Algarve Cohabita) and `#quem-somos` (Órgãos Sociais) contain real-looking but placeholder content, not yet confirmed official copy. The "Outras Frentes de Atuação" block in `#projetos` (Tertúlias, Queixas de Bairro, Participação Cívica) is deliberately *not* styled as formal projects (no "Saber mais" link) since those axes don't have dedicated programs like housing does.
+- `#noticias` is live (see above) and pulls real third-party press coverage of housing in the Algarve generally, not ACIMHA's own news, and not the other three civic axes — there is currently no section for ACIMHA's own press releases/communicados.
