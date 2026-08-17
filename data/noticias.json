@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-08-17T07:42:17.861Z",
+  "atualizado_em": "2026-08-17T08:30:14.432Z",
   "queries": [
     "crise habitacional Algarve",
     "habitação social Algarve",
@@ -7,6 +7,12 @@
     "construção habitação Algarve"
   ],
   "noticias": [
+    {
+      "titulo": "Portugal e Espanha tornaram-se pontos críticos da crise habitacional na UE.",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQdllGLVhQeDRKeE12dlVudEJmTGxPbEVhTXROblVheVRTSHBuSVlNbkhjUTdUZ1lxVUZzVGhxMEQ2YjVLNGpSUFI3SXQ3ZkJTRkx2cV9lSWk2YktvNm42VkZjNkx6STF6a1d5Yk4xd0pPM0RuUnRPM0hUSU5pOEc2dnI2dzU1cm1ERkhlZWhzX3czOHlyQkFj?oc=5",
+      "fonte": "Vietnam.vn",
+      "data": "17 Ago 2026"
+    },
     {
       "titulo": "Fãs fazem fila em Gales para se despedirem de Bonnie Tyler após morte no Algarve",
       "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOcFp0dU9pYW1sZEw3R2RUa2FCMTZEdzdNa1huYXB2M2lZWjdUdUdyVFQ2TDhLU2YtRm4zb0plOGdsd0ZTSXh2V0Z6U0tDWFdMdGVhQzVpZ0V6bEl2ODhMTkJyUVRsN204dURHd2hfMlQyaUV5WEFHZzdtWDhyeG1FQXJDdVBEYWJjQmk2bnZXYWdhUkdNdnJBM2JWQWhPdTNlajItVmZCNXRkOUN2ZW1fRy1NWHp2cjZDcnBOWEFVaE0?oc=5",
@@ -40,7 +46,7 @@
     {
       "titulo": "Monchique é o único concelho do Algarve com rendas abaixo de 1000 euros",
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxObDdaa3luQmsxMXQzWWJQSFFqdkd1SkdueVYxeVoyMXJuNVF2cXpFaGNjbnVMUmVLcnFXNVpvODNQM0ZmSU5ERHBRaUtCUV9vVFQ4ZTZwZjgyRnBnYUMyQ1ZHM0hIX1JkbGRjSXl0TFVhM2pHclE3ZUpSc1pUSjBHUGJhYlV6T2xFQVNQaEdhOE1uUDdMbndvdE9aaERCMElOSGxZb1hKNGRYLV9TeHc?oc=5",
-      "fonte": "Terra Ruiva",
+      "fonte": "terraruiva.pt",
       "data": "31 Jul 2026"
     },
     {
@@ -60,12 +66,6 @@
       "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOc3UzWWpTRGhrTExDNUdxa0hWa0g5M29hTC1oYktDa3EzeWM3Ri00X3E1ZDVqSngxSU1QaFNPa2wwS1IzWkVnam4zUkc3T2phbVVLYWlfZkJNY0t1aHd1WlNGc244UHRUMWRpZDgybk9ESDdXLWQ5cWNsZ1RQY19xVlNKN1V3TmVtYzEtZ2d1Z2xZUFdsYmFqZkVtMlBveEhUMzR5NHNPNzlCZ3V1Z3VFYjlKUGh1cWlJa1RBWER2ZTNUYklY?oc=5",
       "fonte": "RTP",
       "data": "21 Jul 2026"
-    },
-    {
-      "titulo": "Castelo Branco é o município mais barato para arrendar casa em Portugal",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNQU9hclI2LXdRMjdVOFRlU0gzeVlxMk1UdWw5QXJiZWZGQi1jNFQ2SVhMcnppSmtmWkxDVU5pMEtMWmduWUpMOWN1T09BczUzOGUxRkVyZUpvckdOWDdoU29OOUR4WUNSVy1ZRWJSMFpwNVROVFNLcmIza2hCQW96d2p3RGZwTXE5czE4aTg4YzU3MUpwWll0OG1Fd1lITnBhZ29Ca2QtM0pqbzg0YU1Cdm1XWnJCTWhWLXBz?oc=5",
-      "fonte": "SAPO",
-      "data": "16 Jul 2026"
     }
   ]
 }
