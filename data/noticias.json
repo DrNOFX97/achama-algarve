@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-08-19T17:17:32.834Z",
+  "atualizado_em": "2026-08-19T18:17:49.574Z",
   "queries": [
     "crise habitacional Algarve",
     "habitação social Algarve",
@@ -7,6 +7,12 @@
     "construção habitação Algarve"
   ],
   "noticias": [
+    {
+      "titulo": "Portugal enfrenta alta recorde nos aluguéis e anuncia pacote para conter crise habitacional",
+      "link": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPT28yRjFEZkQ1N09LajNBRDJxU1dyWVQxZGszTlZ3NFdJNVBSb1V2RGZGQnNjZ1V5S0xsU0xScFVUd2d0RGRtdjFmakN6REs2MlRWU3JtQldJcUNRM2daYXRtUFB1UjIyRFdvaFdGMG1kTUpzaVhZd3RnSDZ5NFB4QkNobXVMVFM3MEh6ZWNGTGN6WTdNTE9mN2RVd2VHUU14dmdJdm01eTdadWZQSjA4OVFQdkNSY3lKWUVRWWlleEpFeTMzc1A2b0d0Q1FjMktaRVR0MXpvX0hHOVQzTTV4LTFHdWhVbE5WUVdzOEU1R1JaZzJZZGFlMXRoTDcxWkIwdEsyeXc1cGoySHhRVUtaM3ln?oc=5",
+      "fonte": "Terra",
+      "data": "19 Ago 2026"
+    },
     {
       "titulo": "Idealista | Famílias gastam 82% do salário na renda e 76% na compra de casa",
       "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQS0ZfZkg4OXkzSjZQMzZLMm83Y0VYY2JZQW1mcjFTRkQ2UEs4blhIWmpZbjFPUlI0eXExMk5qWXVVOUx3NzZ1bFJhWFBxbVdhbGwyRElSNHVKeG1vRHI3NWwxV2lrZjdlQXJkd2RpOGFvTHd5QS01bzBHSmVhakNmR2NMZXZFM3FrSGY0V1hnZndkbDNMbk9fUDdneXBkdFp0TkM2cTFHci0wUQ?oc=5",
@@ -44,12 +50,6 @@
       "data": "17 Ago 2026"
     },
     {
-      "titulo": "Construir em terrenos rurais não resolverá a crise habitacional – dizem especialistas",
-      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQczVqNXdwUUthN3NPUFFZaHUyandpdnRnTDRJS0swZFJleFQzcFRlWlctc3djWmlJVW1rVlEzTDFxZlVFcDNrWm9oRVBWUTJ0b0NBUlVaN0ZRaDVhUWZINmYtSVR6NnBlNUxMRGhfenNsQWRrU2pRbTVqTGdNN29HQUhaTlg2YmJCTlBkUzJjZjAzZmdQQmRCUGw4cTdMdmNzNDBlaVFqdGtoZlN3Wll3amZSeEt5blhfSC1fVnlOU01jeDVIeG4xV1hZQ0RRTms?oc=5",
-      "fonte": "Portugal Resident",
-      "data": "16 Ago 2026"
-    },
-    {
       "titulo": "Imovirtual | Moradias para venda representam apenas 7,3% da construção nova em Portugal",
       "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPb0FTNGROczJ5N3FIRV90aGVNRFZBZWRJa1hZdVJYdkFXLWJRenF4WTVQSlo0NHhqbzZSTHI4Zm9EWVNYZVcwbEJVUFdTbkNvTlVGQTdMUW1ISVVQcUFHM2MzTWx4bDBlTGpjS19zTFpSckd5dXJ5c1ZxNWxKVGpCQTI2VnpaRTZlXzBENWw5T0NjQXVHdVBvMVV4MDN5am9lTG05M0o2NGN5cDlYQTdYRDFMUlFNQUFPRmc?oc=5",
       "fonte": "Mais Algarve",
@@ -64,7 +64,7 @@
     {
       "titulo": "Empreiteiro de Luís Neves fez obras na casa do diretor financeiro da PJ",
       "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxNTl9nOWVDTFE3ZTdSaTFMZ29MT2Y0LWx3SXU2cVVlbEVXOWdOQ294SlBrc0JPem9CLUFPX3pNc21rUmpuNXNvSDJxX1RnUXRSbGZHU3ZWZERfRzNEWHh5WFAyT0psdThDTHdvOGNOVVhTenMtRm80c2IxcTNhY0Vaall2SDZTc3RLVHR2dUt4aDlIUTRCOHk1ZHU1ZDNOMTUtZFZfZnVmSWRnODNHMFE4REtlMXVLX2NoSnEtM3ltcjNYa1Y0U25oMmNZVmpxNDVDbVdOOF9udU5BSjFSaktoaElmd2RHdDl2TTZhUW4xZDZsZkRBQU5NMl80WDVlTXBpX3NMbF82c0F4N3M?oc=5",
-      "fonte": "CNN Portugal",
+      "fonte": "cnnportugal.iol.pt",
       "data": "06 Ago 2026"
     }
   ]
