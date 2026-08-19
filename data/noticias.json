@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-08-19T04:25:45.673Z",
+  "atualizado_em": "2026-08-19T05:19:45.756Z",
   "queries": [
     "crise habitacional Algarve",
     "habitação social Algarve",
@@ -7,6 +7,12 @@
     "construção habitação Algarve"
   ],
   "noticias": [
+    {
+      "titulo": "O jornal britânico The Telegraph classifica o Algarve como um \"mercado imobiliário acessível\".",
+      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOMXJaOEZJNjFCQ1RaNjR2NUpkZEJzMElyUEpjcWhKR1NKTkstQ1pWc0FFeXJBUDlyS090MlFJSER6c2hvQl9Lc3U2aXBvX2pUOUxzUjdxSDF6eENuRXdMNlZseDNfVENlWkZaMGxvZm15akMzSVAzTTZWUE9hLVpGWWhNTzJhc1QwLWFDdXBKdC1UNjdTN2tPcVlTOFZ3X05uR081MC0teWJSRnR3VmlHRFB3VzJwZ19XM2FpOWdud2dRUEg4NklNSm83SzBaT2VhcVE?oc=5",
+      "fonte": "Portugal Resident",
+      "data": "18 Ago 2026"
+    },
     {
       "titulo": "Famílias do Algarve não conseguem pagar por habitação acessível",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOaEVVMjlUbXplN01ldGpuV1BCWTFVZzdLeUVnaElwT3M4MHo4XzZfTjAzMmktc0p1Z1hMQzd6X1h1UFJubkFkdTRmNF9nRVVCeE8wTGxaMGhSYksxYmN5QTd5MUlhZlUweFAtTmtXZXFXZjl0S1dBWlpaZHQ3YnZmdnpxSkJXX243dmlwSndob091VjhQVDEtT2h3bzRIeVJSYXQ5SEJFMXZHV2dudnNRVXJBelVuU1U?oc=5",
@@ -60,12 +66,6 @@
       "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPVWQ3UVJIOTJZZ0VaLUJ4akwxWXowaF9YaVZqbmJ0cHVTYlBuS2w3a1p2b0RJa1prektTUGZVc2dRQTQ4WkhBcENINkNJeGdlZm9tSWVwUjVyYm5nVy1jNkgwdkxablJKNXhzVWU5SnNYRVJ6TGMzZVRvR0w5TVNHcjVoY2tXUXFZT2VVb3Y0Z19SaE05OWxTQkdJcVFTYW4waTR0MXdKRlpyTFllcjIySFFKaEdUQldsaGJMcVRjU0pMYnBha1IwbUZ3ZGZ2ejU5?oc=5",
       "fonte": "Algarve Marafado",
       "data": "28 Jul 2026"
-    },
-    {
-      "titulo": "Arrendar casa: municípios do interior destacam-se no top50 da procura",
-      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNU0FvdHh1YTY0SGdHbnp1RU0wZlJLelNUZnFnZ2RCRFk1Q2hrNWlwMDQtM0Flb09VcUNZZEVYQWVYZDJCSWE5elhTSTdWWnBaSDZjak9lMXZTbmZucWQ4N2tZRFFxVXA0dnNnN3U0TG5JN25wbUczazVTQXRSNVlfOXN0QVVpU1BrMl95al94MjdKSzlBaGo5M25Xd2ZzVTlXel9CTXhWOHlpV3VMX1Mwd2dMZEJvQjZpb0F6TmllWnFpTkFCckk0V1RjSGxYM3ZHcVRz0gHYAUFVX3lxTFBxQkdEaFZUUTVtV09CNHdJcVBjNTBaS3VlTG5JQUxGV2pib2NuMUc3YTU3Qm9UZ3VRTVAwTUtNZmlFSm9zNFZlaW80SkNFNWNTTnFDTXdSMGR5QWN1eUVTZGFkQWJDdW9BZlAycVJ1SUtGSkpzSUpmcmtkY0NhX2pzYnMtYThZdklSQXFLYmFWMkxoLWpoZGpFR1JfUlI3aGlIRnFGWndWSDhtMlVSbjdjUi1UWjFqek1HZmlUVjYtZlhaWUYtVENnSUlUbk91M0Nud0tteWpTMA?oc=5",
-      "fonte": "Idealista",
-      "data": "24 Jul 2026"
     }
   ]
 }
