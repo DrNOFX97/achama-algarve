@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-08-19T08:22:48.888Z",
+  "atualizado_em": "2026-08-19T09:21:57.182Z",
   "queries": [
     "crise habitacional Algarve",
     "habitação social Algarve",
@@ -7,6 +7,12 @@
     "construção habitação Algarve"
   ],
   "noticias": [
+    {
+      "titulo": "Idealista | Famílias gastam 82% do salário na renda e 76% na compra de casa",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQS0ZfZkg4OXkzSjZQMzZLMm83Y0VYY2JZQW1mcjFTRkQ2UEs4blhIWmpZbjFPUlI0eXExMk5qWXVVOUx3NzZ1bFJhWFBxbVdhbGwyRElSNHVKeG1vRHI3NWwxV2lrZjdlQXJkd2RpOGFvTHd5QS01bzBHSmVhakNmR2NMZXZFM3FrSGY0V1hnZndkbDNMbk9fUDdneXBkdFp0TkM2cTFHci0wUQ?oc=5",
+      "fonte": "maisalgarve.pt",
+      "data": "19 Ago 2026"
+    },
     {
       "titulo": "O jornal britânico The Telegraph classifica o Algarve como um \"mercado imobiliário acessível\".",
       "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOMXJaOEZJNjFCQ1RaNjR2NUpkZEJzMElyUEpjcWhKR1NKTkstQ1pWc0FFeXJBUDlyS090MlFJSER6c2hvQl9Lc3U2aXBvX2pUOUxzUjdxSDF6eENuRXdMNlZseDNfVENlWkZaMGxvZm15akMzSVAzTTZWUE9hLVpGWWhNTzJhc1QwLWFDdXBKdC1UNjdTN2tPcVlTOFZ3X05uR081MC0teWJSRnR3VmlHRFB3VzJwZ19XM2FpOWdud2dRUEg4NklNSm83SzBaT2VhcVE?oc=5",
@@ -40,7 +46,7 @@
     {
       "titulo": "Imovirtual | Moradias para venda representam apenas 7,3% da construção nova em Portugal",
       "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPb0FTNGROczJ5N3FIRV90aGVNRFZBZWRJa1hZdVJYdkFXLWJRenF4WTVQSlo0NHhqbzZSTHI4Zm9EWVNYZVcwbEJVUFdTbkNvTlVGQTdMUW1ISVVQcUFHM2MzTWx4bDBlTGpjS19zTFpSckd5dXJ5c1ZxNWxKVGpCQTI2VnpaRTZlXzBENWw5T0NjQXVHdVBvMVV4MDN5am9lTG05M0o2NGN5cDlYQTdYRDFMUlFNQUFPRmc?oc=5",
-      "fonte": "Mais Algarve",
+      "fonte": "maisalgarve.pt",
       "data": "13 Ago 2026"
     },
     {
@@ -60,12 +66,6 @@
       "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPYnlWVi1NX21SOWR3ZTJxUEtKYkl1Y2RqSGh6MDNpcjc2ZGUtam1sd21JT2Y4c2RQQ0phMlNEVUhlMVh5bldSRWhwM3dseFZnZG9Yb21PR2tVTUZnZmFPU202ek5RQXNuUlJaVG1QeHNpb3h0THhTUmlCVkIyUFpzWkhPMzNQalVaZmJOM1hUeS02RDVuUWI0WFhucDE3ZGNodVRnZnhWd3JFeW0yWFB0MzdHeFhvT0tkS21ILXZuUnVBQzNNOFg4d3pR?oc=5",
       "fonte": "Euronews",
       "data": "03 Ago 2026"
-    },
-    {
-      "titulo": "Monchique é o único concelho do Algarve com rendas abaixo de 1000 euros",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxObDdaa3luQmsxMXQzWWJQSFFqdkd1SkdueVYxeVoyMXJuNVF2cXpFaGNjbnVMUmVLcnFXNVpvODNQM0ZmSU5ERHBRaUtCUV9vVFQ4ZTZwZjgyRnBnYUMyQ1ZHM0hIX1JkbGRjSXl0TFVhM2pHclE3ZUpSc1pUSjBHUGJhYlV6T2xFQVNQaEdhOE1uUDdMbndvdE9aaERCMElOSGxZb1hKNGRYLV9TeHc?oc=5",
-      "fonte": "Terra Ruiva",
-      "data": "31 Jul 2026"
     }
   ]
 }
