@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-08-19T00:35:21.025Z",
+  "atualizado_em": "2026-08-19T02:11:32.301Z",
   "queries": [
     "crise habitacional Algarve",
     "habitação social Algarve",
@@ -8,15 +8,9 @@
   ],
   "noticias": [
     {
-      "titulo": "O jornal britânico The Telegraph classifica o Algarve como um \"mercado imobiliário acessível\".",
-      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOMXJaOEZJNjFCQ1RaNjR2NUpkZEJzMElyUEpjcWhKR1NKTkstQ1pWc0FFeXJBUDlyS090MlFJSER6c2hvQl9Lc3U2aXBvX2pUOUxzUjdxSDF6eENuRXdMNlZseDNfVENlWkZaMGxvZm15akMzSVAzTTZWUE9hLVpGWWhNTzJhc1QwLWFDdXBKdC1UNjdTN2tPcVlTOFZ3X05uR081MC0teWJSRnR3VmlHRFB3VzJwZ19XM2FpOWdud2dRUEg4NklNSm83SzBaT2VhcVE?oc=5",
-      "fonte": "portugalresident.com",
-      "data": "18 Ago 2026"
-    },
-    {
       "titulo": "Famílias do Algarve não conseguem pagar por habitação acessível",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOaEVVMjlUbXplN01ldGpuV1BCWTFVZzdLeUVnaElwT3M4MHo4XzZfTjAzMmktc0p1Z1hMQzd6X1h1UFJubkFkdTRmNF9nRVVCeE8wTGxaMGhSYksxYmN5QTd5MUlhZlUweFAtTmtXZXFXZjl0S1dBWlpaZHQ3YnZmdnpxSkJXX243dmlwSndob091VjhQVDEtT2h3bzRIeVJSYXQ5SEJFMXZHV2dudnNRVXJBelVuU1U?oc=5",
-      "fonte": "portugalresident.com",
+      "fonte": "Portugal Resident",
       "data": "17 Ago 2026"
     },
     {
@@ -32,12 +26,6 @@
       "data": "17 Ago 2026"
     },
     {
-      "titulo": "Construir em terrenos rurais não resolverá a crise habitacional – dizem especialistas",
-      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQczVqNXdwUUthN3NPUFFZaHUyandpdnRnTDRJS0swZFJleFQzcFRlWlctc3djWmlJVW1rVlEzTDFxZlVFcDNrWm9oRVBWUTJ0b0NBUlVaN0ZRaDVhUWZINmYtSVR6NnBlNUxMRGhfenNsQWRrU2pRbTVqTGdNN29HQUhaTlg2YmJCTlBkUzJjZjAzZmdQQmRCUGw4cTdMdmNzNDBlaVFqdGtoZlN3Wll3amZSeEt5blhfSC1fVnlOU01jeDVIeG4xV1hZQ0RRTms?oc=5",
-      "fonte": "portugalresident.com",
-      "data": "16 Ago 2026"
-    },
-    {
       "titulo": "Imovirtual | Moradias para venda representam apenas 7,3% da construção nova em Portugal",
       "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPb0FTNGROczJ5N3FIRV90aGVNRFZBZWRJa1hZdVJYdkFXLWJRenF4WTVQSlo0NHhqbzZSTHI4Zm9EWVNYZVcwbEJVUFdTbkNvTlVGQTdMUW1ISVVQcUFHM2MzTWx4bDBlTGpjS19zTFpSckd5dXJ5c1ZxNWxKVGpCQTI2VnpaRTZlXzBENWw5T0NjQXVHdVBvMVV4MDN5am9lTG05M0o2NGN5cDlYQTdYRDFMUlFNQUFPRmc?oc=5",
       "fonte": "Mais Algarve",
@@ -46,7 +34,7 @@
     {
       "titulo": "Cidade do Algarve vai construir 204 habitações",
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMmZBTHZtYVZVcFdCRWNjRHNqTlZDUF8zWVhuVHo0Mk9vUEVpZFJtNml0YXBVbUVyWXNGWElsVmhoWTBYQVFLTTdqYlM2QS1pazR3MEFrWkc3RDF1aHB1U2RqNnZpVGJDSTRIRjZza3hQZElPbHJMYll1eHprUFZ4SVVITGdCNWlqa1Z0eTh6LTFldnotSGZOei1Xa0NIZzJiRG0xQWVnNmpmRTlJZWc?oc=5",
-      "fonte": "theportugalnews.com",
+      "fonte": "The Portugal News",
       "data": "07 Ago 2026"
     },
     {
@@ -58,14 +46,26 @@
     {
       "titulo": "Monchique é o único concelho do Algarve com rendas abaixo de 1000 euros",
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxObDdaa3luQmsxMXQzWWJQSFFqdkd1SkdueVYxeVoyMXJuNVF2cXpFaGNjbnVMUmVLcnFXNVpvODNQM0ZmSU5ERHBRaUtCUV9vVFQ4ZTZwZjgyRnBnYUMyQ1ZHM0hIX1JkbGRjSXl0TFVhM2pHclE3ZUpSc1pUSjBHUGJhYlV6T2xFQVNQaEdhOE1uUDdMbndvdE9aaERCMElOSGxZb1hKNGRYLV9TeHc?oc=5",
-      "fonte": "Terra Ruiva",
+      "fonte": "terraruiva.pt",
       "data": "31 Jul 2026"
     },
     {
       "titulo": "Loulé entrega 117 novas casas e avança com plano ambicioso para travar a crise da habitação",
       "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPVWQ3UVJIOTJZZ0VaLUJ4akwxWXowaF9YaVZqbmJ0cHVTYlBuS2w3a1p2b0RJa1prektTUGZVc2dRQTQ4WkhBcENINkNJeGdlZm9tSWVwUjVyYm5nVy1jNkgwdkxablJKNXhzVWU5SnNYRVJ6TGMzZVRvR0w5TVNHcjVoY2tXUXFZT2VVb3Y0Z19SaE05OWxTQkdJcVFTYW4waTR0MXdKRlpyTFllcjIySFFKaEdUQldsaGJMcVRjU0pMYnBha1IwbUZ3ZGZ2ejU5?oc=5",
-      "fonte": "algarvemarafado.com",
+      "fonte": "Algarve Marafado",
       "data": "28 Jul 2026"
+    },
+    {
+      "titulo": "Arrendar casa: municípios do interior destacam-se no top50 da procura",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNU0FvdHh1YTY0SGdHbnp1RU0wZlJLelNUZnFnZ2RCRFk1Q2hrNWlwMDQtM0Flb09VcUNZZEVYQWVYZDJCSWE5elhTSTdWWnBaSDZjak9lMXZTbmZucWQ4N2tZRFFxVXA0dnNnN3U0TG5JN25wbUczazVTQXRSNVlfOXN0QVVpU1BrMl95al94MjdKSzlBaGo5M25Xd2ZzVTlXel9CTXhWOHlpV3VMX1Mwd2dMZEJvQjZpb0F6TmllWnFpTkFCckk0V1RjSGxYM3ZHcVRz0gHYAUFVX3lxTFBxQkdEaFZUUTVtV09CNHdJcVBjNTBaS3VlTG5JQUxGV2pib2NuMUc3YTU3Qm9UZ3VRTVAwTUtNZmlFSm9zNFZlaW80SkNFNWNTTnFDTXdSMGR5QWN1eUVTZGFkQWJDdW9BZlAycVJ1SUtGSkpzSUpmcmtkY0NhX2pzYnMtYThZdklSQXFLYmFWMkxoLWpoZGpFR1JfUlI3aGlIRnFGWndWSDhtMlVSbjdjUi1UWjFqek1HZmlUVjYtZlhaWUYtVENnSUlUbk91M0Nud0tteWpTMA?oc=5",
+      "fonte": "Idealista",
+      "data": "24 Jul 2026"
+    },
+    {
+      "titulo": "Primeiros 56 moradores da Quinta das Bicas em Coimbra recebem chaves das novas casas",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOc3UzWWpTRGhrTExDNUdxa0hWa0g5M29hTC1oYktDa3EzeWM3Ri00X3E1ZDVqSngxSU1QaFNPa2wwS1IzWkVnam4zUkc3T2phbVVLYWlfZkJNY0t1aHd1WlNGc244UHRUMWRpZDgybk9ESDdXLWQ5cWNsZ1RQY19xVlNKN1V3TmVtYzEtZ2d1Z2xZUFdsYmFqZkVtMlBveEhUMzR5NHNPNzlCZ3V1Z3VFYjlKUGh1cWlJa1RBWER2ZTNUYklY?oc=5",
+      "fonte": "RTP",
+      "data": "21 Jul 2026"
     }
   ]
 }
