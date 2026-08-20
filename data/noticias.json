@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-08-20T09:22:45.222Z",
+  "atualizado_em": "2026-08-20T10:19:06.523Z",
   "queries": [
     "crise habitacional Algarve",
     "habitação social Algarve",
@@ -7,6 +7,12 @@
     "construção habitação Algarve"
   ],
   "noticias": [
+    {
+      "titulo": "Aluguéis em Portugal sobem 65% em cinco anos e pressionam famílias",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPMWI5VVBaZC1vTXpLSF9mREtUNXl4Q0trRll5cTlXMHpIckdZSkhsakkyeEJfVUx3V3dfWjdEUkpFRVNKdzJGZkxOSVdXTlRWbFVQMktSNmRUZzFwTWxtV3g4S2ZTN21wOHIxNHdFV3ZrVWhLaF9iUnRGcDg2UGVndUdEcWxKUTFKdWZkdWZITmotaktkY3Z5OE1EZ1FPcTh5cTlUckN6OXJ2U3hsYTNXdFJ1czQxUdIBvgFBVV95cUxNc2dqcy11ZENLM3NXY3hrUng4Vk1MVXJkSVRMNFpESVlKM2lPUkk1OUIzdHNGaVpnRTlFUl92bU5QeGt3dTlPemduNmhBM0VCSmd0RmdTeTFpYjF0QjdlOUdZUGtjbGY1TUxyOGg4S2pFcGVOS3g1eDFUd2tib2s0MGNPa1owY0p3cUVWRm0zVW4xb3dYcDdiOWJXM2hKdnJtRU94b283dnNFNzlvZ0hRY3JQcEdDNXlXdVVWUGhn?oc=5",
+      "fonte": "DOL",
+      "data": "19 Ago 2026"
+    },
     {
       "titulo": "Linha Direta - Portugal enfrenta alta recorde nos aluguéis e discute pacote para conter crise habitacional",
       "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNVzVockdhazI4RkQzZjhHOUZpVGVGRF9QZVloTjd4bmFPeHRXQXpEb1RIS0Q2UUhiYzRlWV9zeXc3SWk1NU9VLUNGcW5mNUlYM1NFa2NhQkRXVjFIZG1SdmZDeDYzMm9KN1FFN2RNcGhmSjJSWDlWX3lwMWFhSklOczVQeHdpYUNLV0ZhbmtQLTRjc2hpbnc0U1NJOUg2TDJMN2tuRUxpLW5YdlRVZmEtUDJpZFlUYjlFZm9tVldZVS1SVkE0MFZoaUI2RVcyV3B0Z1piSzRfbHJUUkZ3eENHUkZoOA?oc=5",
@@ -46,7 +52,7 @@
     {
       "titulo": "Portugal e Espanha tornaram-se pontos críticos da crise habitacional na UE.",
       "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQdllGLVhQeDRKeE12dlVudEJmTGxPbEVhTXROblVheVRTSHBuSVlNbkhjUTdUZ1lxVUZzVGhxMEQ2YjVLNGpSUFI3SXQ3ZkJTRkx2cV9lSWk2YktvNm42VkZjNkx6STF6a1d5Yk4xd0pPM0RuUnRPM0hUSU5pOEc2dnI2dzU1cm1ERkhlZWhzX3czOHlyQkFj?oc=5",
-      "fonte": "vietnam.vn",
+      "fonte": "Vietnam.vn",
       "data": "17 Ago 2026"
     },
     {
@@ -60,12 +66,6 @@
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMmZBTHZtYVZVcFdCRWNjRHNqTlZDUF8zWVhuVHo0Mk9vUEVpZFJtNml0YXBVbUVyWXNGWElsVmhoWTBYQVFLTTdqYlM2QS1pazR3MEFrWkc3RDF1aHB1U2RqNnZpVGJDSTRIRjZza3hQZElPbHJMYll1eHprUFZ4SVVITGdCNWlqa1Z0eTh6LTFldnotSGZOei1Xa0NIZzJiRG0xQWVnNmpmRTlJZWc?oc=5",
       "fonte": "The Portugal News",
       "data": "07 Ago 2026"
-    },
-    {
-      "titulo": "Empreiteiro de Luís Neves fez obras na casa do diretor financeiro da PJ",
-      "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxNTl9nOWVDTFE3ZTdSaTFMZ29MT2Y0LWx3SXU2cVVlbEVXOWdOQ294SlBrc0JPem9CLUFPX3pNc21rUmpuNXNvSDJxX1RnUXRSbGZHU3ZWZERfRzNEWHh5WFAyT0psdThDTHdvOGNOVVhTenMtRm80c2IxcTNhY0Vaall2SDZTc3RLVHR2dUt4aDlIUTRCOHk1ZHU1ZDNOMTUtZFZfZnVmSWRnODNHMFE4REtlMXVLX2NoSnEtM3ltcjNYa1Y0U25oMmNZVmpxNDVDbVdOOF9udU5BSjFSaktoaElmd2RHdDl2TTZhUW4xZDZsZkRBQU5NMl80WDVlTXBpX3NMbF82c0F4N3M?oc=5",
-      "fonte": "CNN Portugal",
-      "data": "06 Ago 2026"
     }
   ]
 }
