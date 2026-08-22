@@ -7,7 +7,7 @@
 // horário + manual). Uso local: `npm run fetch:noticias`.
 
 import { XMLParser } from 'fast-xml-parser';
-import { writeFile, mkdir } from 'node:fs/promises';
+import { writeFile, readFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -21,6 +21,12 @@ const QUERIES = [
 ];
 const MAX_ITEMS = 10;
 const TITLE_SIMILARITY_THRESHOLD = 0.75;
+
+// O Google News RSS por vezes devolve 503/502/429 de forma transitória.
+// Repetimos com backoff exponencial (1s, 2s) antes de desistir dessa query.
+const MAX_ATTEMPTS = 3;
+const RETRY_BASE_DELAY_MS = 1000;
+const RETRYABLE_STATUS = new Set([429, 502, 503, 504]);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = path.join(__dirname, '..', 'data', 'noticias.json');
@@ -58,12 +64,18 @@ function splitTituloFonte(title, sourceFromXml) {
     return { titulo: title.slice(0, idx).trim(), fonte: title.slice(idx + 3).trim() };
 }
 
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function fetchQuery(query) {
     const res = await fetch(feedUrl(query), {
         headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ACIMHA-noticias-bot/1.0)' },
     });
     if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
+        const err = new Error(`HTTP ${res.status}`);
+        err.status = res.status;
+        throw err;
     }
     const xml = await res.text();
     const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '@_' });
@@ -89,6 +101,26 @@ async function fetchQuery(query) {
             };
         })
         .filter((n) => n.titulo && n.link);
+}
+
+// Repete em erros transitórios (503/502/429 ou falha de rede — sem `status`,
+// tipicamente DNS/timeout). Erros HTTP permanentes (404, 400, ...) não são
+// repetidos, pois tentar de novo não vai mudar o resultado.
+async function fetchQueryWithRetry(query) {
+    let lastError;
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
+        try {
+            return await fetchQuery(query);
+        } catch (err) {
+            lastError = err;
+            const retryable = err.status === undefined || RETRYABLE_STATUS.has(err.status);
+            if (!retryable || attempt === MAX_ATTEMPTS) throw err;
+            const delay = RETRY_BASE_DELAY_MS * 2 ** (attempt - 1);
+            console.warn(`[fetch-noticias] "${query}": tentativa ${attempt}/${MAX_ATTEMPTS} falhou (${err.message}) — nova tentativa em ${delay}ms`);
+            await sleep(delay);
+        }
+    }
+    throw lastError;
 }
 
 // Alguns títulos trazem uma assinatura tipo "| Por Nome Apelido" no fim,
@@ -138,8 +170,26 @@ function dedupe(items) {
     return kept;
 }
 
+// Lê o data/noticias.json existente, se houver. Devolve null se o ficheiro
+// ainda não existir (primeira execução) — qualquer outro erro (permissões,
+// JSON corrompido) é um problema real do projeto e deve propagar-se.
+async function readExisting() {
+    let raw;
+    try {
+        raw = await readFile(OUTPUT_PATH, 'utf-8');
+    } catch (err) {
+        if (err.code === 'ENOENT') return null;
+        throw err;
+    }
+    return JSON.parse(raw);
+}
+
+function noticiasEqual(a, b) {
+    return JSON.stringify(a) === JSON.stringify(b);
+}
+
 async function main() {
-    const results = await Promise.allSettled(QUERIES.map(fetchQuery));
+    const results = await Promise.allSettled(QUERIES.map(fetchQueryWithRetry));
 
     const merged = [];
     results.forEach((result, i) => {
@@ -151,8 +201,13 @@ async function main() {
         }
     });
 
+    // Nenhum item em lado nenhum normalmente significa que o Google News
+    // está temporariamente indisponível (503/502/429 persistentes), não um
+    // erro do projeto. Não é fatal: preservamos data/noticias.json tal como
+    // está e terminamos com sucesso — a próxima execução horária tenta de novo.
     if (merged.length === 0) {
-        throw new Error('Nenhuma das queries devolveu itens — a não gravar data/noticias.json.');
+        console.warn('[fetch-noticias] Nenhuma query devolveu notícias (fonte externa indisponível ou sem resultados neste momento). Atualização adiada — data/noticias.json mantido sem alterações.');
+        return;
     }
 
     const deduped = dedupe(merged);
@@ -162,7 +217,14 @@ async function main() {
         .map(({ _pubDateMs, ...rest }) => rest);
 
     if (noticias.length === 0) {
-        throw new Error('Nenhum item válido após o processamento — a não gravar data/noticias.json.');
+        console.warn('[fetch-noticias] Itens obtidos mas nenhum válido após processamento. Atualização adiada — data/noticias.json mantido sem alterações.');
+        return;
+    }
+
+    const existing = await readExisting();
+    if (existing && noticiasEqual(existing.noticias, noticias)) {
+        console.log('[fetch-noticias] Notícias sem alterações face ao ficheiro existente — a não reescrever data/noticias.json.');
+        return;
     }
 
     const output = {
