@@ -106,3 +106,48 @@ select.form__control:focus {
 .form__fields.is-hidden {
     display: none;
 }
+
+/* ── Alerta dinâmico (erro de envio) ─────────────────────────────────────── */
+.form__alert {
+    margin-top: 1rem;
+    padding: .75rem 1rem;
+    font-family: var(--font-sans);
+    font-size: .875rem;
+    line-height: 1.5;
+    border-left: 3px solid;
+    display: none;
+}
+
+.form__alert--error {
+    color: var(--color-error);
+    border-color: var(--color-error);
+    background-color: rgba(220, 38, 38, .05);
+}
+
+.form__alert--success {
+    color: var(--color-success);
+    border-color: var(--color-success);
+    background-color: rgba(22, 163, 74, .05);
+}
+
+.form__alert[style*="display: block"],
+.form__alert.is-visible {
+    display: block;
+}
+
+/* ── Estado de sucesso com transição ─────────────────────────────────────── */
+.form__success {
+    display: none;
+    text-align: center;
+    padding: 2rem 1rem;
+    animation: fadeInUp .3s ease forwards;
+}
+
+.form__success.is-visible {
+    display: block;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

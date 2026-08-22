@@ -37,17 +37,63 @@ export function handleFormSubmit(formEl, fieldsEl, successEl) {
         });
 
         if (valid) {
+            const submitBtn = formEl.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
+            
+            // Gerar ou obter elemento de erro dinâmico
+            let errorMsgEl = formEl.querySelector('.form__alert--error');
+            if (!errorMsgEl) {
+                errorMsgEl = document.createElement('div');
+                errorMsgEl.className = 'form__alert form__alert--error';
+                errorMsgEl.setAttribute('role', 'alert');
+                errorMsgEl.setAttribute('aria-live', 'polite');
+                errorMsgEl.setAttribute('tabindex', '-1');
+
+                const submitRow = formEl.querySelector('.ins-submit-row, .contact-modal__submit-row') || submitBtn;
+                if (submitRow) {
+                    submitRow.parentNode.insertBefore(errorMsgEl, submitRow);
+                } else {
+                    formEl.appendChild(errorMsgEl);
+                }
+            }
+
+            // Ocultar erros anteriores
+            errorMsgEl.style.display = 'none';
+            errorMsgEl.textContent = '';
+
+            // Desativar botão e mostrar estado de loading
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'A submeter...';
+            }
+
             var formData = new FormData(formEl);
             fetch('/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams(formData).toString()
-            }).catch(function () {
-                // submit best-effort; show success regardless
-            }).finally(function () {
+            })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('HTTP error ' + response.status);
+                }
+                // Sucesso
                 fieldsEl.classList.add('is-hidden');
                 successEl.classList.add('is-visible');
                 successEl.focus();
+            })
+            .catch(function (error) {
+                // Erro
+                errorMsgEl.textContent = 'Lamentamos, mas ocorreu um erro ao submeter o formulário. Por favor, verifique a sua ligação e tente novamente.';
+                errorMsgEl.style.display = 'block';
+                errorMsgEl.focus();
+            })
+            .finally(function () {
+                // Restaurar estado do botão
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }
             });
         }
     });

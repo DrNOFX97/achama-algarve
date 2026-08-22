@@ -11,16 +11,48 @@ export function initNavScroll(nav) {
     }, { passive: true });
 }
 
+export function setupFocusTrap(modalEl) {
+    modalEl.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab') return;
+
+        const focusableElements = Array.from(modalEl.querySelectorAll(
+            'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"], [contenteditable]'
+        )).filter(function (el) {
+            return el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0;
+        });
+
+        if (focusableElements.length === 0) return;
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) { // Shift + Tab
+            if (document.activeElement === firstElement) {
+                lastElement.focus();
+                e.preventDefault();
+            }
+        } else { // Tab
+            if (document.activeElement === lastElement) {
+                firstElement.focus();
+                e.preventDefault();
+            }
+        }
+    });
+}
+
 export function initMobileMenu(hamburger, mobileMenu, menuClose) {
     function openMenu() {
         mobileMenu.classList.add('nav__menu--open');
         hamburger.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
+        menuClose.focus();
     }
     function closeMenu() {
-        mobileMenu.classList.remove('nav__menu--open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        if (mobileMenu.classList.contains('nav__menu--open')) {
+            mobileMenu.classList.remove('nav__menu--open');
+            hamburger.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            hamburger.focus();
+        }
     }
 
     hamburger.addEventListener('click', openMenu);
@@ -31,6 +63,8 @@ export function initMobileMenu(hamburger, mobileMenu, menuClose) {
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeMenu();
     });
+
+    setupFocusTrap(mobileMenu);
 }
 
 export function initScrollSpy(sections, navLinks) {

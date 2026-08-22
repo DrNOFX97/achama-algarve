@@ -1,3 +1,5 @@
+import { setupFocusTrap } from './ui-utils.js';
+
 export function initObservatory(OBS_DATA) {
     const openBtn = document.getElementById("obs-open-btn");
     const openLink = document.getElementById("obs-link-card");
@@ -139,7 +141,10 @@ export function initObservatory(OBS_DATA) {
     if (kpiVarNome) kpiVarNome.textContent = maxVar.nome;
     if (kpiCriticos) kpiCriticos.textContent = criticos + "/16";
 
-    function openObs() {
+    let triggerBtn = null;
+
+    function openObs(trigger) {
+        triggerBtn = trigger || openBtn;
         overlay.classList.add("is-open");
         document.body.style.overflow = "hidden";
         obsRenderTable("renda", "desc");
@@ -148,16 +153,20 @@ export function initObservatory(OBS_DATA) {
         closeBtn.focus();
     }
     function closeObs() {
-        overlay.classList.remove("is-open");
-        document.body.style.overflow = "";
-        openBtn.focus();
+        if (overlay.classList.contains("is-open")) {
+            overlay.classList.remove("is-open");
+            document.body.style.overflow = "";
+            if (triggerBtn) {
+                triggerBtn.focus();
+            }
+        }
     }
 
-    openBtn.addEventListener("click", openObs);
+    openBtn.addEventListener("click", () => openObs(openBtn));
     if (openLink) {
         openLink.addEventListener("click", (e) => {
             e.preventDefault();
-            openObs();
+            openObs(openLink);
         });
     }
     closeBtn.addEventListener("click", closeObs);
@@ -165,6 +174,8 @@ export function initObservatory(OBS_DATA) {
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && overlay.classList.contains("is-open")) closeObs();
     });
+
+    setupFocusTrap(overlay);
 
     document.querySelectorAll(".obs-tab").forEach(btn => {
         btn.addEventListener("click", () => {

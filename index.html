@@ -7,6 +7,50 @@
   <meta name="description"
     content="ACIMHA – Associação Cívica de Munícipes e Habitação do Algarve. Tertúlias, queixas de bairro, participação cívica e habitação a custo reduzido — a nossa frente mais desenvolvida.">
   <title>ACIMHA – Associação Cívica do Algarve</title>
+  
+  <link rel="canonical" href="https://acimha.pt/">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="ACIMHA – Associação Cívica do Algarve">
+  <meta property="og:description" content="Associação Cívica de Munícipes e Habitação do Algarve. Tertúlias, queixas de bairro, participação cívica e habitação a custo reduzido.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://acimha.pt/">
+  <meta property="og:image" content="https://acimha.pt/assets/images/ACIMHA.png">
+  <meta property="og:locale" content="pt_PT">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ACIMHA – Associação Cívica do Algarve">
+  <meta name="twitter:description" content="Associação Cívica de Munícipes e Habitação do Algarve. Tertúlias, queixas de bairro, participação cívica e habitação a custo reduzido.">
+  <meta name="twitter:image" content="https://acimha.pt/assets/images/ACIMHA.png">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ACIMHA",
+    "alternateName": "ACIMHA - Associação Cívica de Munícipes e Habitação do Algarve",
+    "description": "Associação Cívica de Munícipes e Habitação do Algarve. Tertúlias, queixas de bairro, participação cívica e habitação a custo reduzido.",
+    "url": "https://acimha.pt/",
+    "logo": "https://acimha.pt/assets/images/ACIMHA.png",
+    "taxID": "519597265",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Rua Conselheiro Sebastião Teles, 2A",
+      "addressLocality": "Faro",
+      "postalCode": "8000-256",
+      "addressCountry": "PT"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+351-289-820-840",
+      "contactType": "general",
+      "email": "acimha@gmail.com"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -87,9 +131,9 @@
           </div>
         </div>
         <div class="hero__photos" aria-hidden="true">
-          <img class="hero__photo hero__photo--active" src="assets/images/Hero1.png" alt="">
-          <img class="hero__photo" src="assets/images/Hero2.png" alt="">
-          <img class="hero__photo" src="assets/images/Hero3.png" alt="">
+          <img class="hero__photo hero__photo--active" src="assets/images/Hero1.webp" alt="">
+          <img class="hero__photo" src="assets/images/Hero2.webp" alt="">
+          <img class="hero__photo" src="assets/images/Hero3.webp" alt="">
         </div>
       </div>
     </section>
@@ -325,8 +369,8 @@
                   em causa a coesão social e o direito a uma vida digna.
                 </p>
               </div>
-              <img class="tab-panel__img" src="assets/images/missao.png"
-                alt="Vizinhos reunidos à porta de casa numa rua tradicional do Algarve">
+              <img class="tab-panel__img" src="assets/images/missao.webp"
+                alt="Vizinhos reunidos à porta de casa numa rua tradicional do Algarve" loading="lazy">
             </div>
           </div>
 
@@ -347,8 +391,8 @@
                   motor dessa transformação.
                 </p>
               </div>
-              <img class="tab-panel__img" src="assets/images/visao.png"
-                alt="Família e pescador numa vila algarvia ao pôr-do-sol, junto ao mar">
+              <img class="tab-panel__img" src="assets/images/visao.webp"
+                alt="Família e pescador numa vila algarvia ao pôr-do-sol, junto ao mar" loading="lazy">
             </div>
           </div>
 
@@ -894,8 +938,9 @@
       <div class="inscricao-body">
 
         <div id="inscricao-fields" class="form__fields">
-          <form id="inscricao-form" name="inscricao" method="POST" data-netlify="true" novalidate>
+          <form id="inscricao-form" name="inscricao" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
             <input type="hidden" name="form-name" value="inscricao">
+            <p class="visually-hidden"><label>Não preencher: <input name="bot-field" autocomplete="off"></label></p>
 
             <!-- 1. Dados Pessoais -->
             <div class="ins-section">
@@ -1008,7 +1053,7 @@
                 <span class="ins-section__num" aria-hidden="true">4</span>
                 <span class="ins-section__label">Tipo de Associado</span>
               </h3>
-              <div class="ins-radio-group" role="radiogroup">
+              <div class="ins-radio-group" role="radiogroup" aria-label="Tipo de Associado">
                 <label class="ins-radio-label ins-radio-label--disabled">
                   <input type="radio" name="tipo_associado" value="fundador" disabled>
                   <span>
@@ -1045,7 +1090,7 @@
                 <span class="ins-quota-box__value">5€</span>
                 <span class="ins-quota-box__label">por período · selecione a periodicidade</span>
               </div>
-              <div class="ins-radio-group" role="radiogroup">
+              <div class="ins-radio-group" role="radiogroup" aria-label="Periodicidade de pagamento das quotas">
                 <label class="ins-radio-label">
                   <input type="radio" name="periodicidade" value="semestral" required>
                   <span>
@@ -1170,8 +1215,10 @@
             <p class="contact-modal__form-sub">Preencha o formulário abaixo e entraremos em contacto brevemente.</p>
           </div>
 
-          <form id="contact-modal-form" name="contacto" method="POST" data-netlify="true" novalidate>
+          <form id="contact-modal-form" name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
             <input type="hidden" name="form-name" value="contacto">
+            <p class="visually-hidden"><label>Não preencher: <input name="bot-field" autocomplete="off"></label></p>
+
             <div class="form__group">
               <label class="form__label" for="cm-nome">Nome <span aria-hidden="true">*</span></label>
               <input class="form__control" type="text" id="cm-nome" name="nome" placeholder=" " required minlength="2"
@@ -1203,6 +1250,9 @@
                 minlength="20"></textarea>
               <span class="form__error">Por favor, escreva a sua mensagem (mínimo 20 caracteres).</span>
             </div>
+            <p style="font-size: 0.75rem; color: var(--color-muted); margin-bottom: 1rem; font-family: var(--font-sans); text-transform: none; letter-spacing: 0;">
+              Ao submeter este formulário, autoriza o tratamento dos seus dados nos termos da nossa <a href="politica-privacidade.html" target="_blank" rel="noopener" style="text-decoration: underline; color: var(--color-accent);">Política de Privacidade</a>.
+            </p>
             <div class="contact-modal__submit-row">
               <span class="contact-modal__note">* Campos obrigatórios</span>
               <button type="submit" class="btn btn--primary">Enviar mensagem</button>

@@ -1,4 +1,5 @@
 import { handleFormSubmit } from './forms.js';
+import { setupFocusTrap } from './ui-utils.js';
 
 export function initContactModal() {
     const overlay = document.getElementById('contact-overlay');
@@ -10,20 +11,28 @@ export function initContactModal() {
     const successEl = document.getElementById('contact-modal-success');
     const resetBtn = document.getElementById('contact-modal-reset');
 
-    function openModal() {
+    let triggerBtn = null;
+
+    function openModal(trigger) {
+        triggerBtn = trigger;
         overlay.classList.add('is-open');
         document.body.style.overflow = 'hidden';
         closeBtn?.focus();
     }
 
     function closeModal() {
-        overlay.classList.remove('is-open');
-        document.body.style.overflow = '';
+        if (overlay.classList.contains('is-open')) {
+            overlay.classList.remove('is-open');
+            document.body.style.overflow = '';
+            if (triggerBtn) {
+                triggerBtn.focus();
+            }
+        }
     }
 
     openBtns.forEach(btn => btn.addEventListener('click', e => {
         e.preventDefault();
-        openModal();
+        openModal(btn);
     }));
 
     closeBtn.addEventListener('click', closeModal);
@@ -35,6 +44,8 @@ export function initContactModal() {
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
     });
+
+    setupFocusTrap(overlay);
 
     // Reset para enviar nova mensagem
     if (resetBtn) {

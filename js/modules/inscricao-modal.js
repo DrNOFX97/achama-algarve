@@ -1,4 +1,5 @@
 import { handleFormSubmit } from './forms.js';
+import { setupFocusTrap } from './ui-utils.js';
 
 export function initInscricaoModal() {
     const overlay = document.getElementById('inscricao-overlay');
@@ -7,7 +8,10 @@ export function initInscricaoModal() {
     const closeBtn = document.getElementById('inscricao-close');
     const openBtns = document.querySelectorAll('[data-modal-open="inscricao"]');
 
-    function openModal() {
+    let triggerBtn = null;
+
+    function openModal(trigger) {
+        triggerBtn = trigger;
         overlay.classList.add('is-open');
         document.body.style.overflow = 'hidden';
         closeBtn?.focus();
@@ -20,14 +24,19 @@ export function initInscricaoModal() {
     }
 
     function closeModal() {
-        overlay.classList.remove('is-open');
-        document.body.style.overflow = '';
+        if (overlay.classList.contains('is-open')) {
+            overlay.classList.remove('is-open');
+            document.body.style.overflow = '';
+            if (triggerBtn) {
+                triggerBtn.focus();
+            }
+        }
     }
 
     openBtns.forEach(btn => {
         btn.addEventListener('click', e => {
             e.preventDefault();
-            openModal();
+            openModal(btn);
         });
     });
 
@@ -40,6 +49,8 @@ export function initInscricaoModal() {
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
     });
+
+    setupFocusTrap(overlay);
 
     // Estado visual dos rádios
     overlay.querySelectorAll('.ins-radio-group').forEach(group => {

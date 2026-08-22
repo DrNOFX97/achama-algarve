@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /estatistica/
+
+Sitemap: https://acimha.pt/sitemap.xml
