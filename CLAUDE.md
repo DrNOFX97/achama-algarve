@@ -51,7 +51,7 @@ The site was overhauled to an editorial-magazine visual language (cream/ink/red 
 
 ### Page structure (`index.html`, section order top to bottom)
 
-`#inicio` (hero) → `#missao` → `#crise` → `#projetos` → `#quem-somos` (tabbed: Missão/Visão/Valores/Órgãos Sociais/Documentos) → `#noticias` → `#associar` → `#participar` → `#contactos`. Sections alternate `.section` / `.section section--alt` (cream/white) for visual rhythm — preserve the alternation if you reorder sections. Nav link order and section order are kept in sync intentionally.
+`#inicio` (hero) → `#missao` → `#quem-somos` (tabbed: Missão/Visão/Valores/Órgãos Sociais/Documentos) → `#projetos` → `#crise` → `#noticias` → `#associar` → `#participar` → `#contactos`. Sections alternate `.section` / `.section section--alt` (cream/white) for visual rhythm — preserve the alternation if you reorder sections. Nav link order and section order are kept in sync intentionally.
 
 ### Forms are Netlify Forms, not a custom backend
 
