@@ -1,0 +1,29 @@
+# ACIMHA — Associação Cívica de Munícipes e Habitação do Algarve
+
+> Associação cívica portuguesa, sem fins lucrativos e apartidária, sediada em Faro (Algarve). Promove
+> cidadania ativa, participação cívica e a defesa dos interesses coletivos dos munícipes do Algarve, com
+> especial atenção à promoção e defesa do direito a uma habitação digna, acessível e sustentável.
+
+A ACIMHA atua em quatro eixos: tertúlias comunitárias, queixas de bairro, participação cívica junto das
+autarquias do Algarve, e habitação a custo reduzido — o eixo mais desenvolvido, com três projetos
+concretos: Clínica de Habitação (apoio jurídico gratuito), Observatório da Habitação (dados sobre o
+mercado de arrendamento nos 16 municípios do Algarve) e Algarve Cohabita (coabitação e cooperativas
+habitacionais). Não é uma organização de habitação de issue único — o eixo cívico é mais alargado do que
+só habitação, apesar de esta ser a frente mais desenvolvida.
+
+## Páginas principais
+
+- [Missão e eixos de atuação](https://acimha.pt/#missao): os quatro eixos de atuação e a citação do Artigo 25.º da Declaração Universal dos Direitos Humanos
+- [A crise habitacional no Algarve](https://acimha.pt/#crise): contexto da crise habitacional regional e acesso ao Observatório da Habitação
+- [Projetos](https://acimha.pt/#projetos): Clínica de Habitação, Observatório da Habitação, Algarve Cohabita, e as outras frentes de atuação (Tertúlias, Queixas de Bairro, Participação Cívica)
+- [Quem somos](https://acimha.pt/#quem-somos): missão, visão, valores, órgãos sociais e documentos oficiais
+- [Notícias](https://acimha.pt/#noticias): agregador de imprensa sobre habitação no Algarve — não é conteúdo próprio da ACIMHA
+- [Associar-me](https://acimha.pt/#associar): como se tornar sócio (quota: 5€, semestral ou anual)
+- [Como participar](https://acimha.pt/#participar): testemunhar, voluntariar, divulgar ou apoiar sem ser sócio
+- [Contactos](https://acimha.pt/#contactos): morada, e-mail e telefone
+
+## Documentos
+
+- [Estatutos](https://acimha.pt/assets/docs/estatutos_ACIMHA.pdf): estatutos oficiais aprovados da ACIMHA
+- [Política de Privacidade](https://acimha.pt/politica-privacidade.html)
+- [Termos e Condições](https://acimha.pt/termos-condicoes.html)
