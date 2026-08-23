@@ -89,6 +89,6 @@ O site está preparado para Netlify (`netlify.toml`, Netlify Forms). Qualquer ho
 
 ## Estado Atual
 
-- As quatro ligações de redes sociais no rodapé ainda são `href="#"`
-- O separador "Documentos" em Quem Somos aponta para `estatutos.pdf` e `regulamento.pdf`, que ainda não existem no repositório
+- Instagram, Twitter/X e LinkedIn no rodapé ainda são `href="#"` (Facebook já está ligado)
+- O separador "Documentos" em Quem Somos aponta para `regulamento.pdf`, que ainda não existe no repositório
 - Os três projetos de habitação (Clínica de Habitação, Observatório da Habitação, Algarve Cohabita) e os Órgãos Sociais têm conteúdo placeholder, ainda não confirmado como cópia oficial
