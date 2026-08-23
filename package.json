@@ -4,7 +4,8 @@
   "type": "module",
   "description": "Script auxiliar de build para o site estático da ACIMHA — não afeta o runtime do site.",
   "scripts": {
-    "fetch:noticias": "node scripts/fetch-noticias.mjs"
+    "fetch:noticias": "node scripts/fetch-noticias.mjs",
+    "update:sitemap": "node scripts/update-sitemap-lastmod.mjs"
   },
   "dependencies": {
     "fast-xml-parser": "^5.0.0"

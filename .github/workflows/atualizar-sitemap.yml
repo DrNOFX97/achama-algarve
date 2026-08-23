@@ -1,0 +1,42 @@
+name: Atualizar sitemap
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'politica-privacidade.html'
+      - 'termos-condicoes.html'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atualizar-sitemap
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Atualizar lastmod do sitemap
+        run: node scripts/update-sitemap-lastmod.mjs
+
+      - name: Commit e push se houver alterações
+        run: |
+          if git diff --quiet -- sitemap.xml; then
+            echo "Sem alterações em sitemap.xml — nada a fazer."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          git commit -m "Atualiza lastmod do sitemap automaticamente"
+          git pull --rebase
+          git push
