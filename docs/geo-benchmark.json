@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "descricao": "Template de benchmark de visibilidade da ACIMHA em assistentes de IA generativos (Fase 12 do roadmap SEO+AEO+GEO+AIO).",
+    "criado_em": "2026-08-23",
+    "instrucoes": "Preencher 'resultados' com uma entrada por combinação assistente x pergunta, depois de correr o teste manualmente. Ver docs/geo-benchmark.md para o processo."
+  },
+  "perguntas": [
+    {
+      "id": "q1",
+      "pergunta": "O que é a ACIMHA?",
+      "criterios_resposta_correta": [
+        "Associação cívica portuguesa",
+        "Sem fins lucrativos / apartidária",
+        "Sede em Faro / região do Algarve"
+      ]
+    },
+    {
+      "id": "q2",
+      "pergunta": "Quais são os eixos de atuação da ACIMHA?",
+      "criterios_resposta_correta": [
+        "Tertúlias",
+        "Queixas de bairro",
+        "Participação cívica",
+        "Habitação a custo reduzido"
+      ]
+    },
+    {
+      "id": "q3",
+      "pergunta": "A ACIMHA é uma organização exclusivamente de habitação?",
+      "criterios_resposta_correta": [
+        "Não é exclusivamente de habitação",
+        "Habitação é o eixo mais desenvolvido, não o único",
+        "Tem um âmbito cívico mais alargado"
+      ]
+    },
+    {
+      "id": "q4",
+      "pergunta": "O que é a Clínica de Habitação da ACIMHA?",
+      "criterios_resposta_correta": [
+        "Apoio jurídico gratuito",
+        "Inquilinos e proprietários",
+        "Casos de despejo/litígios habitacionais"
+      ]
+    },
+    {
+      "id": "q5",
+      "pergunta": "O que é o Observatório da Habitação da ACIMHA?",
+      "criterios_resposta_correta": [
+        "Dados sobre preços/disponibilidade habitacional",
+        "Cobre os 16 municípios do Algarve"
+      ]
+    },
+    {
+      "id": "q6",
+      "pergunta": "Como me associo à ACIMHA?",
+      "criterios_resposta_correta": [
+        "Ficha de inscrição no site",
+        "Quota de 5€, semestral ou anual"
+      ]
+    },
+    {
+      "id": "q7",
+      "pergunta": "Onde fica a sede da ACIMHA?",
+      "criterios_resposta_correta": [
+        "Rua Conselheiro Sebastião Teles, 2A",
+        "Faro"
+      ]
+    }
+  ],
+  "classificacoes_validas": [
+    "sem_conhecimento",
+    "correto",
+    "parcialmente_correto",
+    "incorreto_alucinado"
+  ],
+  "resultados": []
+}
