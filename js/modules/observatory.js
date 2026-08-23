@@ -171,6 +171,8 @@ export function initObservatory(OBS_DATA) {
     }
     closeBtn.addEventListener("click", closeObs);
     overlay.addEventListener("click", (e) => { if (e.target === overlay) closeObs(); });
+    const crisisLink = document.getElementById("obs-link-crise");
+    if (crisisLink) crisisLink.addEventListener("click", closeObs);
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && overlay.classList.contains("is-open")) closeObs();
     });
