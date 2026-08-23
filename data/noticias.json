@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-08-23T05:19:08.394Z",
+  "atualizado_em": "2026-08-23T14:12:39.730Z",
   "queries": [
     "crise habitacional Algarve",
     "habitação social Algarve",
@@ -7,6 +7,12 @@
     "construção habitação Algarve"
   ],
   "noticias": [
+    {
+      "titulo": "Brasileiros que trocaram o país por Portugal encaram salários apertados e aluguel cada vez mais pesado, mas idioma, segurança e vida na Europa continuam atraindo gente, numa comunidade que já chegou a 628 mil pessoas",
+      "link": "https://news.google.com/rss/articles/CBMijAJBVV95cUxQaVU1ZnhQcU9rcExmZk96bDFfM29MVzAxZEJVYUItQ3NsRGtoLWttQ1dZTnN0WEc1XzdvcnJtOElMbkdnMGFrNXhnU1VfZm9yX3VUcFZfbG95RjI0aURVdV9EeHFXU2VnbjV6c015LXJzS21YZWhpem1MMlp1Vm9FZzdsdzhTeHc5X0NEYkUxUmx0ZURMcjVnaDQ1Z1QtUG1wcV9ydzlaT1QyMDRKNUg0UFhCQVRicW16TXJPMklfc19xemx4RzdOb2ZNNzExVW5WOTAwbjYxT3hHTDBiaGVoblZORkJMZDY0SVFBZTZhQWt6QjJHcENkcG5EbTNOYmctazJpTkE1YWtITmRY?oc=5",
+      "fonte": "CPG Click Petróleo e Gás",
+      "data": "22 Ago 2026"
+    },
     {
       "titulo": "Arrendar casa custa por mês 27 €/m² em Lisboa, 8 €/m² na Guarda e 22 €/m² no Algarve",
       "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxORVo0eVBSODF1ZlhDaDJVVUZxYkJhVjhGMlZrcWRsT2lHakZWS0hqREc2TENCSWJSMUx0MXFRZldzY3YzZW9odkJMRHYyQm1ObFdVMldXMFFUZGFpSXBOd2JZNFV4YV81SUJmMjZ4RVdBOWlnb3ZkYWc5NHFjOE5OZzAtOXM1aVFoaTVQOF9oMVNRRTVOLTZ5WUNDdUVEUS1FbzBldUpNMU15ZWEtWXJQTlpvLXI1ZWlMdW5fQjhPWVNtSEJFcU5iUE1R?oc=5",
@@ -60,12 +66,6 @@
       "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQdllGLVhQeDRKeE12dlVudEJmTGxPbEVhTXROblVheVRTSHBuSVlNbkhjUTdUZ1lxVUZzVGhxMEQ2YjVLNGpSUFI3SXQ3ZkJTRkx2cV9lSWk2YktvNm42VkZjNkx6STF6a1d5Yk4xd0pPM0RuUnRPM0hUSU5pOEc2dnI2dzU1cm1ERkhlZWhzX3czOHlyQkFj?oc=5",
       "fonte": "Vietnam.vn",
       "data": "17 Ago 2026"
-    },
-    {
-      "titulo": "Moradias representam apenas 7,3% da construção nova em Portugal",
-      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQckgyeVB0OWhST0dKcEVVUWRkTkFEVkFYWThGaWhwM1RyMmhRVFZIY29jVTRRdlpKc1dXQzNDMlplLXdvQ1pmNDMycXA5eXdnd3IwbTJwbk83alJTQTd0Rkg1LU8yMUhMMTJlZUlrRm92MDU5Uy1ib3BxYTI2MkpMcC1xN0MtaUxMRWs2eEJPcFU?oc=5",
-      "fonte": "O Vilaverdense",
-      "data": "13 Ago 2026"
     }
   ]
 }
