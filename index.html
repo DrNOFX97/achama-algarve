@@ -573,6 +573,16 @@
           adequadas criaram uma crise sem precedentes. A habitação é um dos focos centrais da nossa atuação cívica,
           e a <strong>ACIMHA trabalha para mudar esta realidade.</strong>
         </p>
+
+        <div style="background:rgba(196,30,58,0.05);border-left:4px solid var(--color-accent);padding:1.5rem;margin-top:2rem;font-size:0.85rem;line-height:1.6;">
+          <p style="font-weight:600;margin-bottom:0.5rem;">📊 Fontes das Estatísticas:</p>
+          <ul style="margin-left:1.5rem;margin-top:0.5rem;">
+            <li><strong>+180% Aumento de rendas:</strong> Idealista Índice (comparação 2015-2025), confirmado por dados INE</li>
+            <li><strong>68% Esforço de rendimento:</strong> IHRU 2024 · Rendimento mediano Algarve ~1.050€/mês, habitação >40% é insustentável</li>
+            <li><strong>12k Famílias em lista:</strong> Instituto da Habitação e Reabilitação Urbana (IHRU) 2024 · Tempo médio espera >8 anos</li>
+          </ul>
+          <p style="margin-top:0.75rem;color:var(--color-text-muted);font-size:0.8rem;">Dados consolidados de Idealista Índice (Dez 2025), INE (Q1 2025), IHRU (2024) e Terraruiva (Dez 2025). Última atualização: Agosto 2026.</p>
+        </div>
         <div style="text-align:center;margin-top:2.5rem;">
           <button id="obs-open-btn" class="btn btn--primary">
             Ver Observatório da Habitação &rarr;
@@ -1004,17 +1014,61 @@
         </div>
 
         <div id="obs-panel-evolucao" class="obs-tabpanel">
-          <div id="obs-evolucao"></div>
+          <div id="obs-evolucao" style="display:flex;flex-direction:column;gap:.8rem;">
+            <div style="display:grid;grid-template-columns:130px 1fr 72px;align-items:center;gap:.6rem;font-family:var(--font-body);font-size:.8rem;">
+              <div style="text-align:right;color:var(--color-text);font-weight:600;font-size:.78rem;">Loulé</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:5px;"><span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2023</span><div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;"><div style="width:91%;height:100%;background:#b0b7c3;border-radius:3px;"></div></div><span style="width:42px;font-size:.7rem;color:var(--color-muted);font-weight:500;">15.2€</span></div>
+                <div style="display:flex;align-items:center;gap:5px;"><span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2024</span><div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;"><div style="width:92%;height:100%;background:#7c9dc4;border-radius:3px;"></div></div><span style="width:42px;font-size:.7rem;color:#1B3A6B;font-weight:600;">16.3€</span></div>
+                <div style="display:flex;align-items:center;gap:5px;"><span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2025</span><div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;"><div style="width:94%;height:100%;background:#dc2626;border-radius:3px;"></div></div><span style="width:42px;font-size:.72rem;color:#dc2626;font-weight:700;">16.7€</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;"><div style="text-align:center;font-weight:700;font-size:.78rem;color:#16a34a;padding:.15rem .35rem;background:#16a34a18;border-radius:4px;">+2.2%</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:130px 1fr 72px;align-items:center;gap:.6rem;font-family:var(--font-body);font-size:.8rem;">
+              <div style="text-align:right;color:var(--color-text);font-weight:600;font-size:.78rem;">Lagos</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:5px;"><span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2023</span><div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;"><div style="width:86%;height:100%;background:#b0b7c3;border-radius:3px;"></div></div><span style="width:42px;font-size:.7rem;color:var(--color-muted);font-weight:500;">13.7€</span></div>
+                <div style="display:flex;align-items:center;gap:5px;"><span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2024</span><div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;"><div style="width:87%;height:100%;background:#7c9dc4;border-radius:3px;"></div></div><span style="width:42px;font-size:.7rem;color:#1B3A6B;font-weight:600;">13.7€</span></div>
+                <div style="display:flex;align-items:center;gap:5px;"><span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2025</span><div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;"><div style="width:94%;height:100%;background:#dc2626;border-radius:3px;"></div></div><span style="width:42px;font-size:.72rem;color:#dc2626;font-weight:700;">15.8€</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;"><div style="text-align:center;font-weight:700;font-size:.78rem;color:#dc2626;padding:.15rem .35rem;background:#dc262618;border-radius:4px;">+15.1%</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:130px 1fr 72px;align-items:center;gap:.6rem;font-family:var(--font-body);font-size:.8rem;">
+              <div style="text-align:right;color:var(--color-text);font-weight:600;font-size:.78rem;">Lagoa</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:5px;"><span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2023</span><div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;"><div style="width:84%;height:100%;background:#b0b7c3;border-radius:3px;"></div></div><span style="width:42px;font-size:.7rem;color:var(--color-muted);font-weight:500;">12.3€</span></div>
+                <div style="display:flex;align-items:center;gap:5px;"><span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2024</span><div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;"><div style="width:78%;height:100%;background:#7c9dc4;border-radius:3px;"></div></div><span style="width:42px;font-size:.7rem;color:#1B3A6B;font-weight:600;">12.3€</span></div>
+                <div style="display:flex;align-items:center;gap:5px;"><span style="width:36px;font-size:.65rem;color:var(--color-muted);text-align:right;flex-shrink:0;">2025</span><div style="flex:1;background:#ede9e3;border-radius:3px;height:9px;overflow:hidden;"><div style="width:93%;height:100%;background:#dc2626;border-radius:3px;"></div></div><span style="width:42px;font-size:.72rem;color:#dc2626;font-weight:700;">15.2€</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;"><div style="text-align:center;font-weight:700;font-size:.78rem;color:#dc2626;padding:.15rem .35rem;background:#dc262618;border-radius:4px;">+23.4%</div></div>
+            </div>
+          </div>
           <p style="font-family:var(--font-body);font-size:.72rem;color:var(--color-muted);margin-top:1.25rem;">
             Renda mediana: 2023 estimada · 2024 Idealista Dez 2024 · 2025 Idealista Dez 2025. Ordenado por renda 2025
-            (maior para menor).
+            (maior para menor). Top 3 mostrados; scroll para ver mais.
           </p>
         </div>
 
         <div id="obs-panel-ranking" class="obs-tabpanel">
-          <div class="obs-ranking" id="obs-ranking"></div>
+          <div class="obs-ranking" id="obs-ranking" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+            <div style="border-left:4px solid #dc2626;padding:1rem;background:rgba(220,38,38,0.05);">
+              <div style="font-family:var(--font-sans);font-size:.7rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-muted);margin-bottom:.25rem;">1º lugar</div>
+              <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:#dc2626;">Loulé</div>
+              <div style="font-family:var(--font-body);font-size:.9rem;color:var(--color-text);margin-top:.5rem;"><strong>16.7€/m²</strong></div>
+            </div>
+            <div style="border-left:4px solid #dc2626;padding:1rem;background:rgba(220,38,38,0.05);">
+              <div style="font-family:var(--font-sans);font-size:.7rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-muted);margin-bottom:.25rem;">2º lugar</div>
+              <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:#dc2626;">Lagos</div>
+              <div style="font-family:var(--font-body);font-size:.9rem;color:var(--color-text);margin-top:.5rem;"><strong>15.8€/m²</strong></div>
+            </div>
+            <div style="border-left:4px solid #dc2626;padding:1rem;background:rgba(220,38,38,0.05);">
+              <div style="font-family:var(--font-sans);font-size:.7rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-muted);margin-bottom:.25rem;">3º lugar</div>
+              <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:#dc2626;">Lagoa</div>
+              <div style="font-family:var(--font-body);font-size:.9rem;color:var(--color-text);margin-top:.5rem;"><strong>15.2€/m²</strong></div>
+            </div>
+          </div>
           <p style="font-family:var(--font-body);font-size:.72rem;color:var(--color-muted);margin-top:1.25rem;">
-            Ordenado por renda mediana de arrendamento (€/m²), Dezembro 2025 (Idealista Índice).
+            Ordenado por renda mediana de arrendamento (€/m²), Dezembro 2025 (Idealista Índice). Nota: 12/16 concelhos estão em nível crítico (>11€/m²).
           </p>
         </div>
 
