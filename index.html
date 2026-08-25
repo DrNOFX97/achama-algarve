@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 
 <head>
   <meta charset="UTF-8">
@@ -43,18 +43,34 @@
       "postalCode": "8000-256",
       "addressCountry": "PT"
     },
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61573111989935"
+    ],
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Algarve"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 37.0141,
+      "longitude": -7.9386
+    },
     "contactPoint": [
       {
         "@type": "ContactPoint",
-        "telephone": "+351-917-812-306",
-        "contactType": "general",
-        "email": "acimha.geral@gmail.com"
+        "telephone": "+351-917-812-379",
+        "contactType": "general"
       },
       {
         "@type": "ContactPoint",
         "telephone": "+351-289-820-840",
         "contactType": "customer support",
         "email": "acimha@gmail.com"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+351-962-409-570",
+        "contactType": "customer support"
       }
     ]
   }
@@ -74,13 +90,61 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://acimha.pt/#servico-clinica-habitacao",
+    "name": "Clínica de Habitação",
+    "serviceType": "Apoio jurídico em matéria de habitação",
+    "description": "Consultório jurídico gratuito para inquilinos e proprietários, com apoio em casos de despejo, incumprimento e litígios habitacionais.",
+    "provider": { "@id": "https://acimha.pt/#organization" },
+    "areaServed": [
+      { "@type": "City", "name": "Faro" },
+      { "@type": "City", "name": "Portimão" },
+      { "@type": "City", "name": "Lagos" }
+    ],
+    "audience": { "@type": "Audience", "audienceType": "Inquilinos e proprietários" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://acimha.pt/#servico-observatorio-habitacao",
+    "name": "Observatório da Habitação",
+    "serviceType": "Investigação e dados abertos sobre habitação",
+    "description": "Plataforma de dados abertos com monitorização de preços, disponibilidade e condições do parque habitacional em todos os 16 municípios do Algarve.",
+    "provider": { "@id": "https://acimha.pt/#organization" },
+    "areaServed": { "@type": "AdministrativeArea", "name": "Algarve" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://acimha.pt/#servico-algarve-cohabita",
+    "name": "Algarve Cohabita",
+    "serviceType": "Mediação de coabitação e cooperativas habitacionais",
+    "description": "Programa de mediação e acompanhamento de coabitação e cooperativas habitacionais, criando soluções alternativas e acessíveis para trabalhadores e jovens da região.",
+    "provider": { "@id": "https://acimha.pt/#organization" },
+    "areaServed": { "@type": "AdministrativeArea", "name": "Algarve" },
+    "audience": { "@type": "Audience", "audienceType": "Trabalhadores e jovens do Algarve" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": "https://acimha.pt/#webpage",
     "url": "https://acimha.pt/",
     "name": "ACIMHA – Associação Cívica do Algarve",
     "description": "ACIMHA – Associação Cívica de Munícipes e Habitação do Algarve. Tertúlias, queixas de bairro, participação cívica e habitação a custo reduzido — a nossa frente mais desenvolvida.",
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-08-25",
     "inLanguage": "pt-PT",
-    "isPartOf": { "@id": "https://acimha.pt/#website" }
+    "isPartOf": { "@id": "https://acimha.pt/#website" },
+    "publisher": { "@id": "https://acimha.pt/#organization" }
   }
   </script>
 
@@ -397,17 +461,6 @@
                     d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z" />
                 </svg>
                 <span>Estatutos</span>
-              </a>
-              <a href="regulamento.pdf" target="_blank" rel="noopener"
-                style="display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;border:2px solid var(--color-accent);border-radius:var(--radius);text-decoration:none;color:var(--color-accent);font-weight:600;transition:var(--transition);"
-                onmouseover="this.style.background='var(--color-accent)';this.style.color='#fff';"
-                onmouseout="this.style.background='';this.style.color='var(--color-accent)';">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24"
-                  aria-hidden="true">
-                  <path
-                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z" />
-                </svg>
-                <span>Regulamento Interno</span>
               </a>
               <a href="assets/docs/ficha_inscricao_ACIMHA.pdf" target="_blank" rel="noopener"
                 style="display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;border:2px solid var(--color-primary);border-radius:var(--radius);text-decoration:none;color:var(--color-primary);font-weight:600;transition:var(--transition);"
