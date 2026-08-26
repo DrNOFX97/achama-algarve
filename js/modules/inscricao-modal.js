@@ -97,6 +97,9 @@ export function initInscricaoModal() {
         fieldsEl,
         assinarEl,
         (formEl) => {
+            const emailEl = overlay.querySelector('#ins-assinatura-email');
+            if (emailEl) emailEl.value = formEl.querySelector('[name="email"]')?.value || '';
+
             const result = baixarFichaPdf(formEl);
             if (!result.ok) {
                 const callout = assinarEl?.querySelector('.ins-callout');

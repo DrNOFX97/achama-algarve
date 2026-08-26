@@ -101,6 +101,8 @@ export function resetInscricaoAssinaturaForm(overlay) {
     const formEl = overlay.querySelector('#inscricao-assinatura-form');
     if (!formEl) return;
     formEl.reset();
+    const emailEl = formEl.querySelector('#ins-assinatura-email');
+    if (emailEl) emailEl.value = '';
     const errorEl = formEl.querySelector('.form__error');
     if (errorEl) errorEl.style.display = 'none';
     const filenameEl = formEl.querySelector('.ins-file-preview__name');
