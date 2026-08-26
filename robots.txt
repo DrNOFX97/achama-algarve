@@ -4,5 +4,6 @@ Allow: /
 User-agent: *
 Allow: /
 Disallow: /estatistica/
+Disallow: /admin/
 
 Sitemap: https://acimha.pt/sitemap.xml

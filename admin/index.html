@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin — ACIMHA</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@500;600;700&display=swap">
+
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components/admin.css">
+</head>
+
+<body class="admin-body">
+
+  <!-- Ecrã de login — só isto é mostrado sem sessão válida -->
+  <div id="admin-login" class="admin-login">
+    <div class="admin-login__card">
+      <p class="admin-login__eyebrow">ACIMHA · Painel Admin</p>
+      <h1 class="admin-login__title">Acesso restrito</h1>
+      <a class="btn btn--primary" href="/.netlify/functions/auth-google-start">Entrar com Google</a>
+    </div>
+  </div>
+
+  <!-- Painel — só visível com sessão válida -->
+  <div id="admin-app" class="admin-app is-hidden">
+
+    <aside class="admin-sidebar">
+      <p class="admin-sidebar__brand">ACIMHA<span>Painel Admin</span></p>
+
+      <nav class="admin-nav" aria-label="Navegação do painel">
+        <button class="admin-nav__item is-active" data-panel="visao-geral" type="button">Visão geral</button>
+        <button class="admin-nav__item" data-panel="inscricoes" type="button">Inscrições</button>
+        <button class="admin-nav__item" data-panel="documentos" type="button">Documentos</button>
+        <button class="admin-nav__item" data-panel="noticias" type="button">Notícias</button>
+        <button class="admin-nav__item" data-panel="definicoes" type="button">Definições</button>
+      </nav>
+
+      <div class="admin-sidebar__footer">
+        <p class="admin-sidebar__email" id="admin-session-email"></p>
+        <a class="admin-sidebar__logout" href="/.netlify/functions/auth-logout">Sair</a>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+
+      <section class="admin-panel is-active" id="panel-visao-geral" data-panel="visao-geral">
+        <h1 class="admin-panel__title">Visão geral</h1>
+        <div class="admin-stats" id="admin-stats"></div>
+      </section>
+
+      <section class="admin-panel" id="panel-inscricoes" data-panel="inscricoes">
+        <h1 class="admin-panel__title">Inscrições</h1>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Data</th>
+                <th>Estado</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="admin-inscricoes-body"></tbody>
+          </table>
+        </div>
+        <p class="admin-empty is-hidden" id="admin-inscricoes-empty">Ainda não há inscrições.</p>
+      </section>
+
+      <section class="admin-panel" id="panel-documentos" data-panel="documentos">
+        <h1 class="admin-panel__title">Documentos institucionais</h1>
+        <div class="admin-docs" id="admin-docs"></div>
+      </section>
+
+      <section class="admin-panel" id="panel-noticias" data-panel="noticias">
+        <h1 class="admin-panel__title">Notícias</h1>
+        <p class="admin-panel__hint">Feed atualmente publicado no site (agregador de imprensa sobre habitação no
+          Algarve) — gestão de comunicados próprios da ACIMHA ainda por desenhar.</p>
+        <ul class="admin-news" id="admin-news-list"></ul>
+      </section>
+
+      <section class="admin-panel" id="panel-definicoes" data-panel="definicoes">
+        <h1 class="admin-panel__title">Definições</h1>
+        <div class="admin-settings">
+          <p><strong>Sessão ativa:</strong> <span id="admin-settings-email"></span></p>
+          <a class="btn btn--outline-dark" href="/.netlify/functions/auth-logout">Terminar sessão</a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="admin.js"></script>
+</body>
+
+</html>
