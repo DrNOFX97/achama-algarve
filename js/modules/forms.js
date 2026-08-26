@@ -20,7 +20,7 @@ export function setCustomValidity(input) {
     }
 }
 
-export function handleFormSubmit(formEl, fieldsEl, successEl) {
+export function handleFormSubmit(formEl, fieldsEl, successEl, onSuccess) {
     if (!formEl) return;
 
     formEl.addEventListener('submit', function (e) {
@@ -81,6 +81,9 @@ export function handleFormSubmit(formEl, fieldsEl, successEl) {
                 fieldsEl.classList.add('is-hidden');
                 successEl.classList.add('is-visible');
                 successEl.focus();
+                if (typeof onSuccess === 'function') {
+                    try { onSuccess(formEl); } catch (err) { console.error(err); }
+                }
             })
             .catch(function (error) {
                 // Erro

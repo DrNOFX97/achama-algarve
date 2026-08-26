@@ -107,6 +107,16 @@ select.form__control:focus {
     display: none;
 }
 
+/* ── Passo intermédio (ex.: assinatura antes do sucesso final) ───────────── */
+.form__step {
+    display: none;
+}
+
+.form__step.is-visible {
+    display: block;
+    animation: fadeInUp .3s ease forwards;
+}
+
 /* ── Alerta dinâmico (erro de envio) ─────────────────────────────────────── */
 .form__alert {
     margin-top: 1rem;

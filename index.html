@@ -1215,11 +1215,36 @@
             <input type="hidden" name="form-name" value="inscricao">
             <p class="visually-hidden"><label>Não preencher: <input name="bot-field" autocomplete="off"></label></p>
 
-            <!-- 1. Dados Pessoais -->
+            <!-- 1. Categoria Pretendida -->
             <div class="ins-section">
               <h3 class="ins-section__title">
                 <span class="ins-section__num" aria-hidden="true">1</span>
-                <span class="ins-section__label">Dados Pessoais</span>
+                <span class="ins-section__label">Categoria Pretendida</span>
+              </h3>
+              <div class="ins-radio-group" role="radiogroup" aria-label="Categoria Pretendida">
+                <label class="ins-radio-label">
+                  <input type="radio" name="tipo_associado" value="civico" required>
+                  <span>
+                    <span class="ins-radio-label__title">Sócio Cívico</span>
+                    <span class="ins-radio-label__desc">Cidadão que apoia a missão cívica da ACIMHA.</span>
+                  </span>
+                </label>
+                <label class="ins-radio-label">
+                  <input type="radio" name="tipo_associado" value="habitacional">
+                  <span>
+                    <span class="ins-radio-label__title">Sócio Habitacional</span>
+                    <span class="ins-radio-label__desc">Cidadão diretamente afetado pela crise habitacional no
+                      Algarve.</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- 2. Identificação do Candidato -->
+            <div class="ins-section">
+              <h3 class="ins-section__title">
+                <span class="ins-section__num" aria-hidden="true">2</span>
+                <span class="ins-section__label">Identificação do Candidato</span>
               </h3>
               <div class="form__group">
                 <label class="form__label" for="ins-nome">Nome completo <span aria-hidden="true">*</span></label>
@@ -1235,35 +1260,17 @@
                   <span class="form__error">Por favor, introduza a sua data de nascimento.</span>
                 </div>
                 <div class="form__group">
-                  <label class="form__label" for="ins-nacionalidade">Nacionalidade <span
-                      aria-hidden="true">*</span></label>
-                  <input class="form__control" type="text" id="ins-nacionalidade" name="nacionalidade" required
-                    value="Portuguesa" placeholder=" ">
-                  <span class="form__error">Por favor, introduza a sua nacionalidade.</span>
-                </div>
-              </div>
-              <div class="form__row">
-                <div class="form__group">
                   <label class="form__label" for="ins-nif">NIF <span aria-hidden="true">*</span></label>
                   <input class="form__control" type="text" id="ins-nif" name="nif" required pattern="[0-9]{9}"
                     maxlength="9" placeholder="123456789" inputmode="numeric">
                   <span class="form__error">Introduza um NIF válido com 9 dígitos.</span>
                 </div>
-                <div class="form__group">
-                  <label class="form__label" for="ins-cc">Cartão de Cidadão / Passaporte n.º <span
-                      aria-hidden="true">*</span></label>
-                  <input class="form__control" type="text" id="ins-cc" name="cc_passaporte" required placeholder=" ">
-                  <span class="form__error">Por favor, introduza o número do documento.</span>
-                </div>
               </div>
-            </div>
-
-            <!-- 2. Contactos -->
-            <div class="ins-section">
-              <h3 class="ins-section__title">
-                <span class="ins-section__num" aria-hidden="true">2</span>
-                <span class="ins-section__label">Contactos</span>
-              </h3>
+              <div class="form__group">
+                <label class="form__label" for="ins-cc">N.º CC / BI <span aria-hidden="true">*</span></label>
+                <input class="form__control" type="text" id="ins-cc" name="cc_bi" required placeholder=" ">
+                <span class="form__error">Por favor, introduza o número do documento.</span>
+              </div>
               <div class="form__group">
                 <label class="form__label" for="ins-morada">Morada <span aria-hidden="true">*</span></label>
                 <input class="form__control" type="text" id="ins-morada" name="morada" required
@@ -1286,7 +1293,19 @@
               </div>
               <div class="form__row">
                 <div class="form__group">
-                  <label class="form__label" for="ins-tel">Telefone / Telemóvel <span
+                  <label class="form__label" for="ins-concelho">Concelho <span aria-hidden="true">*</span></label>
+                  <input class="form__control" type="text" id="ins-concelho" name="concelho" required placeholder=" ">
+                  <span class="form__error">Por favor, introduza o concelho.</span>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="ins-distrito">Distrito <span aria-hidden="true">*</span></label>
+                  <input class="form__control" type="text" id="ins-distrito" name="distrito" required placeholder=" ">
+                  <span class="form__error">Por favor, introduza o distrito.</span>
+                </div>
+              </div>
+              <div class="form__row">
+                <div class="form__group">
+                  <label class="form__label" for="ins-tel">Telemóvel <span
                       aria-hidden="true">*</span></label>
                   <input class="form__control" type="tel" id="ins-tel" name="telefone" required autocomplete="tel"
                     placeholder=" ">
@@ -1299,93 +1318,47 @@
                   <span class="form__error">Por favor, introduza um e-mail válido.</span>
                 </div>
               </div>
+              <div class="form__group">
+                <label class="form__label" for="ins-profissao">Profissão / Ocupação</label>
+                <input class="form__control" type="text" id="ins-profissao" name="profissao" placeholder=" ">
+              </div>
             </div>
 
-            <!-- 3. Situação Profissional (opcional) -->
+            <!-- 3. Contacto e Comunicações -->
             <div class="ins-section">
               <h3 class="ins-section__title">
                 <span class="ins-section__num" aria-hidden="true">3</span>
-                <span class="ins-section__label">Situação Profissional <span
-                    style="font-size:.7rem;font-weight:400;color:var(--color-muted);text-transform:none;letter-spacing:0;">(opcional)</span></span>
+                <span class="ins-section__label">Contacto e Comunicações</span>
               </h3>
-              <div class="form__row">
-                <div class="form__group">
-                  <label class="form__label" for="ins-profissao">Profissão</label>
-                  <input class="form__control" type="text" id="ins-profissao" name="profissao" placeholder=" ">
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="ins-empresa">Empresa / Organização</label>
-                  <input class="form__control" type="text" id="ins-empresa" name="empresa" placeholder=" ">
-                </div>
+              <p class="ins-quota-box__label" style="margin-bottom:.75rem;">Indique o meio preferencial para
+                comunicações da Associação.</p>
+              <div class="ins-radio-group" role="radiogroup" aria-label="Meio preferencial de comunicação">
+                <label class="ins-radio-label">
+                  <input type="radio" name="meio_comunicacao" value="email" required>
+                  <span>
+                    <span class="ins-radio-label__title">E-mail</span>
+                  </span>
+                </label>
+                <label class="ins-radio-label">
+                  <input type="radio" name="meio_comunicacao" value="carta">
+                  <span>
+                    <span class="ins-radio-label__title">Carta / correio postal</span>
+                  </span>
+                </label>
+                <label class="ins-radio-label">
+                  <input type="radio" name="meio_comunicacao" value="telemovel">
+                  <span>
+                    <span class="ins-radio-label__title">Telemóvel para contactos informais</span>
+                  </span>
+                </label>
               </div>
             </div>
 
-            <!-- 4. Tipo de Associado -->
+            <!-- 4. Declaração do Candidato -->
             <div class="ins-section">
               <h3 class="ins-section__title">
                 <span class="ins-section__num" aria-hidden="true">4</span>
-                <span class="ins-section__label">Tipo de Associado</span>
-              </h3>
-              <div class="ins-radio-group" role="radiogroup" aria-label="Tipo de Associado">
-                <label class="ins-radio-label ins-radio-label--disabled">
-                  <input type="radio" name="tipo_associado" value="fundador" disabled>
-                  <span>
-                    <span class="ins-radio-label__title">Fundador</span>
-                    <span class="ins-radio-label__desc">Reservado a Órgãos Sociais ou mediante autorização
-                      destes.</span>
-                  </span>
-                </label>
-                <label class="ins-radio-label">
-                  <input type="radio" name="tipo_associado" value="civico" required>
-                  <span>
-                    <span class="ins-radio-label__title">Cívico</span>
-                    <span class="ins-radio-label__desc">Cidadão que apoia a missão cívica da ACIMHA.</span>
-                  </span>
-                </label>
-                <label class="ins-radio-label">
-                  <input type="radio" name="tipo_associado" value="habitacional">
-                  <span>
-                    <span class="ins-radio-label__title">Habitacional</span>
-                    <span class="ins-radio-label__desc">Cidadão diretamente afetado pela crise habitacional no
-                      Algarve.</span>
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            <!-- 5. Quotas -->
-            <div class="ins-section">
-              <h3 class="ins-section__title">
-                <span class="ins-section__num" aria-hidden="true">5</span>
-                <span class="ins-section__label">Quotas</span>
-              </h3>
-              <div class="ins-quota-box">
-                <span class="ins-quota-box__value">5€</span>
-                <span class="ins-quota-box__label">por período · selecione a periodicidade</span>
-              </div>
-              <div class="ins-radio-group" role="radiogroup" aria-label="Periodicidade de pagamento das quotas">
-                <label class="ins-radio-label">
-                  <input type="radio" name="periodicidade" value="semestral" required>
-                  <span>
-                    <span class="ins-radio-label__title">Semestral</span>
-                    <span class="ins-radio-label__desc">Pagamento de 6 em 6 meses</span>
-                  </span>
-                </label>
-                <label class="ins-radio-label">
-                  <input type="radio" name="periodicidade" value="anual">
-                  <span>
-                    <span class="ins-radio-label__title">Anual</span>
-                    <span class="ins-radio-label__desc">Pagamento único anual</span>
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            <!-- 6. Declaração -->
-            <div class="ins-section">
-              <h3 class="ins-section__title">
-                <span class="ins-section__num" aria-hidden="true">6</span>
-                <span class="ins-section__label">Declaração</span>
+                <span class="ins-section__label">Declaração do Candidato</span>
               </h3>
               <label class="ins-check-row">
                 <input type="checkbox" id="ins-estatutos" name="aceita_estatutos" required>
@@ -1399,7 +1372,30 @@
                   nos termos da legislação em vigor (RGPD). <span
                     style="color:var(--color-accent)">*</span></span>
               </label>
-              <div class="form__row" style="margin-top:1rem;">
+            </div>
+
+            <!-- 5. Quotas e Joia -->
+            <div class="ins-section">
+              <h3 class="ins-section__title">
+                <span class="ins-section__num" aria-hidden="true">5</span>
+                <span class="ins-section__label">Quotas e Joia</span>
+              </h3>
+              <div class="ins-quota-box">
+                <span class="ins-quota-box__value">5€</span>
+                <span class="ins-quota-box__label">quota mensal, para os associados sujeitos a quotização</span>
+              </div>
+              <p class="ins-quota-box__label" style="margin-top:.75rem;">Sócio Cívico: sem joia de inscrição. Sócio
+                Habitacional: joia de inscrição de €100,00 (cem euros), sem prejuízo das regras e obrigações
+                específicas previstas para os programas habitacionais.</p>
+            </div>
+
+            <!-- 6. Assinatura -->
+            <div class="ins-section">
+              <h3 class="ins-section__title">
+                <span class="ins-section__num" aria-hidden="true">6</span>
+                <span class="ins-section__label">Assinatura</span>
+              </h3>
+              <div class="form__row">
                 <div class="form__group">
                   <label class="form__label" for="ins-local">Local <span aria-hidden="true">*</span></label>
                   <input class="form__control" type="text" id="ins-local" name="local" required
@@ -1423,12 +1419,52 @@
           </form>
         </div>
 
+        <!-- Passo de assinatura (CMD) -->
+        <div id="inscricao-assinar" class="form__step" tabindex="-1">
+          <h3 class="form__title">Assinatura Digital do Documento</h3>
+
+          <div class="ins-callout">
+            <p>Foi gerado e transferido automaticamente um PDF com os dados que preencheu. Para
+              validar oficialmente a sua inscrição, é necessário assiná-lo com a Chave Móvel Digital:</p>
+            <ol class="ins-callout__list">
+              <li>Confirme que o ficheiro PDF foi transferido para o seu computador ou telemóvel.</li>
+              <li>Aceda ao site oficial da Chave Móvel Digital e carregue esse ficheiro para assinar.</li>
+              <li>Depois de assinado, guarde o novo PDF e carregue-o no campo abaixo.</li>
+            </ol>
+            <a class="btn btn--primary" href="https://cmd.autenticacao.gov.pt/Ama.Authentication.Frontend/Processes/DigitalSignature/DigitalSignatureIntro.aspx"
+              target="_blank" rel="noopener noreferrer">Assinar documento com a Chave Móvel Digital →</a>
+            <p class="ins-callout__note">Precisa de ter a Chave Móvel Digital ativa. O tamanho máximo aceite pela
+              ferramenta é 3MB — este documento é muito menor, por isso não haverá problema.</p>
+          </div>
+
+          <form id="inscricao-assinatura-form" name="inscricao-assinatura" method="POST" data-netlify="true"
+            netlify-honeypot="bot-field" enctype="multipart/form-data" novalidate>
+            <input type="hidden" name="form-name" value="inscricao-assinatura">
+            <p class="visually-hidden"><label>Não preencher: <input name="bot-field" autocomplete="off"></label></p>
+
+            <div class="form__group">
+              <label class="form__label" for="ins-assinatura-file">Ficha assinada (PDF) <span
+                  aria-hidden="true">*</span></label>
+              <input class="ins-file-input" type="file" id="ins-assinatura-file" name="ficha_assinada"
+                accept="application/pdf,.pdf" required>
+              <span class="ins-file-preview__name"></span>
+              <span class="form__error" style="display:none;"></span>
+            </div>
+
+            <div class="ins-submit-row">
+              <span class="ins-submit-row__note">* Campo obrigatório</span>
+              <button type="submit" class="btn btn--primary" disabled>Confirmar envio do documento assinado</button>
+            </div>
+          </form>
+        </div>
+
         <!-- Estado de sucesso -->
         <div id="inscricao-success" class="form__success" aria-live="polite" tabindex="-1">
           <div class="form__success-icon" aria-hidden="true">✅</div>
           <h3 class="form__success-title">Inscrição submetida!</h3>
-          <p class="form__success-text">Obrigado pelo seu pedido de adesão à ACIMHA. Entraremos em contacto por e-mail
-            nas próximas 48 horas para confirmar a sua inscrição e informar sobre o processo de pagamento da quota.</p>
+          <p class="form__success-text">Obrigado — recebemos o seu documento assinado. Entraremos em contacto por
+            e-mail nas próximas 48 horas para confirmar a sua inscrição e informar sobre o processo de pagamento da
+            quota.</p>
         </div>
 
       </div>
@@ -1545,6 +1581,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>
 

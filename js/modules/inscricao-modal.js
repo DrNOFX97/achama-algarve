@@ -1,5 +1,7 @@
 import { handleFormSubmit } from './forms.js';
 import { setupFocusTrap } from './ui-utils.js';
+import { baixarFichaPdf } from './inscricao-pdf.js';
+import { initInscricaoAssinaturaForm, resetInscricaoAssinaturaForm } from './inscricao-signature.js';
 
 export function initInscricaoModal() {
     const overlay = document.getElementById('inscricao-overlay');
@@ -7,6 +9,9 @@ export function initInscricaoModal() {
 
     const closeBtn = document.getElementById('inscricao-close');
     const openBtns = document.querySelectorAll('[data-modal-open="inscricao"]');
+    const fieldsEl = document.getElementById('inscricao-fields');
+    const assinarEl = document.getElementById('inscricao-assinar');
+    const successEl = document.getElementById('inscricao-success');
 
     let triggerBtn = null;
 
@@ -23,6 +28,15 @@ export function initInscricaoModal() {
         }
     }
 
+    function resetFlow() {
+        assinarEl?.classList.remove('is-visible');
+        successEl?.classList.remove('is-visible');
+        fieldsEl?.classList.remove('is-hidden');
+        document.getElementById('inscricao-form')?.reset();
+        assinarEl?.querySelector('.ins-callout__pdf-error')?.remove();
+        resetInscricaoAssinaturaForm(overlay);
+    }
+
     function closeModal() {
         if (overlay.classList.contains('is-open')) {
             overlay.classList.remove('is-open');
@@ -30,6 +44,7 @@ export function initInscricaoModal() {
             if (triggerBtn) {
                 triggerBtn.focus();
             }
+            resetFlow();
         }
     }
 
@@ -67,7 +82,7 @@ export function initInscricaoModal() {
     });
 
     // Pré-seleccionar valores por defeito
-    ['civico', 'semestral'].forEach(val => {
+    ['civico'].forEach(val => {
         const el = overlay.querySelector(`input[value="${val}"]`);
         if (el) {
             el.checked = true;
@@ -75,9 +90,25 @@ export function initInscricaoModal() {
         }
     });
 
+    initInscricaoAssinaturaForm(overlay);
+
     handleFormSubmit(
         document.getElementById('inscricao-form'),
-        document.getElementById('inscricao-fields'),
-        document.getElementById('inscricao-success')
+        fieldsEl,
+        assinarEl,
+        (formEl) => {
+            const result = baixarFichaPdf(formEl);
+            if (!result.ok) {
+                const callout = assinarEl?.querySelector('.ins-callout');
+                let warningEl = callout?.querySelector('.ins-callout__pdf-error');
+                if (callout && !warningEl) {
+                    warningEl = document.createElement('p');
+                    warningEl.className = 'ins-callout__note ins-callout__pdf-error';
+                    warningEl.style.color = 'var(--color-error)';
+                    warningEl.textContent = 'Não foi possível gerar o PDF automaticamente. Por favor, contacte-nos por e-mail para lhe enviarmos a ficha para assinatura.';
+                    callout.appendChild(warningEl);
+                }
+            }
+        }
     );
 }

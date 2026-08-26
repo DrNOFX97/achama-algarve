@@ -266,6 +266,67 @@
     line-height: 1.5;
 }
 
+/* ── Instruções de assinatura (CMD) ────────────── */
+.ins-callout {
+    border: 1.5px solid var(--color-hairline);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.ins-callout p {
+    font-size: .9rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.ins-callout__list {
+    list-style: decimal;
+    padding-left: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.ins-callout__list li {
+    font-size: .875rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: .4rem;
+}
+
+.ins-callout__note {
+    font-size: .8rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+/* ── Upload do PDF assinado ────────────────────── */
+.ins-file-input {
+    display: block;
+    width: 100%;
+    padding: .7rem 1rem;
+    border: 1.5px solid var(--color-border);
+    font-family: var(--font-body);
+    font-size: .875rem;
+    color: var(--color-text);
+    background: var(--color-white);
+    cursor: pointer;
+}
+
+.ins-file-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(27, 58, 107, .12);
+}
+
+.ins-file-preview__name {
+    display: block;
+    font-size: .8rem;
+    color: var(--color-muted);
+    margin-top: .4rem;
+}
+
 /* ── Linha de submissão ────────────────────────── */
 .ins-submit-row {
     margin-top: 1.75rem;
