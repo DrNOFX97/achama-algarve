@@ -2,8 +2,8 @@ import { verifySession } from './lib/session.mjs';
 import { findFormIdByName, listSubmissions } from './lib/netlify-api.mjs';
 import { getInscricoesStore } from './lib/blobs.mjs';
 
-// "Aprovado" fica de fora por agora: nenhuma das duas forms guarda quem/quando
-// aprovou, e decidimos não inventar esse mecanismo nesta tarefa.
+// "Aprovado" não vem de nenhuma das duas forms — é aplicado mais abaixo a
+// partir do override guardado em Blobs (update-inscricao-estado.mjs).
 const CATEGORIA_LABELS = {
     civico: 'Sócio Cívico',
     habitacional: 'Sócio Habitacional',
