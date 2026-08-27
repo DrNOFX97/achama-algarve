@@ -36,6 +36,22 @@ function formatDate(iso) {
     return d.toLocaleDateString('pt-PT', { year: 'numeric', month: '2-digit', day: '2-digit' });
 }
 
+function formatMonthLabel(d) {
+    return d.toLocaleDateString('pt-PT', { month: 'short', year: '2-digit' }).replace('.', '');
+}
+
+// SVG donut à mão (sem biblioteca) — um círculo por segmento, usando
+// stroke-dasharray/offset em vez de arcos, com um gap de 2px em surface
+// entre segmentos (spacer da skill de dataviz).
+function svgDonutSegment({ cx, cy, r, circumference, offset, length, color, gapDeg }) {
+    const gapLen = (gapDeg / 360) * circumference;
+    const dash = Math.max(length - gapLen, 0);
+    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="20"
+        stroke-dasharray="${dash} ${circumference - dash}"
+        stroke-dashoffset="${-offset}"
+        transform="rotate(-90 ${cx} ${cy})"></circle>`;
+}
+
 function estadoPillClass(estado) {
     if (estado === 'Aprovado') return 'is-aprovado';
     if (estado === 'Pendente aprovação') return 'is-pendente-aprovacao';
@@ -87,17 +103,62 @@ function renderInscricoes(inscricoes) {
     }
     empty.classList.add('is-hidden');
 
-    body.innerHTML = inscricoes.map((i) => `
+    body.innerHTML = inscricoes.map((i) => {
+        const id = escapeHtml(i.id);
+        const email = escapeHtml(i.email || '');
+        const nome = escapeHtml(i.nome || 'esta inscrição');
+        const estadoBtn = i.estado === 'Aprovado'
+            ? `<button type="button" class="admin-link-action" data-action="reverter" data-id="${id}">Reverter</button>`
+            : `<button type="button" class="admin-link-action" data-action="aprovar" data-id="${id}">Marcar Aprovado</button>`;
+        return `
         <tr>
             <td>${escapeHtml(i.nome || '—')}</td>
             <td>${escapeHtml(i.categoriaLabel || '—')}</td>
             <td>${formatDate(i.data)}</td>
             <td><span class="admin-pill ${estadoPillClass(i.estado)}">${escapeHtml(i.estado)}</span></td>
-            <td>${i.pdfUrl
-            ? `<a class="admin-link-action" href="${safeHref(i.pdfUrl)}" target="_blank" rel="noopener">Ver PDF</a>`
-            : '—'}</td>
+            <td>
+                <div class="admin-row-actions">
+                    ${i.pdfUrl ? `<a class="admin-link-action" href="${safeHref(i.pdfUrl)}" target="_blank" rel="noopener">Ver PDF</a>` : ''}
+                    ${estadoBtn}
+                    <button type="button" class="admin-link-action admin-link-action--danger" data-action="apagar" data-id="${id}" data-email="${email}" data-nome="${nome}">Apagar</button>
+                </div>
+            </td>
         </tr>
-    `).join('');
+    `;
+    }).join('');
+}
+
+async function handleInscricoesRowAction(e) {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const { action, id, email, nome } = btn.dataset;
+
+    if (action === 'aprovar' || action === 'reverter') {
+        btn.disabled = true;
+        try {
+            await fetch('/.netlify/functions/update-inscricao-estado', {
+                method: 'POST',
+                body: JSON.stringify({ id, estado: action === 'aprovar' ? 'Aprovado' : null }),
+            });
+        } finally {
+            await refreshInscricoes();
+        }
+        return;
+    }
+
+    if (action === 'apagar') {
+        const confirmado = confirm(`Apagar definitivamente a inscrição de ${nome}? Esta ação não tem undo.`);
+        if (!confirmado) return;
+        btn.disabled = true;
+        try {
+            await fetch('/.netlify/functions/delete-inscricao', {
+                method: 'POST',
+                body: JSON.stringify({ id, email: email || undefined }),
+            });
+        } finally {
+            await refreshInscricoes();
+        }
+    }
 }
 
 function renderDocumentos(documentos) {
@@ -121,6 +182,121 @@ function renderDocumentos(documentos) {
     $$('.admin-doc-card__upload', wrap).forEach((form) => {
         form.addEventListener('submit', handleDocumentUpload);
     });
+}
+
+// Cores validadas com o script de acessibilidade da skill de dataviz para
+// este par (contraste, distinção CVD) — não trocar sem revalidar.
+const CATEGORIA_COLORS = {
+    civico: '#2a78d6',
+    habitacional: '#eb6834',
+};
+const CATEGORIA_COLOR_FALLBACK = '#6B6B5F'; // --color-muted, só se aparecer uma categoria nova
+
+function renderTimelineChart(inscricoes) {
+    const el = $('#admin-chart-timeline');
+    if (!inscricoes.length) {
+        el.innerHTML = '<p class="admin-empty">Sem inscrições ainda.</p>';
+        return;
+    }
+
+    const datas = inscricoes.map((i) => new Date(i.data)).sort((a, b) => a - b);
+    const primeira = new Date(datas[0].getFullYear(), datas[0].getMonth(), 1);
+    const agora = new Date();
+    const meses = [];
+    for (let d = new Date(primeira); d <= agora; d.setMonth(d.getMonth() + 1)) {
+        meses.push(new Date(d));
+    }
+
+    const acumulado = meses.map((mesInicio) => {
+        const fimDoMes = new Date(mesInicio.getFullYear(), mesInicio.getMonth() + 1, 1);
+        return datas.filter((d) => d < fimDoMes).length;
+    });
+
+    const w = 560;
+    const h = 220;
+    const padL = 32;
+    const padB = 28;
+    const padT = 16;
+    const padR = 16;
+    const plotW = w - padL - padR;
+    const plotH = h - padT - padB;
+    const maxY = Math.max(acumulado[acumulado.length - 1], 1);
+
+    const x = (i) => padL + (meses.length === 1 ? plotW / 2 : (i / (meses.length - 1)) * plotW);
+    const y = (v) => padT + plotH - (v / maxY) * plotH;
+
+    const pontos = acumulado.map((v, i) => `${x(i)},${y(v)}`).join(' ');
+    const ultimo = acumulado[acumulado.length - 1];
+
+    // Rótulos de mês esparsos — no máximo ~6, para não sobrepor.
+    const passo = Math.max(1, Math.ceil(meses.length / 6));
+    const eixoX = meses.map((m, i) => (
+        i % passo === 0 || i === meses.length - 1
+            ? `<text x="${x(i)}" y="${h - 8}" class="admin-chart__axis-label" text-anchor="middle">${escapeHtml(formatMonthLabel(m))}</text>`
+            : ''
+    )).join('');
+
+    el.innerHTML = `
+        <h2 class="admin-chart__title">Inscrições ao longo do tempo</h2>
+        <svg viewBox="0 0 ${w} ${h}" class="admin-chart__svg" role="img" aria-label="Total acumulado de inscrições por mês, de ${formatMonthLabel(meses[0])} a ${formatMonthLabel(meses[meses.length - 1])}, terminando em ${ultimo}.">
+            <line x1="${padL}" y1="${padT + plotH}" x2="${w - padR}" y2="${padT + plotH}" class="admin-chart__axis"></line>
+            <polyline points="${pontos}" fill="none" class="admin-chart__line"></polyline>
+            <circle cx="${x(acumulado.length - 1)}" cy="${y(ultimo)}" r="4" class="admin-chart__dot"></circle>
+            <text x="${x(acumulado.length - 1)}" y="${y(ultimo) - 10}" class="admin-chart__value-label" text-anchor="end">${ultimo}</text>
+            ${eixoX}
+        </svg>
+    `;
+}
+
+function renderCategoriasDonut(inscricoes) {
+    const el = $('#admin-chart-categorias');
+    if (!inscricoes.length) {
+        el.innerHTML = '<p class="admin-empty">Sem inscrições ainda.</p>';
+        return;
+    }
+
+    const porCategoria = new Map();
+    inscricoes.forEach((i) => {
+        const key = i.categoria || 'outra';
+        const label = i.categoriaLabel || 'Outra';
+        const entry = porCategoria.get(key) || { label, count: 0, color: CATEGORIA_COLORS[key] || CATEGORIA_COLOR_FALLBACK };
+        entry.count += 1;
+        porCategoria.set(key, entry);
+    });
+
+    const total = inscricoes.length;
+    const cx = 90;
+    const cy = 90;
+    const r = 70;
+    const circumference = 2 * Math.PI * r;
+    const gapDeg = 3;
+
+    let offset = 0;
+    const segmentos = [...porCategoria.values()].map((entry) => {
+        const length = (entry.count / total) * circumference;
+        const svg = svgDonutSegment({ cx, cy, r, circumference, offset, length, color: entry.color, gapDeg });
+        offset += length;
+        return svg;
+    }).join('');
+
+    const legenda = [...porCategoria.values()].map((entry) => `
+        <li class="admin-chart__legend-item">
+            <span class="admin-chart__swatch" style="background:${entry.color}"></span>
+            ${escapeHtml(entry.label)} — ${entry.count}
+        </li>
+    `).join('');
+
+    el.innerHTML = `
+        <h2 class="admin-chart__title">Categorias de sócio</h2>
+        <div class="admin-chart__donut-wrap">
+            <svg viewBox="0 0 180 180" class="admin-chart__donut" role="img" aria-label="Distribuição de ${total} inscrições por categoria de sócio.">
+                ${segmentos}
+                <text x="${cx}" y="${cy - 4}" text-anchor="middle" class="admin-chart__donut-total">${total}</text>
+                <text x="${cx}" y="${cy + 14}" text-anchor="middle" class="admin-chart__donut-total-label">inscrições</text>
+            </svg>
+            <ul class="admin-chart__legend">${legenda}</ul>
+        </div>
+    `;
 }
 
 async function handleDocumentUpload(e) {
@@ -184,12 +360,29 @@ async function renderNoticias() {
     }
 }
 
+let ultimosDocumentos = [];
+
+async function refreshInscricoes() {
+    try {
+        const res = await fetch('/.netlify/functions/list-inscricoes');
+        if (!res.ok) throw new Error('Falha ao recarregar inscrições.');
+        const data = await res.json();
+        renderStats(data.inscricoes, ultimosDocumentos);
+        renderInscricoes(data.inscricoes);
+        renderTimelineChart(data.inscricoes);
+        renderCategoriasDonut(data.inscricoes);
+    } catch {
+        // A lista/gráficos ficam com os últimos dados válidos em ecrã.
+    }
+}
+
 async function loadDashboard(email) {
     $('#admin-session-email').textContent = email;
     $('#admin-settings-email').textContent = email;
 
     setupNav();
     renderNoticias();
+    $('#admin-inscricoes-body').addEventListener('click', handleInscricoesRowAction);
 
     try {
         const [inscricoesRes, documentosRes] = await Promise.all([
@@ -204,9 +397,12 @@ async function loadDashboard(email) {
             documentosRes.json(),
         ]);
 
+        ultimosDocumentos = documentosData.documentos;
         renderStats(inscricoesData.inscricoes, documentosData.documentos);
         renderInscricoes(inscricoesData.inscricoes);
         renderDocumentos(documentosData.documentos);
+        renderTimelineChart(inscricoesData.inscricoes);
+        renderCategoriasDonut(inscricoesData.inscricoes);
     } catch {
         $('#admin-stats').innerHTML = '<p class="admin-error">Não foi possível carregar os dados do painel.</p>';
     }
