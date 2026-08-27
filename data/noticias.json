@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-08-27T13:16:39.963Z",
+  "atualizado_em": "2026-08-27T23:19:28.484Z",
   "queries": [
     "crise habitacional Algarve",
     "habitação social Algarve",
@@ -7,6 +7,18 @@
     "construção habitação Algarve"
   ],
   "noticias": [
+    {
+      "titulo": "Olhão, Portimão e Vila Real de Santo António integram concurso para 77 habitações",
+      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNWFg0UkVTUHlQRk1HZlNKdjdLWlJXOWxWZzRDTWt2T0p6RWVRQnpwU0hJMHFpQlRYMUh4cUhkd0pmd2pYUDJRQlNFei10QVF2T1U2VlRGcXY0UUFYWlJBSWYwUFRSTWJVLXZVSDhvZmlaQnhQRGdVdHc4aFRNTm81NmJ4dGNaSTFMYU1MLWZMd0xHZzFNdTNsQ0hCZnB3dHFRWmdsVlR3eGFWZ2M?oc=5",
+      "fonte": "postal.pt",
+      "data": "27 Ago 2026"
+    },
+    {
+      "titulo": "IHRU coloca a concurso 77 habitações para arrendamento acessível",
+      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNNU1ldlZubzY0SG1FMTJLQTdDMU1oOGswR0JlbDZEelY3YXJ0bmJhM2wwZXVZd0RUbk5KYTVGQVAza29ZVDZLV0plWWJNaV9ZWU95eFY4TGpldWFPbXVDQktxOWExUDdBelpSTVgyeGNIOXc2UkNJT25UYm8zRUsxV0FqanJuNjBBcS1tcndma1d4Zjk5dVU5WF9fTXl6M0c00gGgAUFVX3lxTE01TWV2Vm5vNjRIbUUxMktBN0MxTWg4azBHQmVsNkR6VjdhcnRuYmEzbDBldVl3RFRuTkphNUZBUDNrb1lUNktXSmVZYk1pX1lZT3l4VjhMamV1YU9tdUNCS3E5YTFQN0F6WlJNWDJ4Y0g5dzZSQ0lPblRibzNFSzFXQWpqcm42MEFxLW1yd2ZrV3hmOTl1VTlYX19NeXozRzQ?oc=5",
+      "fonte": "SÁBADO",
+      "data": "27 Ago 2026"
+    },
     {
       "titulo": "Arrendamento em Portugal volta a ficar mais caro",
       "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNTXFXTnFMWEJUZnlfUG5Cdm5SY1Fhenk3WERUWXNYOGo4d1BCTDhJcTFuaHhlUUliakJ1WEhSSDVTM25Dclpra0F1UDk1WFdsS2d2OTl2Rkd2WjNHdFI4bXJfQUx6VWZUU1BPMEplcDJORF9oNW9EcWJQLXJ2SEwxOWdETHNVeDV5Wm5XSlpNQkJsUQ?oc=5",
@@ -54,18 +66,6 @@
       "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNVzVockdhazI4RkQzZjhHOUZpVGVGRF9QZVloTjd4bmFPeHRXQXpEb1RIS0Q2UUhiYzRlWV9zeXc3SWk1NU9VLUNGcW5mNUlYM1NFa2NhQkRXVjFIZG1SdmZDeDYzMm9KN1FFN2RNcGhmSjJSWDlWX3lwMWFhSklOczVQeHdpYUNLV0ZhbmtQLTRjc2hpbnc0U1NJOUg2TDJMN2tuRUxpLW5YdlRVZmEtUDJpZFlUYjlFZm9tVldZVS1SVkE0MFZoaUI2RVcyV3B0Z1piSzRfbHJUUkZ3eENHUkZoOA?oc=5",
       "fonte": "RFI",
       "data": "19 Ago 2026"
-    },
-    {
-      "titulo": "Idealista | Famílias gastam 82% do salário na renda e 76% na compra de casa",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQS0ZfZkg4OXkzSjZQMzZLMm83Y0VYY2JZQW1mcjFTRkQ2UEs4blhIWmpZbjFPUlI0eXExMk5qWXVVOUx3NzZ1bFJhWFBxbVdhbGwyRElSNHVKeG1vRHI3NWwxV2lrZjdlQXJkd2RpOGFvTHd5QS01bzBHSmVhakNmR2NMZXZFM3FrSGY0V1hnZndkbDNMbk9fUDdneXBkdFp0TkM2cTFHci0wUQ?oc=5",
-      "fonte": "Mais Algarve",
-      "data": "19 Ago 2026"
-    },
-    {
-      "titulo": "O jornal britânico The Telegraph classifica o Algarve como um \"mercado imobiliário acessível\".",
-      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOMXJaOEZJNjFCQ1RaNjR2NUpkZEJzMElyUEpjcWhKR1NKTkstQ1pWc0FFeXJBUDlyS090MlFJSER6c2hvQl9Lc3U2aXBvX2pUOUxzUjdxSDF6eENuRXdMNlZseDNfVENlWkZaMGxvZm15akMzSVAzTTZWUE9hLVpGWWhNTzJhc1QwLWFDdXBKdC1UNjdTN2tPcVlTOFZ3X05uR081MC0teWJSRnR3VmlHRFB3VzJwZ19XM2FpOWdud2dRUEg4NklNSm83SzBaT2VhcVE?oc=5",
-      "fonte": "Portugal Resident",
-      "data": "18 Ago 2026"
     }
   ]
 }
