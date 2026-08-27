@@ -20,10 +20,10 @@ export function setCustomValidity(input) {
     }
 }
 
-export function handleFormSubmit(formEl, fieldsEl, successEl, onSuccess) {
+export function handleFormSubmit(formEl, fieldsEl, successEl, onSuccess, preSubmitCheck) {
     if (!formEl) return;
 
-    formEl.addEventListener('submit', function (e) {
+    formEl.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         let valid = true;
@@ -35,6 +35,31 @@ export function handleFormSubmit(formEl, fieldsEl, successEl, onSuccess) {
                 input.reportValidity();
             }
         });
+
+        if (valid && typeof preSubmitCheck === 'function') {
+            const check = await preSubmitCheck(formEl);
+            if (check && check.ok === false) {
+                let errorMsgEl = formEl.querySelector('.form__alert--error');
+                if (!errorMsgEl) {
+                    errorMsgEl = document.createElement('div');
+                    errorMsgEl.className = 'form__alert form__alert--error';
+                    errorMsgEl.setAttribute('role', 'alert');
+                    errorMsgEl.setAttribute('aria-live', 'polite');
+                    errorMsgEl.setAttribute('tabindex', '-1');
+
+                    const submitRow = formEl.querySelector('.ins-submit-row, .contact-modal__submit-row') || formEl.querySelector('button[type="submit"]');
+                    if (submitRow) {
+                        submitRow.parentNode.insertBefore(errorMsgEl, submitRow);
+                    } else {
+                        formEl.appendChild(errorMsgEl);
+                    }
+                }
+                errorMsgEl.textContent = check.message || 'Não é possível submeter este formulário.';
+                errorMsgEl.style.display = 'block';
+                errorMsgEl.focus();
+                valid = false;
+            }
+        }
 
         if (valid) {
             const submitBtn = formEl.querySelector('button[type="submit"]');

@@ -92,6 +92,27 @@ export function initInscricaoModal() {
 
     initInscricaoAssinaturaForm(overlay);
 
+    async function checkNifDuplicado(formEl) {
+        const nif = formEl.querySelector('[name="nif"]')?.value || '';
+        try {
+            const res = await fetch('/.netlify/functions/check-nif-duplicado', {
+                method: 'POST',
+                body: JSON.stringify({ nif }),
+            });
+            if (!res.ok) return { ok: true }; // bloqueador indisponível não deve travar inscrições legítimas
+            const data = await res.json();
+            if (data.duplicado) {
+                return {
+                    ok: false,
+                    message: 'Já existe uma inscrição com este NIF. Se for um engano ou precisar de ajuda, contacte-nos em acimha.geral@gmail.com.',
+                };
+            }
+            return { ok: true };
+        } catch {
+            return { ok: true };
+        }
+    }
+
     handleFormSubmit(
         document.getElementById('inscricao-form'),
         fieldsEl,
@@ -112,6 +133,7 @@ export function initInscricaoModal() {
                     callout.appendChild(warningEl);
                 }
             }
-        }
+        },
+        checkNifDuplicado
     );
 }
