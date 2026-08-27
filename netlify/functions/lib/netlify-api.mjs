@@ -23,3 +23,13 @@ export async function listSubmissions(formId, token) {
 export async function getSubmission(submissionId, token) {
     return netlifyApiFetch(`/submissions/${submissionId}`, token);
 }
+
+export async function deleteSubmission(submissionId, token) {
+    const res = await fetch(`${NETLIFY_API_BASE}/submissions/${submissionId}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) {
+        throw new Error(`Netlify API respondeu ${res.status} ao apagar a submissão ${submissionId}`);
+    }
+}

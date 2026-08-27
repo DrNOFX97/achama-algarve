@@ -1,8 +1,9 @@
 import { verifySession } from './lib/session.mjs';
 import { findFormIdByName, listSubmissions } from './lib/netlify-api.mjs';
+import { getInscricoesStore } from './lib/blobs.mjs';
 
-// "Aprovado" fica de fora por agora: nenhuma das duas forms guarda quem/quando
-// aprovou, e decidimos não inventar esse mecanismo nesta tarefa.
+// "Aprovado" não vem de nenhuma das duas forms — é aplicado mais abaixo a
+// partir do override guardado em Blobs (update-inscricao-estado.mjs).
 const CATEGORIA_LABELS = {
     civico: 'Sócio Cívico',
     habitacional: 'Sócio Habitacional',
@@ -78,6 +79,23 @@ export default async (req) => {
                 : null,
         };
     });
+
+    // Override de estado (só "Aprovado") guardado em Blobs — o Netlify Forms
+    // não tem forma de editar o conteúdo de uma submissão.
+    try {
+        const store = getInscricoesStore();
+        const overrides = await Promise.all(
+            lista.map((item) => store.get(item.id, { type: 'json' }))
+        );
+        overrides.forEach((override, i) => {
+            if (override?.estado === 'Aprovado') {
+                lista[i].estado = 'Aprovado';
+            }
+        });
+    } catch {
+        // Falha a ler overrides não deve impedir a lista de aparecer — os
+        // estados derivados do Netlify Forms continuam corretos sem eles.
+    }
 
     lista.sort((a, b) => new Date(b.data) - new Date(a.data));
 
