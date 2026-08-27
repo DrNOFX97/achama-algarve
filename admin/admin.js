@@ -20,6 +20,15 @@ function escapeHtml(str) {
     }[c]));
 }
 
+// Só aceita https:// ou caminhos relativos — bloqueia javascript: e outros
+// esquemas perigosos em valores vindos de fontes externas (inscrições, notícias).
+function safeHref(url) {
+    if (typeof url === 'string' && /^(https:\/\/|\/)/.test(url)) {
+        return escapeHtml(url);
+    }
+    return '#';
+}
+
 function formatDate(iso) {
     if (!iso) return '—';
     const d = new Date(iso);
@@ -85,7 +94,7 @@ function renderInscricoes(inscricoes) {
             <td>${formatDate(i.data)}</td>
             <td><span class="admin-pill ${estadoPillClass(i.estado)}">${escapeHtml(i.estado)}</span></td>
             <td>${i.pdfUrl
-            ? `<a class="admin-link-action" href="${i.pdfUrl}" target="_blank" rel="noopener">Ver PDF</a>`
+            ? `<a class="admin-link-action" href="${safeHref(i.pdfUrl)}" target="_blank" rel="noopener">Ver PDF</a>`
             : '—'}</td>
         </tr>
     `).join('');
@@ -166,7 +175,7 @@ async function renderNoticias() {
 
         list.innerHTML = noticias.map((n) => `
             <li class="admin-news__item">
-                <a href="${n.link}" target="_blank" rel="noopener">${escapeHtml(n.titulo)}</a>
+                <a href="${safeHref(n.link)}" target="_blank" rel="noopener">${escapeHtml(n.titulo)}</a>
                 <span class="admin-news__meta">${escapeHtml(n.fonte || '')} · ${escapeHtml(n.data || '')}</span>
             </li>
         `).join('');
