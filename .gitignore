@@ -2,3 +2,5 @@
 .netlify/
 node_modules/
 *.log
+.env
+client_secret_*.json
