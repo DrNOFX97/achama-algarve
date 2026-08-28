@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Continuar Assinatura – ACIMHA</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components/forms.css">
+  <link rel="stylesheet" href="css/components/inscricao.css">
+</head>
+
+<body>
+
+  <header class="legal-header">
+    <div class="container">
+      <a href="index.html" class="legal-header__back">← Voltar ao site</a>
+      <div>
+        <a href="index.html" aria-label="ACIMHA — Página inicial">
+          <img src="assets/images/ACIMHA.png" alt="ACIMHA" class="legal-header__logo">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container legal" style="max-width: 640px;">
+      <h1>Continuar a assinatura da inscrição</h1>
+
+      <div id="assinatura-loading">
+        <p>A verificar o seu link…</p>
+      </div>
+
+      <div id="assinatura-invalido" style="display:none;">
+        <p>Este link é inválido ou já expirou. Se precisar de ajuda para retomar a sua inscrição, contacte-nos em
+          <a href="mailto:acimha.geral@gmail.com">acimha.geral@gmail.com</a>.</p>
+      </div>
+    </div>
+
+    <!-- Fora de .legal deliberadamente: a regra ".legal a" (cor de destaque
+         para links de texto corrido) tornaria o botão da CMD ilegível
+         (texto vermelho sobre fundo vermelho). -->
+    <div class="container" id="assinatura-valido" style="max-width: 640px; display:none;">
+        <div class="ins-callout">
+          <p>Assine o documento da sua ficha de inscrição por uma destas duas vias:</p>
+          <ol class="ins-callout__list">
+            <li><strong>Chave Móvel Digital:</strong> se ainda tiver o ficheiro .docx que recebeu, abra-o no Word
+              ou LibreOffice, exporte-o ou imprima-o como PDF e carregue esse PDF no site oficial da Chave Móvel
+              Digital para o assinar.</li>
+            <li><strong>Assinatura manual:</strong> imprima o documento, assine-o à mão e digitalize-o (ou
+              fotografe-o) num único ficheiro PDF.</li>
+            <li>Depois de assinado, por uma via ou outra, carregue o PDF assinado no campo abaixo.</li>
+          </ol>
+          <a class="btn btn--primary"
+            href="https://cmd.autenticacao.gov.pt/Ama.Authentication.Frontend/Processes/DigitalSignature/DigitalSignatureIntro.aspx"
+            target="_blank" rel="noopener noreferrer">Assinar documento com a Chave Móvel Digital →</a>
+          <p class="ins-callout__note">Precisa de ter a Chave Móvel Digital ativa. O tamanho máximo aceite pela
+            ferramenta é 3MB — este documento é muito menor, por isso não haverá problema.</p>
+        </div>
+
+        <div id="inscricao-assinar" class="form__step is-visible" tabindex="-1">
+          <form id="inscricao-assinatura-form" name="inscricao-assinatura" method="POST" data-netlify="true"
+            netlify-honeypot="bot-field" enctype="multipart/form-data" novalidate>
+            <input type="hidden" name="form-name" value="inscricao-assinatura">
+            <input type="hidden" name="email" id="ins-assinatura-email">
+            <p class="visually-hidden"><label>Não preencher: <input name="bot-field" autocomplete="off"></label></p>
+
+            <div class="form__group">
+              <label class="form__label" for="ins-assinatura-file">Ficha assinada (PDF) <span
+                  aria-hidden="true">*</span></label>
+              <input class="ins-file-input" type="file" id="ins-assinatura-file" name="ficha_assinada"
+                accept="application/pdf,.pdf" required>
+              <span class="ins-file-preview__name"></span>
+              <span class="form__error" style="display:none;"></span>
+            </div>
+
+            <div class="ins-submit-row">
+              <span class="ins-submit-row__note">* Campo obrigatório</span>
+              <button type="submit" class="btn btn--primary" disabled>Confirmar envio do documento assinado</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="inscricao-success" class="form__success" aria-live="polite" tabindex="-1">
+          <div class="form__success-icon" aria-hidden="true">✅</div>
+          <h3 class="form__success-title">Documento enviado!</h3>
+          <p class="form__success-text">Obrigado — recebemos o seu documento assinado. Entraremos em contacto por
+            e-mail nas próximas 48 horas para confirmar a sua inscrição.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initInscricaoAssinaturaForm } from './js/modules/inscricao-signature.js';
+
+    async function init() {
+      const loadingEl = document.getElementById('assinatura-loading');
+      const invalidoEl = document.getElementById('assinatura-invalido');
+      const validoEl = document.getElementById('assinatura-valido');
+
+      const token = new URLSearchParams(location.search).get('token');
+      if (!token) {
+        loadingEl.style.display = 'none';
+        invalidoEl.style.display = 'block';
+        return;
+      }
+
+      let data;
+      try {
+        const res = await fetch(`/.netlify/functions/resolve-inscricao-token?token=${encodeURIComponent(token)}`);
+        data = await res.json();
+        if (!res.ok || !data.ok) throw new Error('invalido');
+      } catch {
+        loadingEl.style.display = 'none';
+        invalidoEl.style.display = 'block';
+        return;
+      }
+
+      document.getElementById('ins-assinatura-email').value = data.email || '';
+      loadingEl.style.display = 'none';
+      validoEl.style.display = 'block';
+      initInscricaoAssinaturaForm(document);
+    }
+
+    init();
+  </script>
+</body>
+
+</html>

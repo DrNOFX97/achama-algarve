@@ -9,3 +9,14 @@ export function getInscricoesStore() {
         token: process.env.NETLIFY_AUTH_TOKEN,
     });
 }
+
+// Tokens de retomar a assinatura (create-inscricao-token.mjs /
+// resolve-inscricao-token.mjs) — store separada da dos overrides do painel
+// admin, porque é escrita e lida por funções públicas, sem sessão.
+export function getInscricaoTokensStore() {
+    return getStore({
+        name: 'inscricao-tokens',
+        siteID: process.env.NETLIFY_SITE_ID,
+        token: process.env.NETLIFY_AUTH_TOKEN,
+    });
+}
