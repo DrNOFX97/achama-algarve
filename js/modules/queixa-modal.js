@@ -23,6 +23,18 @@ export function initQueixaModal() {
 
     let triggerBtn = null;
 
+    // Sem isto, submeter com sucesso e depois fechar (X/Escape/clique fora,
+    // não o botão "Submeter outra queixa") deixava successEl visível — a
+    // próxima vez que se abrisse o modal via CTA mostrava logo o ecrã de
+    // sucesso antigo em vez de um formulário limpo.
+    function resetFlow() {
+        successEl?.classList.remove('is-visible');
+        fieldsEl?.classList.remove('is-hidden');
+        formEl?.reset();
+        if (fotoNameEl) fotoNameEl.textContent = '';
+        if (fotoError) fotoError.style.display = 'none';
+    }
+
     function openModal(trigger) {
         triggerBtn = trigger;
         overlay.classList.add('is-open');
@@ -35,6 +47,7 @@ export function initQueixaModal() {
             overlay.classList.remove('is-open');
             document.body.style.overflow = '';
             if (triggerBtn) triggerBtn.focus();
+            resetFlow();
         }
     }
 
@@ -56,11 +69,7 @@ export function initQueixaModal() {
     setupFocusTrap(overlay);
 
     resetBtn?.addEventListener('click', () => {
-        successEl.classList.remove('is-visible');
-        fieldsEl.classList.remove('is-hidden');
-        formEl?.reset();
-        if (fotoNameEl) fotoNameEl.textContent = '';
-        if (fotoError) fotoError.style.display = 'none';
+        resetFlow();
         fieldsEl.querySelector('input, select, textarea')?.focus();
     });
 
