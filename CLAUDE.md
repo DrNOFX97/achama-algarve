@@ -82,6 +82,18 @@ the base rule so `.form__success`'s `display: none` applies until `.is-visible` 
 built on this `contact-modal__*`/`form__*` pattern should double-check its success panel is actually hidden
 on open, not just assume it — the two stylesheets' load order makes this easy to get wrong again.
 
+### FAQ (`#faq`) — only answers already backed by published copy, nothing invented
+
+14 questions as `<details>` elements plus a matching `FAQPage` JSON-LD block (`#faq-1` through `#faq-14`,
+ids and order must stay in sync between the two). The rule for adding a question here, established in
+`docs/aeo-strategy.md` §1 and followed since: **every answer must be traceable to text already published
+elsewhere on the site** — extracted/summarized, never a new claim. Where a real answer doesn't exist yet
+(e.g. Queixas de Bairro before the dedicated form existed), the strategy doc's instruction is to mark it as
+a content gap and not fabricate a plausible-sounding one. 7 questions shipped 25/08; 7 more (Algarve
+Cohabita, Tertúlias, autarquias, quota, benefícios de sócio, contacto, valores) added 30/08 straight from
+the pre-vetted, source-cited bank in `aeo-strategy.md` once given the go-ahead — that doc already has the
+next candidates if more are added later.
+
 ### `#noticias` is fed by a scheduled GitHub Action, not live at page-load
 
 `scripts/fetch-noticias.mjs` is a **build-time** Node script (needs `npm install`, run via `npm run fetch:noticias`) that queries the Google News RSS feed for *several* Algarve-housing topics — not just the crisis — defined in the `QUERIES` array (currently: crise habitacional, habitação social, arrendamento acessível, construção habitação). It merges all results, drops exact link duplicates and near-duplicate titles (Jaccard similarity on normalized words, stripping "| Por Nome Apelido" bylines first so the same article republished with/without a byline still matches), sorts by date, and writes the top 10 to `data/noticias.json` (`{ atualizado_em, queries, noticias: [{titulo, link, fonte, data}] }`). If you add a query, test it standalone first (`curl` the feed URL) — "alojamento local Algarve" was tried and dropped because it returned mostly tourism content, not housing.
