@@ -51,7 +51,7 @@ The site was overhauled to an editorial-magazine visual language (cream/ink/red 
 
 ### Page structure (`index.html`, section order top to bottom)
 
-`#inicio` (hero) → `#missao` → `#quem-somos` (tabbed: Missão/Visão/Valores/Órgãos Sociais/Documentos) → `#projetos` → `#crise` → `#noticias` → `#associar` → `#participar` → `#contactos`. Sections alternate `.section` / `.section section--alt` (cream/white) for visual rhythm — preserve the alternation if you reorder sections. Nav link order and section order are kept in sync intentionally.
+`#inicio` (hero) → `#missao` → `#quem-somos` (tabbed: Missão/Visão/Valores — Órgãos Sociais and Documentos exist as HTML comments in the same tab list, hidden since 2026-08-30 pending real content from the client, see Known placeholders below) → `#projetos` → `#crise` → `#noticias` → `#associar` → `#participar` → `#contactos`. Sections alternate `.section` / `.section section--alt` (cream/white) for visual rhythm — preserve the alternation if you reorder sections. Nav link order and section order are kept in sync intentionally.
 
 ### Forms are Netlify Forms, not a custom backend
 
@@ -126,6 +126,6 @@ Backend functions (`netlify/functions/*.mjs`) read/write the real Netlify Forms 
 ## Known placeholders / incomplete areas
 
 - Footer legal links "Estatutos", "Relatórios de Atividade", "Livro de Reclamações" and the four social links are still `href="#"`.
-- The "Documentos" tab in Quem Somos links to `estatutos.pdf` and `regulamento.pdf`, which don't exist in the repo yet (left as-is intentionally — real files pending).
-- The three housing projects in `#projetos` (Clínica de Habitação, Observatório da Habitação, Algarve Cohabita) and `#quem-somos` (Órgãos Sociais) contain real-looking but placeholder content, not yet confirmed official copy.
+- The "Órgãos Sociais" and "Documentos" tabs in Quem Somos are hidden (commented out in `index.html`, both the tab buttons and their panels) since 2026-08-30 — Órgãos Sociais had fabricated placeholder names, and the linked Estatutos PDF (`assets/docs/estatutos_ACIMHA.pdf`, which does exist in the repo) is still going through legal validation with the client. Reactivate by uncommenting once the client confirms real content; don't invent replacement names in the meantime. The footer's own "Estatutos" legal link still points to the same PDF and was intentionally left as-is (not asked to change) — worth revisiting together if the document isn't final.
+- The three housing projects in `#projetos` (Clínica de Habitação, Observatório da Habitação, Algarve Cohabita) contain real-looking but placeholder content, not yet confirmed official copy.
 - `#noticias` is live (see above) and pulls real third-party press coverage of housing in the Algarve generally, not ACIMHA's own news, and not the other three civic axes — there is currently no section for ACIMHA's own press releases/communicados.
