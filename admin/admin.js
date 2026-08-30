@@ -140,6 +140,27 @@ function renderInscricoes(inscricoes) {
     }).join('');
 }
 
+// Wraps fetch para as ações do painel: nunca rejeita (rede ou resposta
+// não-ok são ambas tratadas aqui), e avisa o admin com o erro devolvido pelo
+// servidor em vez de deixar a ação falhar em silêncio — antes disto, um 400
+// ou 401 era ignorado e a lista voltava a carregar como se nada tivesse
+// mudado, sem indicação nenhuma de que a ação não aconteceu.
+async function postAdminAction(url, body) {
+    try {
+        const res = await fetch(url, { method: 'POST', body: JSON.stringify(body) });
+        if (!res.ok) {
+            let message = 'Falha ao executar a ação.';
+            try {
+                const data = await res.json();
+                if (data?.error) message = data.error;
+            } catch { /* corpo sem JSON válido — mantém a mensagem genérica */ }
+            alert(message);
+        }
+    } catch {
+        alert('Falha ao contactar o servidor.');
+    }
+}
+
 async function handleInscricoesRowAction(e) {
     const btn = e.target.closest('button[data-action]');
     if (!btn) return;
@@ -147,14 +168,8 @@ async function handleInscricoesRowAction(e) {
 
     if (action === 'aprovar' || action === 'reverter' || action === 'restaurar') {
         btn.disabled = true;
-        try {
-            await fetch('/.netlify/functions/update-inscricao-estado', {
-                method: 'POST',
-                body: JSON.stringify({ id, estado: action === 'aprovar' ? 'Aprovado' : null }),
-            });
-        } finally {
-            await refreshInscricoes();
-        }
+        await postAdminAction('/.netlify/functions/update-inscricao-estado', { id, estado: action === 'aprovar' ? 'Aprovado' : null });
+        await refreshInscricoes();
         return;
     }
 
@@ -162,14 +177,8 @@ async function handleInscricoesRowAction(e) {
         const confirmado = confirm(`Apagar a inscrição de ${nome}? Fica escondida da lista, mas pode ser restaurada em "Ver apagadas".`);
         if (!confirmado) return;
         btn.disabled = true;
-        try {
-            await fetch('/.netlify/functions/delete-inscricao', {
-                method: 'POST',
-                body: JSON.stringify({ id }),
-            });
-        } finally {
-            await refreshInscricoes();
-        }
+        await postAdminAction('/.netlify/functions/delete-inscricao', { id });
+        await refreshInscricoes();
     }
 }
 
@@ -231,14 +240,8 @@ async function handleQueixasRowAction(e) {
     const ESTADOS = { encaminhar: 'Encaminhada', resolver: 'Resolvida', reverter: null, restaurar: null };
     if (action in ESTADOS) {
         btn.disabled = true;
-        try {
-            await fetch('/.netlify/functions/update-queixa-estado', {
-                method: 'POST',
-                body: JSON.stringify({ id, estado: ESTADOS[action] }),
-            });
-        } finally {
-            await refreshQueixas();
-        }
+        await postAdminAction('/.netlify/functions/update-queixa-estado', { id, estado: ESTADOS[action] });
+        await refreshQueixas();
         return;
     }
 
@@ -246,14 +249,8 @@ async function handleQueixasRowAction(e) {
         const confirmado = confirm(`Apagar a queixa de ${nome}? Fica escondida da lista, mas pode ser restaurada em "Ver apagadas".`);
         if (!confirmado) return;
         btn.disabled = true;
-        try {
-            await fetch('/.netlify/functions/delete-queixa', {
-                method: 'POST',
-                body: JSON.stringify({ id }),
-            });
-        } finally {
-            await refreshQueixas();
-        }
+        await postAdminAction('/.netlify/functions/delete-queixa', { id });
+        await refreshQueixas();
     }
 }
 

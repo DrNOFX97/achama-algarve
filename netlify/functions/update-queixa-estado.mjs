@@ -24,7 +24,10 @@ export default async (req) => {
     if (!id || typeof id !== 'string') {
         return Response.json({ error: 'id em falta.' }, { status: 400 });
     }
-    if (!ALLOWED_ESTADOS.has(estado ?? null)) {
+    // Exige o campo `estado` explicitamente presente — sem isto, um pedido
+    // mal formado com só {id} tinha `estado` como undefined, que a
+    // comparação `?? null` tratava como um pedido de reversão válido.
+    if (!('estado' in body) || !ALLOWED_ESTADOS.has(estado)) {
         return Response.json({ error: 'estado inválido.' }, { status: 400 });
     }
 

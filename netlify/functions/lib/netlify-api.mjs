@@ -16,6 +16,13 @@ export async function findFormIdByName(siteId, formName, token) {
     return form ? form.id : null;
 }
 
+// Limitação conhecida, sinalizada em revisão de código: não pagina — devolve
+// só a primeira página que a API do Netlify Forms responder. Com o volume
+// atual de submissões (poucas dezenas em qualquer form) nunca se notou, mas
+// se um form crescer muito, submissões mais antigas podem deixar de aparecer
+// nas listagens do /admin sem aviso nenhum. Corrigir exige paginar de forma
+// confirmada contra o comportamento real da API (Link header? parâmetro de
+// página?) — não implementado às cegas sem poder testar contra a API real.
 export async function listSubmissions(formId, token) {
     return netlifyApiFetch(`/forms/${formId}/submissions`, token);
 }
