@@ -80,24 +80,32 @@ export default async (req) => {
         };
     });
 
-    // Override de estado (só "Aprovado") guardado em Blobs — o Netlify Forms
-    // não tem forma de editar o conteúdo de uma submissão.
+    // Override de estado ("Aprovado" ou "Apagado", soft-delete) guardado em
+    // Blobs — o Netlify Forms não tem forma de editar o conteúdo de uma
+    // submissão nem de a apagar de forma reversível. Ao contrário do
+    // "Aprovado", uma falha aqui não pode ser ignorada em silêncio: sem os
+    // overrides, uma inscrição "Apagada" perde essa marca e reaparece na
+    // lista ativa — por isso esta falha devolve erro em vez de continuar.
     try {
         const store = getInscricoesStore();
         const overrides = await Promise.all(
             lista.map((item) => store.get(item.id, { type: 'json' }))
         );
         overrides.forEach((override, i) => {
-            if (override?.estado === 'Aprovado') {
-                lista[i].estado = 'Aprovado';
+            if (override?.estado === 'Aprovado' || override?.estado === 'Apagado') {
+                lista[i].estado = override.estado;
             }
         });
     } catch {
-        // Falha a ler overrides não deve impedir a lista de aparecer — os
-        // estados derivados do Netlify Forms continuam corretos sem eles.
+        return Response.json({ error: 'Falha ao carregar os estados das inscrições.' }, { status: 502 });
     }
 
-    lista.sort((a, b) => new Date(b.data) - new Date(a.data));
+    // Por omissão esconde as "Apagadas" (soft-delete) da lista principal.
+    // ?apagados=1 devolve só essas, para o painel oferecer "Restaurar".
+    const incluirApagados = new URL(req.url).searchParams.get('apagados') === '1';
+    const filtrada = lista.filter((item) => (item.estado === 'Apagado') === incluirApagados);
 
-    return Response.json({ inscricoes: lista }, { status: 200 });
+    filtrada.sort((a, b) => new Date(b.data) - new Date(a.data));
+
+    return Response.json({ inscricoes: filtrada }, { status: 200 });
 };

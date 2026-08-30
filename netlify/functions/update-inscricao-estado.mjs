@@ -1,10 +1,11 @@
 import { verifySession } from './lib/session.mjs';
 import { getInscricoesStore } from './lib/blobs.mjs';
 
-// Único override suportado por agora: marcar "Aprovado" (ou reverter). Os
+// Overrides suportados: marcar "Aprovado" ou "Apagado" (soft-delete — ver
+// delete-inscricao.mjs), e reverter qualquer um dos dois passando `null`. Os
 // restantes campos da inscrição nunca são editáveis por aqui — vêm sempre
 // do Netlify Forms.
-const ALLOWED_ESTADOS = new Set(['Aprovado', null]);
+const ALLOWED_ESTADOS = new Set(['Aprovado', 'Apagado', null]);
 
 export default async (req) => {
     const sessionSecret = process.env.SESSION_SECRET;
@@ -30,8 +31,8 @@ export default async (req) => {
 
     try {
         const store = getInscricoesStore();
-        if (estado === 'Aprovado') {
-            await store.setJSON(id, { estado: 'Aprovado', updatedAt: new Date().toISOString(), updatedBy: session.email });
+        if (estado === 'Aprovado' || estado === 'Apagado') {
+            await store.setJSON(id, { estado, updatedAt: new Date().toISOString(), updatedBy: session.email });
         } else {
             await store.delete(id);
         }
