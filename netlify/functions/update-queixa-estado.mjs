@@ -1,11 +1,10 @@
 import { verifySession } from './lib/session.mjs';
-import { getInscricoesStore } from './lib/blobs.mjs';
+import { getQueixasStore } from './lib/blobs.mjs';
 
-// Overrides suportados: marcar "Aprovado" ou "Apagado" (soft-delete — ver
-// delete-inscricao.mjs), e reverter qualquer um dos dois passando `null`. Os
-// restantes campos da inscrição nunca são editáveis por aqui — vêm sempre
-// do Netlify Forms.
-const ALLOWED_ESTADOS = new Set(['Aprovado', 'Apagado', null]);
+// Overrides suportados: "Encaminhada" (já enviada à entidade competente),
+// "Resolvida", ou "Apagado" (soft-delete — ver delete-queixa.mjs). Passar
+// `null` reverte qualquer um destes para o estado por omissão ("Pendente").
+const ALLOWED_ESTADOS = new Set(['Encaminhada', 'Resolvida', 'Apagado', null]);
 
 export default async (req) => {
     const sessionSecret = process.env.SESSION_SECRET;
@@ -33,8 +32,8 @@ export default async (req) => {
     }
 
     try {
-        const store = getInscricoesStore();
-        if (estado === 'Aprovado' || estado === 'Apagado') {
+        const store = getQueixasStore();
+        if (estado) {
             await store.setJSON(id, { estado, updatedAt: new Date().toISOString(), updatedBy: session.email });
         } else {
             await store.delete(id);

@@ -53,15 +53,17 @@ function svgDonutSegment({ cx, cy, r, circumference, offset, length, color, gapD
 }
 
 function estadoPillClass(estado) {
-    if (estado === 'Aprovado') return 'is-aprovado';
-    if (estado === 'Pendente aprovação') return 'is-pendente-aprovacao';
+    if (estado === 'Aprovado' || estado === 'Resolvida') return 'is-aprovado';
+    if (estado === 'Pendente aprovação' || estado === 'Pendente') return 'is-pendente-aprovacao';
+    if (estado === 'Encaminhada') return 'is-encaminhada';
     if (estado === 'Apagado') return 'is-apagado';
     return 'is-pendente-assinatura';
 }
 
-// Alterna entre a lista de inscrições ativas e a de soft-deleted
-// ("Apagado" — ver delete-inscricao.mjs), disponível para restaurar.
+// Alterna entre a lista ativa e a de soft-deleted ("Apagado"), disponível
+// para restaurar — uma flag por tabela (inscrições/queixas).
 let mostrarApagados = false;
+let mostrarQueixasApagadas = false;
 
 function setupNav() {
     const navItems = $$('.admin-nav__item');
@@ -75,7 +77,7 @@ function setupNav() {
     });
 }
 
-function renderStats(inscricoes, documentos) {
+function renderStats(inscricoes, documentos, queixas) {
     const stats = [
         { label: 'Inscrições totais', value: inscricoes.length },
         {
@@ -86,6 +88,7 @@ function renderStats(inscricoes, documentos) {
             label: 'Pendentes aprovação',
             value: inscricoes.filter((i) => i.estado === 'Pendente aprovação').length,
         },
+        { label: 'Queixas pendentes', value: queixas.filter((q) => q.estado === 'Pendente').length },
         { label: 'Documentos em falta', value: documentos.filter((d) => d.estado === 'em falta').length },
     ];
 
@@ -137,6 +140,27 @@ function renderInscricoes(inscricoes) {
     }).join('');
 }
 
+// Wraps fetch para as ações do painel: nunca rejeita (rede ou resposta
+// não-ok são ambas tratadas aqui), e avisa o admin com o erro devolvido pelo
+// servidor em vez de deixar a ação falhar em silêncio — antes disto, um 400
+// ou 401 era ignorado e a lista voltava a carregar como se nada tivesse
+// mudado, sem indicação nenhuma de que a ação não aconteceu.
+async function postAdminAction(url, body) {
+    try {
+        const res = await fetch(url, { method: 'POST', body: JSON.stringify(body) });
+        if (!res.ok) {
+            let message = 'Falha ao executar a ação.';
+            try {
+                const data = await res.json();
+                if (data?.error) message = data.error;
+            } catch { /* corpo sem JSON válido — mantém a mensagem genérica */ }
+            alert(message);
+        }
+    } catch {
+        alert('Falha ao contactar o servidor.');
+    }
+}
+
 async function handleInscricoesRowAction(e) {
     const btn = e.target.closest('button[data-action]');
     if (!btn) return;
@@ -144,14 +168,8 @@ async function handleInscricoesRowAction(e) {
 
     if (action === 'aprovar' || action === 'reverter' || action === 'restaurar') {
         btn.disabled = true;
-        try {
-            await fetch('/.netlify/functions/update-inscricao-estado', {
-                method: 'POST',
-                body: JSON.stringify({ id, estado: action === 'aprovar' ? 'Aprovado' : null }),
-            });
-        } finally {
-            await refreshInscricoes();
-        }
+        await postAdminAction('/.netlify/functions/update-inscricao-estado', { id, estado: action === 'aprovar' ? 'Aprovado' : null });
+        await refreshInscricoes();
         return;
     }
 
@@ -159,14 +177,80 @@ async function handleInscricoesRowAction(e) {
         const confirmado = confirm(`Apagar a inscrição de ${nome}? Fica escondida da lista, mas pode ser restaurada em "Ver apagadas".`);
         if (!confirmado) return;
         btn.disabled = true;
-        try {
-            await fetch('/.netlify/functions/delete-inscricao', {
-                method: 'POST',
-                body: JSON.stringify({ id }),
-            });
-        } finally {
-            await refreshInscricoes();
+        await postAdminAction('/.netlify/functions/delete-inscricao', { id });
+        await refreshInscricoes();
+    }
+}
+
+function renderQueixas(queixas) {
+    const body = $('#admin-queixas-body');
+    const empty = $('#admin-queixas-empty');
+
+    if (!queixas.length) {
+        body.innerHTML = '';
+        empty.textContent = mostrarQueixasApagadas ? 'Sem queixas apagadas.' : 'Ainda não há queixas.';
+        empty.classList.remove('is-hidden');
+        return;
+    }
+    empty.classList.add('is-hidden');
+
+    body.innerHTML = queixas.map((q) => {
+        const id = escapeHtml(q.id);
+        const nome = escapeHtml(q.nome || 'esta queixa');
+        let acoes;
+        if (mostrarQueixasApagadas) {
+            acoes = `<button type="button" class="admin-link-action" data-action="restaurar" data-id="${id}">Restaurar</button>`;
+        } else {
+            const botoes = [];
+            if (q.estado !== 'Encaminhada') {
+                botoes.push(`<button type="button" class="admin-link-action" data-action="encaminhar" data-id="${id}">Marcar Encaminhada</button>`);
+            }
+            if (q.estado !== 'Resolvida') {
+                botoes.push(`<button type="button" class="admin-link-action" data-action="resolver" data-id="${id}">Marcar Resolvida</button>`);
+            }
+            if (q.estado !== 'Pendente') {
+                botoes.push(`<button type="button" class="admin-link-action" data-action="reverter" data-id="${id}">Reverter</button>`);
+            }
+            botoes.push(`<button type="button" class="admin-link-action admin-link-action--danger" data-action="apagar" data-id="${id}" data-nome="${nome}">Apagar</button>`);
+            acoes = botoes.join('');
         }
+        return `
+        <tr>
+            <td>${escapeHtml(q.nome || '—')}</td>
+            <td>${escapeHtml(q.concelho || '—')}</td>
+            <td title="${escapeHtml(q.descricao || '')}">${escapeHtml(q.tipoLabel || '—')}</td>
+            <td>${formatDate(q.data)}</td>
+            <td><span class="admin-pill ${estadoPillClass(q.estado)}">${escapeHtml(q.estado)}</span></td>
+            <td>
+                <div class="admin-row-actions">
+                    ${q.fotoUrl ? `<a class="admin-link-action" href="${safeHref(q.fotoUrl)}" target="_blank" rel="noopener">Ver foto</a>` : ''}
+                    ${acoes}
+                </div>
+            </td>
+        </tr>
+    `;
+    }).join('');
+}
+
+async function handleQueixasRowAction(e) {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const { action, id, nome } = btn.dataset;
+
+    const ESTADOS = { encaminhar: 'Encaminhada', resolver: 'Resolvida', reverter: null, restaurar: null };
+    if (action in ESTADOS) {
+        btn.disabled = true;
+        await postAdminAction('/.netlify/functions/update-queixa-estado', { id, estado: ESTADOS[action] });
+        await refreshQueixas();
+        return;
+    }
+
+    if (action === 'apagar') {
+        const confirmado = confirm(`Apagar a queixa de ${nome}? Fica escondida da lista, mas pode ser restaurada em "Ver apagadas".`);
+        if (!confirmado) return;
+        btn.disabled = true;
+        await postAdminAction('/.netlify/functions/delete-queixa', { id });
+        await refreshQueixas();
     }
 }
 
@@ -370,6 +454,8 @@ async function renderNoticias() {
 }
 
 let ultimosDocumentos = [];
+let ultimasInscricoes = [];
+let ultimasQueixas = [];
 
 async function refreshInscricoes() {
     try {
@@ -380,15 +466,34 @@ async function refreshInscricoes() {
         if (!res.ok) throw new Error('Falha ao recarregar inscrições.');
         const data = await res.json();
         renderInscricoes(data.inscricoes);
-        // Estatísticas e gráficos refletem sempre as inscrições ativas —
-        // não recalcular a partir da vista de apagadas.
+        // Estatísticas e gráficos refletem sempre as listas ativas — não
+        // recalcular a partir da vista de apagadas.
         if (!mostrarApagados) {
-            renderStats(data.inscricoes, ultimosDocumentos);
-            renderTimelineChart(data.inscricoes);
-            renderCategoriasDonut(data.inscricoes);
+            ultimasInscricoes = data.inscricoes;
+            renderStats(ultimasInscricoes, ultimosDocumentos, ultimasQueixas);
+            renderTimelineChart(ultimasInscricoes);
+            renderCategoriasDonut(ultimasInscricoes);
         }
     } catch {
         // A lista/gráficos ficam com os últimos dados válidos em ecrã.
+    }
+}
+
+async function refreshQueixas() {
+    try {
+        const url = mostrarQueixasApagadas
+            ? '/.netlify/functions/list-queixas?apagados=1'
+            : '/.netlify/functions/list-queixas';
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Falha ao recarregar queixas.');
+        const data = await res.json();
+        renderQueixas(data.queixas);
+        if (!mostrarQueixasApagadas) {
+            ultimasQueixas = data.queixas;
+            renderStats(ultimasInscricoes, ultimosDocumentos, ultimasQueixas);
+        }
+    } catch {
+        // A lista fica com os últimos dados válidos em ecrã.
     }
 }
 
@@ -404,26 +509,37 @@ async function loadDashboard(email) {
         e.target.textContent = mostrarApagados ? 'Ver ativas' : 'Ver apagadas';
         await refreshInscricoes();
     });
+    $('#admin-queixas-body').addEventListener('click', handleQueixasRowAction);
+    $('#admin-toggle-queixas-apagadas').addEventListener('click', async (e) => {
+        mostrarQueixasApagadas = !mostrarQueixasApagadas;
+        e.target.textContent = mostrarQueixasApagadas ? 'Ver ativas' : 'Ver apagadas';
+        await refreshQueixas();
+    });
 
     try {
-        const [inscricoesRes, documentosRes] = await Promise.all([
+        const [inscricoesRes, documentosRes, queixasRes] = await Promise.all([
             fetch('/.netlify/functions/list-inscricoes'),
             fetch('/.netlify/functions/list-documents'),
+            fetch('/.netlify/functions/list-queixas'),
         ]);
 
-        if (!inscricoesRes.ok || !documentosRes.ok) throw new Error('Falha ao carregar dados do painel.');
+        if (!inscricoesRes.ok || !documentosRes.ok || !queixasRes.ok) throw new Error('Falha ao carregar dados do painel.');
 
-        const [inscricoesData, documentosData] = await Promise.all([
+        const [inscricoesData, documentosData, queixasData] = await Promise.all([
             inscricoesRes.json(),
             documentosRes.json(),
+            queixasRes.json(),
         ]);
 
         ultimosDocumentos = documentosData.documentos;
-        renderStats(inscricoesData.inscricoes, documentosData.documentos);
-        renderInscricoes(inscricoesData.inscricoes);
+        ultimasInscricoes = inscricoesData.inscricoes;
+        ultimasQueixas = queixasData.queixas;
+        renderStats(ultimasInscricoes, ultimosDocumentos, ultimasQueixas);
+        renderInscricoes(ultimasInscricoes);
+        renderQueixas(ultimasQueixas);
         renderDocumentos(documentosData.documentos);
-        renderTimelineChart(inscricoesData.inscricoes);
-        renderCategoriasDonut(inscricoesData.inscricoes);
+        renderTimelineChart(ultimasInscricoes);
+        renderCategoriasDonut(ultimasInscricoes);
     } catch {
         $('#admin-stats').innerHTML = '<p class="admin-error">Não foi possível carregar os dados do painel.</p>';
     }
