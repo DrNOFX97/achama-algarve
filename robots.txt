@@ -1,23 +1,44 @@
 User-agent: Claude-User
 Allow: /
+Disallow: /estatistica/
+Disallow: /admin/
+Disallow: /assinatura
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /estatistica/
+Disallow: /admin/
+Disallow: /assinatura
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /estatistica/
+Disallow: /admin/
+Disallow: /assinatura
 
 User-agent: GPTBot
 Allow: /
+Disallow: /estatistica/
+Disallow: /admin/
+Disallow: /assinatura
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /estatistica/
+Disallow: /admin/
+Disallow: /assinatura
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /estatistica/
+Disallow: /admin/
+Disallow: /assinatura
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /estatistica/
+Disallow: /admin/
+Disallow: /assinatura
 
 User-agent: *
 Allow: /
