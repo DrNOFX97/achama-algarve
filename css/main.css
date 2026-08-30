@@ -442,8 +442,8 @@ button {
     }
 
     .hero__photos {
-        min-height: 320px;
-        order: -1;
+        min-height: 260px;
+        order: 1;
     }
 
     .hero__content {
@@ -542,7 +542,7 @@ button {
     padding: 2rem;
 }
 
-.tab-panel[aria-hidden="false"] {
+.tab-panel.is-active {
     display: block;
 }
 

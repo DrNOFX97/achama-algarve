@@ -9,13 +9,13 @@ export function initTabs(tabList) {
                 b.setAttribute('aria-selected', 'false');
             });
             document.querySelectorAll('.tab-panel').forEach(function (panel) {
-                panel.setAttribute('aria-hidden', 'true');
+                panel.classList.remove('is-active');
             });
             // Activate clicked
             btn.setAttribute('aria-selected', 'true');
             const panelId = btn.getAttribute('aria-controls');
             const panel = document.getElementById(panelId);
-            if (panel) panel.setAttribute('aria-hidden', 'false');
+            if (panel) panel.classList.add('is-active');
         });
 
         // Keyboard navigation

@@ -66,6 +66,29 @@ async function fetchLogoBytes() {
     return response.arrayBuffer();
 }
 
+const DOCX_LIB_URL = 'https://cdn.jsdelivr.net/npm/docx@9.7.1/dist/index.iife.js';
+let docxLoadPromise = null;
+
+// Carregada só quando o utilizador pede o download da ficha (em vez de
+// bloquear o carregamento de todas as páginas com ~1MB de biblioteca que a
+// maioria das visitas nunca usa — ver css/main.css e index.html).
+function loadDocxLib() {
+    if (window.docx) return Promise.resolve(window.docx);
+    if (!docxLoadPromise) {
+        docxLoadPromise = new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = DOCX_LIB_URL;
+            script.onload = () => resolve(window.docx);
+            script.onerror = () => {
+                docxLoadPromise = null;
+                reject(new Error('Falha ao carregar a biblioteca docx.'));
+            };
+            document.head.appendChild(script);
+        });
+    }
+    return docxLoadPromise;
+}
+
 function buildDocument(docx, formEl, logoBytes) {
     const {
         Document, Paragraph, TextRun, Table, TableRow, TableCell, Header, Footer,
@@ -290,7 +313,13 @@ function buildDocument(docx, formEl, logoBytes) {
 
 export async function baixarFichaDocx(formEl) {
     try {
-        const docxLib = window.docx;
+        let docxLib;
+        try {
+            docxLib = await loadDocxLib();
+        } catch (e) {
+            console.error(e);
+            return { ok: false, error: 'A biblioteca docx não carregou.' };
+        }
         if (!docxLib) {
             return { ok: false, error: 'A biblioteca docx não carregou.' };
         }

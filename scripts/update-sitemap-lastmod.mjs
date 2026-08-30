@@ -9,6 +9,9 @@ const URL_TO_FILE = {
   'https://acimha.pt/': 'index.html',
   'https://acimha.pt/politica-privacidade.html': 'politica-privacidade.html',
   'https://acimha.pt/termos-condicoes.html': 'termos-condicoes.html',
+  'https://acimha.pt/apoio-juridico/faro/': 'apoio-juridico/faro/index.html',
+  'https://acimha.pt/apoio-juridico/portimao/': 'apoio-juridico/portimao/index.html',
+  'https://acimha.pt/apoio-juridico/lagos/': 'apoio-juridico/lagos/index.html',
 };
 
 function lastCommitDate(file) {
