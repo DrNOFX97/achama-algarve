@@ -16,16 +16,20 @@ function getRateLimitStore() {
     });
 }
 
+// Só o valor que o próprio Netlify injeta — `x-forwarded-for` vem do
+// cliente e pode ser forjado a cada pedido, o que anulava o throttling
+// (bastava um IP diferente por pedido).
 function getClientIp(req) {
-    const forwarded = req.headers.get('x-forwarded-for');
-    if (forwarded) return forwarded.split(',')[0].trim();
     return req.headers.get('x-nf-client-connection-ip') || 'unknown';
 }
 
 // Devolve true se o pedido pode prosseguir, false se o limite foi excedido
-// para este IP dentro da janela. Falhas a ler/escrever na store nunca
-// bloqueiam o pedido (fail-open) — o rate limit é uma proteção extra, não
-// deve derrubar a função pública se os Blobs estiverem indisponíveis.
+// para este IP dentro da janela, ou se a store falhou a ler/escrever
+// (fail-closed: este endpoint protege um facto associativo sensível, por
+// isso uma falha na proteção nunca deve reabrir o acesso sem limite — o
+// caller no browser (inscricao-modal.js) já trata qualquer resposta não-ok
+// como "deixar submeter", por isso isto não bloqueia inscrições legítimas,
+// só fecha a via de um atacante a contornar o limite via falha induzida).
 export async function enforceRateLimit(req, bucket, { windowMs = WINDOW_MS, max = MAX_REQUESTS } = {}) {
     const ip = getClientIp(req);
     const key = `${bucket}:${ip}`;
@@ -45,6 +49,6 @@ export async function enforceRateLimit(req, bucket, { windowMs = WINDOW_MS, max 
         await store.setJSON(key, { windowStart: entry.windowStart, count: entry.count + 1 });
         return true;
     } catch {
-        return true;
+        return false;
     }
 }
