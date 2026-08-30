@@ -72,7 +72,11 @@ its own submit handler, `fetch('/', { body: new FormData(formEl) })` with no for
 pattern as `inscricao-signature.js`'s PDF upload), so the optional photo travels in the same multipart
 submission as the text fields — one request, not the two-phase flow the inscrição/assinatura process needs.
 
-No `/admin` triage view for these submissions yet (mirroring the inscrições list) — pending fast-follow.
+`/admin` has a "Queixas de Bairro" panel mirroring the inscrições one: `netlify/functions/list-queixas.mjs`
+/ `update-queixa-estado.mjs` / `delete-queixa.mjs` / `get-queixa-foto.mjs`, backed by its own Blobs store
+(`queixas-admin`, `getQueixasStore()` in `lib/blobs.mjs`). States are `Pendente` (default) → `Encaminhada` /
+`Resolvida`, plus `Apagado` (soft-delete, same reversible pattern as inscrições — `delete-queixa.mjs` never
+called the Netlify Forms delete API, unlike `delete-inscricao.mjs`'s original definitivo version).
 
 **Found while building this:** `.contact-modal__success` in `contact-modal.css` declared `display: flex`
 unconditionally, with no guard. Because that stylesheet loads after `forms.css` in `<head>`, it beat

@@ -37,6 +37,7 @@
       <nav class="admin-nav" aria-label="Navegação do painel">
         <button class="admin-nav__item is-active" data-panel="visao-geral" type="button">Visão geral</button>
         <button class="admin-nav__item" data-panel="inscricoes" type="button">Inscrições</button>
+        <button class="admin-nav__item" data-panel="queixas" type="button">Queixas de Bairro</button>
         <button class="admin-nav__item" data-panel="documentos" type="button">Documentos</button>
         <button class="admin-nav__item" data-panel="noticias" type="button">Notícias</button>
         <button class="admin-nav__item" data-panel="definicoes" type="button">Definições</button>
@@ -79,6 +80,29 @@
           </table>
         </div>
         <p class="admin-empty is-hidden" id="admin-inscricoes-empty">Ainda não há inscrições.</p>
+      </section>
+
+      <section class="admin-panel" id="panel-queixas" data-panel="queixas">
+        <div class="admin-panel__head">
+          <h1 class="admin-panel__title">Queixas de Bairro</h1>
+          <button type="button" class="admin-link-action" id="admin-toggle-queixas-apagadas">Ver apagadas</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Concelho</th>
+                <th>Tipo</th>
+                <th>Data</th>
+                <th>Estado</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="admin-queixas-body"></tbody>
+          </table>
+        </div>
+        <p class="admin-empty is-hidden" id="admin-queixas-empty">Ainda não há queixas.</p>
       </section>
 
       <section class="admin-panel" id="panel-documentos" data-panel="documentos">

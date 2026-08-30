@@ -283,6 +283,12 @@
     border-color: transparent;
 }
 
+.admin-pill.is-encaminhada {
+    color: #1D5A9E;
+    background: #DCE9F8;
+    border-color: transparent;
+}
+
 .admin-pill.is-apagado {
     color: var(--color-muted);
     background: var(--color-bg);

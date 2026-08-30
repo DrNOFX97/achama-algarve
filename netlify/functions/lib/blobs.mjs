@@ -10,6 +10,17 @@ export function getInscricoesStore() {
     });
 }
 
+// Overrides de estado das queixas de bairro (Encaminhada/Resolvida/Apagado)
+// — mesmo mecanismo e mesma razão que getInscricoesStore: o Netlify Forms
+// não tem forma de editar nem apagar reversivelmente uma submissão.
+export function getQueixasStore() {
+    return getStore({
+        name: 'queixas-admin',
+        siteID: process.env.NETLIFY_SITE_ID,
+        token: process.env.NETLIFY_AUTH_TOKEN,
+    });
+}
+
 // Tokens de retomar a assinatura (create-inscricao-token.mjs /
 // resolve-inscricao-token.mjs) — store separada da dos overrides do painel
 // admin, porque é escrita e lida por funções públicas, sem sessão.
