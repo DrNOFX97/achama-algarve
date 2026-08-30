@@ -32,7 +32,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],          # Em produção: ["https://acimha-algarve.netlify.app"]
+    allow_origins=["https://acimha.pt", "https://www.acimha.pt"],
     allow_methods=["GET"],
     allow_headers=["*"],
 )
