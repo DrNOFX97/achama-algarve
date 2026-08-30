@@ -112,7 +112,7 @@ Ou **Render.com** (também gratuito):
 No `main.py`, alterar a linha do CORS:
 
 ```python
-allow_origins=["https://acimha-algarve.netlify.app"],
+allow_origins=["https://acimha.pt", "https://www.acimha.pt"],
 ```
 
 ## Fontes de dados
