@@ -209,10 +209,13 @@
     color: var(--color-muted);
 }
 
-/* Estado de sucesso */
+/* Estado de sucesso — sem display aqui de propósito: .form__success (forms.css)
+   trata do display:none por omissão. Como este ficheiro carrega depois de
+   forms.css, um "display: flex" aqui ganhava sempre ao "display: none" do
+   .form__success (mesma especificidade, ordem de carregamento decide) e o
+   painel de sucesso ficava sempre visível, mesmo antes de submeter. */
 .contact-modal__success {
     flex: 1;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
