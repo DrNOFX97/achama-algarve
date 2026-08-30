@@ -1,25 +1,18 @@
 import { verifySession } from './lib/session.mjs';
-import { findFormIdByName, listSubmissions, deleteSubmission } from './lib/netlify-api.mjs';
 import { getInscricoesStore } from './lib/blobs.mjs';
 
-// Apaga definitivamente (sem undo) a submissão "inscricao" e, se existir, a
-// "inscricao-assinatura" correspondente pelo email. Reversível/soft-delete
-// fica para quando isto for para uso real com associados — por agora é
-// definitivo de propósito, para testar o fluxo.
+// Soft-delete: marca a inscrição como "Apagado" via override em Netlify
+// Blobs (mesmo mecanismo do "Aprovado" em update-inscricao-estado.mjs), sem
+// tocar na submissão real do Netlify Forms nem na assinatura associada.
+// list-inscricoes.mjs esconde estas inscrições da lista por omissão;
+// reverter (restaurar) é o mesmo pedido a update-inscricao-estado com
+// estado: null. Antes desta função apagava a sério e sem undo — passou a
+// reversível por não ser seguro usar apagar definitivo com associados reais.
 export default async (req) => {
     const sessionSecret = process.env.SESSION_SECRET;
     const session = sessionSecret ? verifySession(req.headers.get('cookie'), sessionSecret) : null;
     if (!session) {
         return Response.json({ error: 'Não autenticado.' }, { status: 401 });
-    }
-
-    const netlifyToken = process.env.NETLIFY_AUTH_TOKEN;
-    const siteId = process.env.NETLIFY_SITE_ID;
-    if (!netlifyToken || !siteId) {
-        return Response.json(
-            { error: 'Configuração em falta no servidor (NETLIFY_AUTH_TOKEN / NETLIFY_SITE_ID).' },
-            { status: 500 }
-        );
     }
 
     let body;
@@ -29,35 +22,19 @@ export default async (req) => {
         return Response.json({ error: 'Pedido inválido — esperado JSON.' }, { status: 400 });
     }
 
-    const { id, email } = body;
+    const { id } = body;
     if (!id || typeof id !== 'string') {
         return Response.json({ error: 'id em falta.' }, { status: 400 });
     }
 
     try {
-        await deleteSubmission(id, netlifyToken);
+        await getInscricoesStore().setJSON(id, {
+            estado: 'Apagado',
+            updatedAt: new Date().toISOString(),
+            updatedBy: session.email,
+        });
     } catch {
-        return Response.json({ error: 'Falha ao apagar a inscrição no Netlify Forms.' }, { status: 502 });
-    }
-
-    if (email) {
-        try {
-            const assinaturaFormId = await findFormIdByName(siteId, 'inscricao-assinatura', netlifyToken);
-            if (assinaturaFormId) {
-                const assinaturas = await listSubmissions(assinaturaFormId, netlifyToken);
-                const match = assinaturas.find((sub) => sub.data?.email === email);
-                if (match) await deleteSubmission(match.id, netlifyToken);
-            }
-        } catch {
-            // Best-effort — a inscrição principal já foi apagada; uma assinatura
-            // órfã pode ser limpa manualmente mais tarde.
-        }
-    }
-
-    try {
-        await getInscricoesStore().delete(id);
-    } catch {
-        // Limpeza do override — não crítico se falhar.
+        return Response.json({ error: 'Falha ao guardar o estado.' }, { status: 502 });
     }
 
     return Response.json({ ok: true }, { status: 200 });

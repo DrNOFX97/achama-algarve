@@ -1,4 +1,5 @@
 import { findFormIdByName, listSubmissions } from './lib/netlify-api.mjs';
+import { enforceRateLimit } from './lib/rate-limit.mjs';
 
 // Pública, sem gate de sessão — chamada pelo formulário público de inscrição,
 // antes do submit real, para travar o caso normal de alguém se inscrever
@@ -15,6 +16,13 @@ export default async (req) => {
             { error: 'Configuração em falta no servidor (NETLIFY_AUTH_TOKEN / NETLIFY_SITE_ID).' },
             { status: 500 }
         );
+    }
+
+    // Impede varrer NIFs em massa (facto associativo sensível) a partir do
+    // mesmo IP — o endpoint continua público por design, só limita a taxa.
+    const podeContinuar = await enforceRateLimit(req, 'check-nif-duplicado');
+    if (!podeContinuar) {
+        return Response.json({ error: 'Demasiados pedidos. Tente novamente dentro de instantes.' }, { status: 429 });
     }
 
     let body;

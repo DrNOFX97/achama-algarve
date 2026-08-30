@@ -55,8 +55,13 @@ function svgDonutSegment({ cx, cy, r, circumference, offset, length, color, gapD
 function estadoPillClass(estado) {
     if (estado === 'Aprovado') return 'is-aprovado';
     if (estado === 'Pendente aprovação') return 'is-pendente-aprovacao';
+    if (estado === 'Apagado') return 'is-apagado';
     return 'is-pendente-assinatura';
 }
+
+// Alterna entre a lista de inscrições ativas e a de soft-deleted
+// ("Apagado" — ver delete-inscricao.mjs), disponível para restaurar.
+let mostrarApagados = false;
 
 function setupNav() {
     const navItems = $$('.admin-nav__item');
@@ -98,6 +103,7 @@ function renderInscricoes(inscricoes) {
 
     if (!inscricoes.length) {
         body.innerHTML = '';
+        empty.textContent = mostrarApagados ? 'Sem inscrições apagadas.' : 'Ainda não há inscrições.';
         empty.classList.remove('is-hidden');
         return;
     }
@@ -105,11 +111,15 @@ function renderInscricoes(inscricoes) {
 
     body.innerHTML = inscricoes.map((i) => {
         const id = escapeHtml(i.id);
-        const email = escapeHtml(i.email || '');
         const nome = escapeHtml(i.nome || 'esta inscrição');
-        const estadoBtn = i.estado === 'Aprovado'
-            ? `<button type="button" class="admin-link-action" data-action="reverter" data-id="${id}">Reverter</button>`
-            : `<button type="button" class="admin-link-action" data-action="aprovar" data-id="${id}">Marcar Aprovado</button>`;
+        const acoes = mostrarApagados
+            ? `<button type="button" class="admin-link-action" data-action="restaurar" data-id="${id}">Restaurar</button>`
+            : `
+                ${i.estado === 'Aprovado'
+                    ? `<button type="button" class="admin-link-action" data-action="reverter" data-id="${id}">Reverter</button>`
+                    : `<button type="button" class="admin-link-action" data-action="aprovar" data-id="${id}">Marcar Aprovado</button>`}
+                <button type="button" class="admin-link-action admin-link-action--danger" data-action="apagar" data-id="${id}" data-nome="${nome}">Apagar</button>
+            `;
         return `
         <tr>
             <td>${escapeHtml(i.nome || '—')}</td>
@@ -119,8 +129,7 @@ function renderInscricoes(inscricoes) {
             <td>
                 <div class="admin-row-actions">
                     ${i.pdfUrl ? `<a class="admin-link-action" href="${safeHref(i.pdfUrl)}" target="_blank" rel="noopener">Ver PDF</a>` : ''}
-                    ${estadoBtn}
-                    <button type="button" class="admin-link-action admin-link-action--danger" data-action="apagar" data-id="${id}" data-email="${email}" data-nome="${nome}">Apagar</button>
+                    ${acoes}
                 </div>
             </td>
         </tr>
@@ -131,9 +140,9 @@ function renderInscricoes(inscricoes) {
 async function handleInscricoesRowAction(e) {
     const btn = e.target.closest('button[data-action]');
     if (!btn) return;
-    const { action, id, email, nome } = btn.dataset;
+    const { action, id, nome } = btn.dataset;
 
-    if (action === 'aprovar' || action === 'reverter') {
+    if (action === 'aprovar' || action === 'reverter' || action === 'restaurar') {
         btn.disabled = true;
         try {
             await fetch('/.netlify/functions/update-inscricao-estado', {
@@ -147,13 +156,13 @@ async function handleInscricoesRowAction(e) {
     }
 
     if (action === 'apagar') {
-        const confirmado = confirm(`Apagar definitivamente a inscrição de ${nome}? Esta ação não tem undo.`);
+        const confirmado = confirm(`Apagar a inscrição de ${nome}? Fica escondida da lista, mas pode ser restaurada em "Ver apagadas".`);
         if (!confirmado) return;
         btn.disabled = true;
         try {
             await fetch('/.netlify/functions/delete-inscricao', {
                 method: 'POST',
-                body: JSON.stringify({ id, email: email || undefined }),
+                body: JSON.stringify({ id }),
             });
         } finally {
             await refreshInscricoes();
@@ -364,13 +373,20 @@ let ultimosDocumentos = [];
 
 async function refreshInscricoes() {
     try {
-        const res = await fetch('/.netlify/functions/list-inscricoes');
+        const url = mostrarApagados
+            ? '/.netlify/functions/list-inscricoes?apagados=1'
+            : '/.netlify/functions/list-inscricoes';
+        const res = await fetch(url);
         if (!res.ok) throw new Error('Falha ao recarregar inscrições.');
         const data = await res.json();
-        renderStats(data.inscricoes, ultimosDocumentos);
         renderInscricoes(data.inscricoes);
-        renderTimelineChart(data.inscricoes);
-        renderCategoriasDonut(data.inscricoes);
+        // Estatísticas e gráficos refletem sempre as inscrições ativas —
+        // não recalcular a partir da vista de apagadas.
+        if (!mostrarApagados) {
+            renderStats(data.inscricoes, ultimosDocumentos);
+            renderTimelineChart(data.inscricoes);
+            renderCategoriasDonut(data.inscricoes);
+        }
     } catch {
         // A lista/gráficos ficam com os últimos dados válidos em ecrã.
     }
@@ -383,6 +399,11 @@ async function loadDashboard(email) {
     setupNav();
     renderNoticias();
     $('#admin-inscricoes-body').addEventListener('click', handleInscricoesRowAction);
+    $('#admin-toggle-apagados').addEventListener('click', async (e) => {
+        mostrarApagados = !mostrarApagados;
+        e.target.textContent = mostrarApagados ? 'Ver ativas' : 'Ver apagadas';
+        await refreshInscricoes();
+    });
 
     try {
         const [inscricoesRes, documentosRes] = await Promise.all([
