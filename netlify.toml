@@ -21,6 +21,19 @@
   status = 301
   force  = true
 
+# Paginas legais: forcar a URL canonica .html (evita 200 duplicado sem extensao)
+[[redirects]]
+  from   = "/politica-privacidade"
+  to     = "/politica-privacidade.html"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "/termos-condicoes"
+  to     = "/termos-condicoes.html"
+  status = 301
+  force  = true
+
 # ── Cabeçalhos de segurança ─────────────────────────────────────────────────
 [[headers]]
   for = "/*"
