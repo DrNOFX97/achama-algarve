@@ -69,6 +69,19 @@ The site was overhauled to an editorial-magazine visual language (cream/ink/red 
 
 The "Observatório da Habitação" modal (`#obs-overlay`, driven by `js/modules/observatory.js`) renders entirely from the hardcoded dataset in `js/data/observatory-data.js` (16 Algarve municipalities, rent/sale/variation figures). The `estatistica/` folder (FastAPI backend + a standalone React `ObservatorioHabitacao.jsx`) is a **separate, unwired prototype** for a future live-data version — it is not imported or called by the static site. Don't assume the two are connected; updating one does not affect the other.
 
+### Admin panel (`/admin`) — separate Netlify Functions backend, not part of the public site
+
+`/admin` (standalone `admin/index.html` + `admin/admin.js`, no link from the public site, `noindex` + `Disallow: /admin/` in `robots.txt`) is a private dashboard for managing inscrições and institutional documents. Login is Google OAuth restricted to a single allowlisted email (`ALLOWED_ADMIN_EMAIL`), via `netlify/functions/auth-google-start.mjs` / `auth-google-callback.mjs` / `auth-check.mjs` / `auth-logout.mjs`, with a signed HMAC session cookie (`netlify/functions/lib/session.mjs`).
+
+Backend functions (`netlify/functions/*.mjs`) read/write the real Netlify Forms submissions (`inscricao`, `inscricao-assinatura`) and use Netlify Blobs stores (`netlify/functions/lib/blobs.mjs`) for state Netlify Forms itself can't express:
+- `inscricoes-admin` — per-submission override: `estado: 'Aprovado'` or `estado: 'Apagado'`. Deleting an inscrição from the panel (`delete-inscricao.mjs`) never calls the real Netlify Forms delete API — it only writes this override, so it's a reversible soft-delete (`list-inscricoes.mjs` hides `'Apagado'` items by default; `?apagados=1` lists them for the panel's "Ver apagadas" / "Restaurar" flow). `update-inscricao-estado.mjs` handles both the override write and the revert (`estado: null` deletes the override).
+- `inscricao-tokens` — "resume signature" links (`create-inscricao-token.mjs` / `resolve-inscricao-token.mjs`, 30-day TTL), consumed by the public `assinatura.html` page.
+- `rate-limits` — fixed-window per-IP throttling (`netlify/functions/lib/rate-limit.mjs`, fail-open if Blobs are unavailable), used by `check-nif-duplicado.mjs` since that's the only endpoint callable by the public with no session gate.
+
+`upload-document.mjs` never commits directly to `main` — it creates a branch + PR via the GitHub API for manual review/merge.
+
+**Project rule for this subsystem**: no task advances without confirming the previous one first (real personal data of associados is involved), and nothing that touches inscrição/associado data or its access logic gets committed straight to `main` — always branch + PR, including for Claude Code sessions working autonomously/unsupervised.
+
 ## Known placeholders / incomplete areas
 
 - Footer legal links "Estatutos", "Relatórios de Atividade", "Livro de Reclamações" and the four social links are still `href="#"`.
