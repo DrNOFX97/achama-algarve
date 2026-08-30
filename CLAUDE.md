@@ -57,6 +57,31 @@ The site was overhauled to an editorial-magazine visual language (cream/ink/red 
 
 `#inscricao-form` and `#contact-modal-form` use the `data-netlify="true"` + hidden `form-name` input convention and are submitted via `js/modules/forms.js` (`handleFormSubmit`), which POSTs URL-encoded data to `/`. **This only actually delivers anywhere when the site is deployed on Netlify.** On any other static host the POST silently fails and the success state still shows (the fetch failure is swallowed) — if you change hosting or need real delivery confirmation, this is the place to fix.
 
+### Queixa de Bairro (`js/modules/queixa-modal.js`) — dedicated form, not the generic contact form
+
+The FAQ used to tell people to use the generic contact form for neighbourhood complaints, but that form's
+`assunto` dropdown had no matching category — a real product gap (`docs/search-intent-map.md` flagged it as
+the site's biggest intent/offer mismatch). `#missao` pillar 02 now has a "Reportar um problema" CTA that
+opens a dedicated modal (`#queixa-overlay`), submitting a separate Netlify Form (`queixa-bairro`: nome,
+email, telefone, concelho, local, tipo de problema, descrição, foto opcional, autorização RGPD). It reuses
+`contact-modal.css`/`forms.css`/`inscricao.css` classes verbatim — no new stylesheet.
+
+Unlike the other three forms, this one does **not** use `handleFormSubmit` from `forms.js` — that helper
+always serializes as `application/x-www-form-urlencoded`, which drops file content. `queixa-modal.js` has
+its own submit handler, `fetch('/', { body: new FormData(formEl) })` with no forced `Content-Type` (same
+pattern as `inscricao-signature.js`'s PDF upload), so the optional photo travels in the same multipart
+submission as the text fields — one request, not the two-phase flow the inscrição/assinatura process needs.
+
+No `/admin` triage view for these submissions yet (mirroring the inscrições list) — pending fast-follow.
+
+**Found while building this:** `.contact-modal__success` in `contact-modal.css` declared `display: flex`
+unconditionally, with no guard. Because that stylesheet loads after `forms.css` in `<head>`, it beat
+`.form__success`'s `display: none` at equal specificity — the success panel was visible by default on the
+**already-live contact modal**, not just after submitting. Fixed by dropping the unguarded `display` from
+the base rule so `.form__success`'s `display: none` applies until `.is-visible` is added. Any new modal
+built on this `contact-modal__*`/`form__*` pattern should double-check its success panel is actually hidden
+on open, not just assume it — the two stylesheets' load order makes this easy to get wrong again.
+
 ### `#noticias` is fed by a scheduled GitHub Action, not live at page-load
 
 `scripts/fetch-noticias.mjs` is a **build-time** Node script (needs `npm install`, run via `npm run fetch:noticias`) that queries the Google News RSS feed for *several* Algarve-housing topics — not just the crisis — defined in the `QUERIES` array (currently: crise habitacional, habitação social, arrendamento acessível, construção habitação). It merges all results, drops exact link duplicates and near-duplicate titles (Jaccard similarity on normalized words, stripping "| Por Nome Apelido" bylines first so the same article republished with/without a byline still matches), sorts by date, and writes the top 10 to `data/noticias.json` (`{ atualizado_em, queries, noticias: [{titulo, link, fonte, data}] }`). If you add a query, test it standalone first (`curl` the feed URL) — "alojamento local Algarve" was tried and dropped because it returned mostly tourism content, not housing.
