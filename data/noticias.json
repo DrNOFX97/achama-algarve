@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-09-04T01:54:10.917Z",
+  "atualizado_em": "2026-09-04T06:41:43.082Z",
   "queries": [
     "crise habitacional Algarve",
     "habitação social Algarve",
@@ -8,21 +8,9 @@
   ],
   "noticias": [
     {
-      "titulo": "Estudo. Portugal com habitação \"sistematicamente inacessível\" a compradores de rendimento médio",
-      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQNmJ6eThWQ2g5dFhCVjNmZTNsM0ZLSk1DVjdGVWRVazBqTl9jVVV5SWg2UHlUaGpXTlFnejBISmI3MUp5Sy0tQXUzeThmSVdpeHVkUEJ4bV83V2tjZ2VITmJlY0RLTUdlUFJDRHhsTWViTUxlcWRzN1JrMktCNlhmNjdyOWNtV1hpbFUtejNrLVRKREZDSXJ2djNlN0VhTGljcWdSYS1ZVEdvQXVNZGtuXy12blYwMkkzV0pGMWYzX0FUQUkwcWFFajE2WkpZTEx6WTRWUA?oc=5",
-      "fonte": "RTP",
-      "data": "02 Set 2026"
-    },
-    {
-      "titulo": "Novas regras para o mercado de arrendamento já em vigor",
-      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQbXd4Q3hnZjhYR0Vua196T0xSaGdYNUp0NXZtTF8zMDFiMXBZTGZrS1I2WjcxQU1Qb21ydjd5Rm9XLXpfbmxFcTc4NDRnR0tjUmYyRk82WjRISzV3LWZ3RDFRMXhWcTVCVGo2SHNabDhTWjlhczZNWFh2N2FlQ0wxbU5wVG9ZazU3MTZqVjRQODgxV0gxWmxwOU1yOWJNNy1pSWNZWV94MEdTeXN4dktvbzU5N0JSRldhYk15Y3hNU1BESDRiU2ticE1nWE81d9IB0wFBVV95cUxPRHhEVWprRU5rcFdCN1o4TGVoMnR2TFcyWkZiOXdwS1dfUVBqQnRtaTdVelRQMnJIQ1h2SHNNdlEwb3l1cml2QXJqclI4MHdhdkliaV9MUFgycDBpY19RaXNNeUZjbnJhdFJiU1YwZ3FMV1pwTHRSaEdOd0YxaUpGYW5SM0lncm5PbUptbjQ1RVNKeVNUcVRJcEp4SjlPYmZRbUQ4ZE96alk1M1lJbXRiT0xNVWJUVHQySHc1Y0oxejVVejQ4TWVBMkN2aElFUUhYMkFR?oc=5",
-      "fonte": "Idealista",
-      "data": "01 Set 2026"
-    },
-    {
       "titulo": "Renda universitária: apoios que podes pedir em Portugal",
       "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQMDJ6RXMzX2hPS2o3Y19JLWFwT3JUdTRvNW9taXUyYVNpRXU1WEZMZHdPYUduN3EyZE5fRXZ3QVNwaU1pQU03Q004MFdVQ1BDQnFXbEV1b3U2LUhmcHVfYjVkUjdOM1hXRTRvajA1N01aamduc2ktdU5JT2VWdVkxRFNUT05QUkp1T3BKSktaaVhyZDd5RW5iX3dYMHNDY3FhdG0wUlhQNHloSXRNZUNlcTBaZF80TlcyOTFJSDVId0TSAcYBQVVfeXFMT2lkLUpYbWpzQ0gwYklZd0hyLXlkWWJ5R211N2sxbU5mRTZlbmNQRmZGaXBMZUZUYVdFVEhDcTZwaGREWGpOS2pNZ0wxaWk0anZhZWFFTHJrQzU3aHpjbU9YWkJtMnlVM0F1T1BsQVptZnJxMXVIM0JORldISEkzQ3RBdnZXSnVMUXRSaXpGNVRjWG1iLTZCNzRtQnBlS3hCd2ltVjZ5YUVlV3ZVdmhMakRUam5iVGx6SXNPLVFZMWluMnhFR0tn?oc=5",
-      "fonte": "Idealista",
+      "fonte": "idealista.pt",
       "data": "31 Ago 2026"
     },
     {
@@ -52,7 +40,7 @@
     {
       "titulo": "IHRU coloca a concurso 77 habitações para arrendamento acessível",
       "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPUy03b05oVXhzeUJjdlRYeXNrdGxkbnFjbG5QODRVSks4UnhyUk5Oa1lvY2pCTkhBa0FVRVcxRUhHQnIxOUlWMW1lUzNZajFsV0JkaWtiQm1pbnFMMko4dlBqTTRFdjd4eF9LTUs0Yi1kZUJMT3dPYnFFbzlFTXlNcU81cnBqQWtDM3lJTmZpWl9Jb2FCSnNR?oc=5",
-      "fonte": "jornaldoalgarve.pt",
+      "fonte": "Jornal do Algarve",
       "data": "28 Ago 2026"
     },
     {
@@ -60,6 +48,18 @@
       "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPNnV2ZEgwT19kWlNVbXJTM1htWVowRTZ1OVpLcFh0eEY4VmVJYms2Q2IxbWdvZGZzSTNGS2xuWGg3ZGNfb3FOcUZBaksyd1kzM2Q2WWRmYWt3Q3FPS2kxTVVHSnBPZzY0T3dBWFgwR0x4Ym83M2xNT3FWMjNtbTRzazA0T3ZmcnlHM3dPVEh0cDZRRXRLZVU5clFMeEVZZWhYX1ZCZFVLdm5GWmJmVEZNSTcybjg?oc=5",
       "fonte": "nit.pt",
       "data": "26 Ago 2026"
+    },
+    {
+      "titulo": "Portugal precisa de mais habitação, mas tem capacidade para a construir?",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOd1k2dnJJYURLZFh3NlpLck52VlI1VzVyci12eFZLNFp1R1B0ZFR3MHNEc1owUWVVTEVFTm9qY2RaY3lyaUN5dHVDMzZfMUdHTnlfSEQwdVJudUJIdkFKUFdKcWp2QTJuQlNmS3N0YlhrX1o5elk0V21OSmNYVkYwQjJIdUtYM0V6MERsbVl4XzFvaWdRcm40eHNqQTV3NmpVOW05Y2NrREJYN0xzbjF6ZDZEYTNSZjFGT01OTUdxRQ?oc=5",
+      "fonte": "Visão",
+      "data": "20 Ago 2026"
+    },
+    {
+      "titulo": "Menos burocracia, mais responsabilidade: a reforma que vai acelerar as obras em Portugal",
+      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9ZS0M1TnIzbC1hTVk3b1dIcWZNM0NSZ0hfTm81eFVNbFlnREhjUDRGbGY0UXJDUUc4Y21uWTFydC0zOWJXbUEwLW5xd3p5dldWVW9UWTJpbm1TamVLUUZQeE5BQQ?oc=5",
+      "fonte": "e-konomista.pt",
+      "data": "20 Ago 2026"
     },
     {
       "titulo": "Linha Direta - Portugal enfrenta alta recorde nos aluguéis e discute pacote para conter crise habitacional",
