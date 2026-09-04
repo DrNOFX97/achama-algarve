@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-09-04T15:21:48.867Z",
+  "atualizado_em": "2026-09-04T18:40:13.980Z",
   "queries": [
     "crise habitacional Algarve",
     "habitação social Algarve",
@@ -28,7 +28,7 @@
     {
       "titulo": "Algarve e Alentejo recebem casas do IHRU com rendas acessíveis",
       "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxObmdHb0E4b29helFLTmp6WWZxZFJtNWF2SlZsbWRVbzlMQURFMXc1dHVIRGRrWmF6eF9MR1hPN1NvUGNwazc5M0ZLLW9yYXF1VUJkRHZhNG55VXVBbmVpWEV4d1dxc2ZpdDJYZHNTX2pMM3FjS1ZySWNoaHgtWVFiRTBCVXJiOXhRQ3JUMkFoUlVKV1kydWcwNkRSTEtIQ2N1Wmc?oc=5",
-      "fonte": "sulinformacao.pt",
+      "fonte": "Sul Informação",
       "data": "28 Ago 2026"
     },
     {
@@ -39,21 +39,15 @@
     },
     {
       "titulo": "IHRU coloca a concurso 77 habitações para arrendamento acessível",
-      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPUy03b05oVXhzeUJjdlRYeXNrdGxkbnFjbG5QODRVSks4UnhyUk5Oa1lvY2pCTkhBa0FVRVcxRUhHQnIxOUlWMW1lUzNZajFsV0JkaWtiQm1pbnFMMko4dlBqTTRFdjd4eF9LTUs0Yi1kZUJMT3dPYnFFbzlFTXlNcU81cnBqQWtDM3lJTmZpWl9Jb2FCSnNR?oc=5",
-      "fonte": "Jornal do Algarve",
-      "data": "28 Ago 2026"
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQRlRPZzljQVc3TFBTbEhUckR5Y0dRZ1dNc1pueTlYUVpqV1J1bkVWZ0ZRSXRLRVBYN1JDWHI4V0RmMUNuNVZHQndzRmZXTVkxV1JFbVZlS0xtaGpnOVVjcVVnVy1RRXA5Vkc2RHFjZUdBV0lUSzJXRzl1WTVVeUtmZVRuNTF3WXo4dmVzOV9TNjZSTEl3aXU4WVlqS2pZMEFLTHhacmd30gGgAUFVX3lxTE01TWV2Vm5vNjRIbUUxMktBN0MxTWg4azBHQmVsNkR6VjdhcnRuYmEzbDBldVl3RFRuTkphNUZBUDNrb1lUNktXSmVZYk1pX1lZT3l4VjhMamV1YU9tdUNCS3E5YTFQN0F6WlJNWDJ4Y0g5dzZSQ0lPblRibzNFSzFXQWpqcm42MEFxLW1yd2ZrV3hmOTl1VTlYX19NeXozRzQ?oc=5",
+      "fonte": "sabado.pt",
+      "data": "27 Ago 2026"
     },
     {
       "titulo": "A “aldeia” de 100 milhões de euros abandonada com casas luxuosas no Algarve",
       "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPNnV2ZEgwT19kWlNVbXJTM1htWVowRTZ1OVpLcFh0eEY4VmVJYms2Q2IxbWdvZGZzSTNGS2xuWGg3ZGNfb3FOcUZBaksyd1kzM2Q2WWRmYWt3Q3FPS2kxTVVHSnBPZzY0T3dBWFgwR0x4Ym83M2xNT3FWMjNtbTRzazA0T3ZmcnlHM3dPVEh0cDZRRXRLZVU5clFMeEVZZWhYX1ZCZFVLdm5GWmJmVEZNSTcybjg?oc=5",
       "fonte": "nit.pt",
       "data": "26 Ago 2026"
-    },
-    {
-      "titulo": "Portugal precisa de mais habitação, mas tem capacidade para a construir?",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOd1k2dnJJYURLZFh3NlpLck52VlI1VzVyci12eFZLNFp1R1B0ZFR3MHNEc1owUWVVTEVFTm9qY2RaY3lyaUN5dHVDMzZfMUdHTnlfSEQwdVJudUJIdkFKUFdKcWp2QTJuQlNmS3N0YlhrX1o5elk0V21OSmNYVkYwQjJIdUtYM0V6MERsbVl4XzFvaWdRcm40eHNqQTV3NmpVOW05Y2NrREJYN0xzbjF6ZDZEYTNSZjFGT01OTUdxRQ?oc=5",
-      "fonte": "Visão",
-      "data": "20 Ago 2026"
     },
     {
       "titulo": "Menos burocracia, mais responsabilidade: a reforma que vai acelerar as obras em Portugal",
@@ -64,7 +58,13 @@
     {
       "titulo": "Linha Direta - Portugal enfrenta alta recorde nos aluguéis e discute pacote para conter crise habitacional",
       "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNVzVockdhazI4RkQzZjhHOUZpVGVGRF9QZVloTjd4bmFPeHRXQXpEb1RIS0Q2UUhiYzRlWV9zeXc3SWk1NU9VLUNGcW5mNUlYM1NFa2NhQkRXVjFIZG1SdmZDeDYzMm9KN1FFN2RNcGhmSjJSWDlWX3lwMWFhSklOczVQeHdpYUNLV0ZhbmtQLTRjc2hpbnc0U1NJOUg2TDJMN2tuRUxpLW5YdlRVZmEtUDJpZFlUYjlFZm9tVldZVS1SVkE0MFZoaUI2RVcyV3B0Z1piSzRfbHJUUkZ3eENHUkZoOA?oc=5",
-      "fonte": "RFI",
+      "fonte": "rfi.fr",
+      "data": "19 Ago 2026"
+    },
+    {
+      "titulo": "Aluguéis em Portugal sobem 65% em cinco anos e pressionam famílias",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPMWI5VVBaZC1vTXpLSF9mREtUNXl4Q0trRll5cTlXMHpIckdZSkhsakkyeEJfVUx3V3dfWjdEUkpFRVNKdzJGZkxOSVdXTlRWbFVQMktSNmRUZzFwTWxtV3g4S2ZTN21wOHIxNHdFV3ZrVWhLaF9iUnRGcDg2UGVndUdEcWxKUTFKdWZkdWZITmotaktkY3Z5OE1EZ1FPcTh5cTlUckN6OXJ2U3hsYTNXdFJ1czQxUdIBvgFBVV95cUxNc2dqcy11ZENLM3NXY3hrUng4Vk1MVXJkSVRMNFpESVlKM2lPUkk1OUIzdHNGaVpnRTlFUl92bU5QeGt3dTlPemduNmhBM0VCSmd0RmdTeTFpYjF0QjdlOUdZUGtjbGY1TUxyOGg4S2pFcGVOS3g1eDFUd2tib2s0MGNPa1owY0p3cUVWRm0zVW4xb3dYcDdiOWJXM2hKdnJtRU94b283dnNFNzlvZ0hRY3JQcEdDNXlXdVVWUGhn?oc=5",
+      "fonte": "DOL",
       "data": "19 Ago 2026"
     }
   ]
