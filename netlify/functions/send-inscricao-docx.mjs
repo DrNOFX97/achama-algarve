@@ -1,30 +1,10 @@
+import nodemailer from 'nodemailer';
 import { getInscricaoTokensStore } from './lib/blobs.mjs';
 
-// STUB — estrutura pronta, envio real por SMTP ainda não implementado.
-//
-// Esta função NÃO está ligada ao fluxo público do site: por agora,
-// inscricao-modal.js faz download local do .docx e mostra o link de retomar
-// no próprio ecrã (ver Tarefa 2 revista). Fica pronta para ligar assim que
-// tivermos as credenciais SMTP do cliente — falta decidir e confirmar
-// (Gmail app password de acimha.geral@gmail.com, ou credenciais SMTP de
-// geral@acimha.pt via securemail.pro) e configurar como variável de
-// ambiente (nunca hardcoded). Ver histórico da conversa / Notion para
-// contexto completo desta decisão.
-//
-// TODO: ligar SMTP quando tivermos credenciais do cliente, por exemplo:
-//   import nodemailer from 'nodemailer';
-//   const transporter = nodemailer.createTransport({
-//       host: process.env.SMTP_HOST,
-//       port: Number(process.env.SMTP_PORT || 587),
-//       auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-//   });
-//   await transporter.sendMail({
-//       from: process.env.SMTP_FROM,
-//       to: email,
-//       subject: 'A sua ficha de inscrição na ACIMHA',
-//       html,
-//       attachments: [{ filename, content: Buffer.from(docxBase64, 'base64') }],
-//   });
+// Envio real por SMTP. Credenciais vêm sempre de variáveis de ambiente do
+// Netlify (SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM) — nunca
+// hardcoded nem guardadas neste repositório.
+const MAX_ATTACHMENT_BYTES = 8 * 1024 * 1024; // 8MB, mesmo limite do upload-document.mjs
 
 function buildEmailHtml({ nome, retomarUrl }) {
     const saudacao = nome ? `Olá, ${nome}.` : 'Olá.';
@@ -58,6 +38,20 @@ function buildEmailHtml({ nome, retomarUrl }) {
 </html>`;
 }
 
+let transporter = null;
+function getTransporter() {
+    if (transporter) return transporter;
+    const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
+    if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return null;
+    transporter = nodemailer.createTransport({
+        host: SMTP_HOST,
+        port: Number(SMTP_PORT || 587),
+        secure: Number(SMTP_PORT) === 465,
+        auth: { user: SMTP_USER, pass: SMTP_PASS },
+    });
+    return transporter;
+}
+
 export default async (req) => {
     let body;
     try {
@@ -69,12 +63,27 @@ export default async (req) => {
     const email = typeof body.email === 'string' ? body.email.trim() : '';
     const token = typeof body.token === 'string' ? body.token.trim() : '';
     const nome = typeof body.nome === 'string' ? body.nome.trim() : '';
+    const filename = typeof body.filename === 'string' ? body.filename.trim() : 'Ficha-Inscricao-ACIMHA.docx';
+    const docxBase64 = typeof body.docxBase64 === 'string' ? body.docxBase64 : '';
 
     if (!email) {
         return Response.json({ error: 'email em falta.' }, { status: 400 });
     }
     if (!token) {
         return Response.json({ error: 'token em falta.' }, { status: 400 });
+    }
+    if (!docxBase64) {
+        return Response.json({ error: 'documento em falta.' }, { status: 400 });
+    }
+
+    let attachmentBuffer;
+    try {
+        attachmentBuffer = Buffer.from(docxBase64, 'base64');
+    } catch {
+        return Response.json({ error: 'documento inválido.' }, { status: 400 });
+    }
+    if (attachmentBuffer.length === 0 || attachmentBuffer.length > MAX_ATTACHMENT_BYTES) {
+        return Response.json({ error: 'documento com tamanho inválido.' }, { status: 400 });
     }
 
     try {
@@ -87,18 +96,35 @@ export default async (req) => {
         return Response.json({ error: 'Falha ao validar o token.' }, { status: 502 });
     }
 
+    const smtp = getTransporter();
+    if (!smtp) {
+        return Response.json(
+            {
+                ok: false,
+                sent: false,
+                stub: true,
+                error: 'Envio automático por email ainda não está ligado — falta configuração SMTP.',
+            },
+            { status: 501 }
+        );
+    }
+
     const origin = new URL(req.url).origin;
     const retomarUrl = `${origin}/assinatura?token=${token}`;
     const html = buildEmailHtml({ nome, retomarUrl });
 
-    return Response.json(
-        {
-            ok: false,
-            sent: false,
-            stub: true,
-            error: 'Envio automático por email ainda não está ligado — falta configuração SMTP.',
-            preview: { retomarUrl, htmlLength: html.length },
-        },
-        { status: 501 }
-    );
+    try {
+        await smtp.sendMail({
+            from: process.env.SMTP_FROM || process.env.SMTP_USER,
+            to: email,
+            subject: 'A sua ficha de inscrição na ACIMHA',
+            html,
+            attachments: [{ filename, content: attachmentBuffer }],
+        });
+    } catch (error) {
+        console.error('Falha ao enviar email de inscrição:', error);
+        return Response.json({ ok: false, sent: false, error: 'Falha ao enviar o email.' }, { status: 502 });
+    }
+
+    return Response.json({ ok: true, sent: true });
 };
