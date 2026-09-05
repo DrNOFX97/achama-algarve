@@ -77,6 +77,19 @@ export default async (req) => {
             pdfUrl: temAssinatura
                 ? `/.netlify/functions/get-inscricao-pdf?submissionId=${assinatura.id}`
                 : null,
+            // Campos completos — só usados pelo modal "Ver detalhes/Editar" do
+            // painel admin; a tabela principal só mostra os de cima.
+            telefone: sub.data?.telefone || null,
+            nif: sub.data?.nif || null,
+            cc_bi: sub.data?.cc_bi || null,
+            data_nascimento: sub.data?.data_nascimento || null,
+            morada: sub.data?.morada || null,
+            codigo_postal: sub.data?.codigo_postal || null,
+            localidade: sub.data?.localidade || null,
+            concelho: sub.data?.concelho || null,
+            distrito: sub.data?.distrito || null,
+            profissao: sub.data?.profissao || null,
+            meio_comunicacao: sub.data?.meio_comunicacao || null,
         };
     });
 
@@ -94,6 +107,14 @@ export default async (req) => {
         overrides.forEach((override, i) => {
             if (override?.estado === 'Aprovado' || override?.estado === 'Apagado') {
                 lista[i].estado = override.estado;
+            }
+            // Correções manuais gravadas pelo painel admin (update-inscricao-dados.mjs)
+            // — a submissão do Netlify Forms em si nunca é alterada.
+            if (override?.dados && typeof override.dados === 'object') {
+                Object.assign(lista[i], override.dados);
+                if (override.dados.categoria) {
+                    lista[i].categoriaLabel = CATEGORIA_LABELS[override.dados.categoria] || override.dados.categoria;
+                }
             }
         });
     } catch {
