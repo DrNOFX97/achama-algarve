@@ -35,7 +35,12 @@ export function initInscricaoModal() {
         document.getElementById('inscricao-form')?.reset();
         assinarEl?.querySelector('.ins-callout__pdf-error')?.remove();
         const retomarTextEl = overlay.querySelector('#ins-retomar-link-text');
-        if (retomarTextEl) retomarTextEl.textContent = 'A preparar o link de retomar…';
+        if (retomarTextEl) {
+            retomarTextEl.textContent = 'A preparar o link de retomar…';
+            retomarTextEl.hidden = true;
+        }
+        const envioNoteEl = overlay.querySelector('#ins-envio-note');
+        if (envioNoteEl) envioNoteEl.textContent = 'A enviar o documento por email…';
         resetInscricaoAssinaturaForm(overlay);
     }
 
@@ -132,6 +137,7 @@ export function initInscricaoModal() {
     function mostrarRetomarLink(url) {
         const textEl = overlay.querySelector('#ins-retomar-link-text');
         if (!textEl) return;
+        textEl.hidden = false;
         if (url) {
             textEl.textContent = '';
             const link = document.createElement('a');
@@ -141,6 +147,23 @@ export function initInscricaoModal() {
             textEl.appendChild(link);
         } else {
             textEl.textContent = 'Não foi possível preparar o link de retomar agora — contacte-nos em acimha.geral@gmail.com se precisar dele mais tarde.';
+        }
+    }
+
+    async function enviarFichaPorEmail({ email, nome, token, filename, blob }) {
+        if (!token || !blob) return false;
+        try {
+            const arrayBuffer = await blob.arrayBuffer();
+            const docxBase64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+            const res = await fetch('/.netlify/functions/send-inscricao-docx', {
+                method: 'POST',
+                body: JSON.stringify({ email, nome, token, filename, docxBase64 }),
+            });
+            if (!res.ok) return false;
+            const data = await res.json();
+            return !!data.sent;
+        } catch {
+            return false;
         }
     }
 
@@ -155,9 +178,6 @@ export function initInscricaoModal() {
             const emailEl = overlay.querySelector('#ins-assinatura-email');
             if (emailEl) emailEl.value = email;
 
-            // Gera o token de retomar como se o email fosse ser enviado —
-            // por agora o link só é mostrado no próprio ecrã (ver
-            // send-inscricao-docx.mjs, ainda não ligado).
             const tokenPromise = criarTokenRetomar(email, nome);
 
             const result = await baixarFichaDocx(formEl);
@@ -174,7 +194,19 @@ export function initInscricaoModal() {
             }
 
             const token = await tokenPromise;
-            mostrarRetomarLink(token ? `${location.origin}/assinatura?token=${token}` : null);
+            const envioNoteEl = overlay.querySelector('#ins-envio-note');
+            const enviado = result.ok
+                ? await enviarFichaPorEmail({ email, nome, token, filename: result.filename, blob: result.blob })
+                : false;
+
+            if (enviado) {
+                if (envioNoteEl) envioNoteEl.textContent = 'Enviámos o documento e o link para continuar a assinatura para o seu email.';
+            } else {
+                if (envioNoteEl) {
+                    envioNoteEl.textContent = 'Ainda não foi possível enviar o documento por email — utilize o link abaixo para continuar a assinatura mais tarde, ou contacte-nos em acimha.geral@gmail.com.';
+                }
+                mostrarRetomarLink(token ? `${location.origin}/assinatura?token=${token}` : null);
+            }
         },
         checkNifDuplicado
     );
