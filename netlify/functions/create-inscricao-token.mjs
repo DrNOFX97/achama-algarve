@@ -1,11 +1,15 @@
 import crypto from 'node:crypto';
 import { getInscricaoTokensStore } from './lib/blobs.mjs';
+import { getSubmission } from './lib/netlify-api.mjs';
+import { verifySession } from './lib/session.mjs';
 
-// Pública, sem gate de sessão — chamada pelo próprio fluxo de inscrição
-// (inscricao-modal.js) logo a seguir à submissão, para gerar o link de
-// retomar a assinatura. Por agora o link é mostrado no próprio ecrã (ver
-// Tarefa 2 revista); quando o envio por email for ligado, vai sempre no
-// corpo desse email.
+// Duas formas de chamar, com gates diferentes:
+// 1. Pelo fluxo de inscrição (inscricao-modal.js), pública, com email/nome —
+//    é o próprio autor da inscrição, logo a seguir a submetê-la.
+// 2. Pelo painel admin (admin.js), com submissionId — exige sessão de admin,
+//    porque um submissionId não é segredo (aparece em URLs de PDF) e sem
+//    este gate qualquer pessoa podia gerar um token de assinatura para a
+//    inscrição de outra pessoa.
 const TOKEN_TTL_DIAS = 30;
 
 export default async (req) => {
@@ -25,11 +29,36 @@ export default async (req) => {
         return Response.json({ error: 'Pedido inválido — esperado JSON.' }, { status: 400 });
     }
 
-    const email = typeof body.email === 'string' ? body.email.trim() : '';
-    if (!email) {
-        return Response.json({ error: 'email em falta.' }, { status: 400 });
+    let email, nome;
+
+    // Caso 1: chamada do fluxo de inscrição com email/nome
+    if (body.email && body.nome) {
+        email = typeof body.email === 'string' ? body.email.trim() : '';
+        nome = typeof body.nome === 'string' ? body.nome.trim() : '';
+        if (!email) {
+            return Response.json({ error: 'email em falta.' }, { status: 400 });
+        }
     }
-    const nome = typeof body.nome === 'string' ? body.nome.trim() : '';
+    // Caso 2: chamada do admin com submissionId — exige sessão válida
+    else if (body.submissionId) {
+        const sessionSecret = process.env.SESSION_SECRET;
+        const session = sessionSecret ? verifySession(req.headers.get('cookie'), sessionSecret) : null;
+        if (!session) {
+            return Response.json({ error: 'Não autenticado.' }, { status: 401 });
+        }
+        try {
+            const submission = await getSubmission(body.submissionId, netlifyToken);
+            email = submission.data?.email || '';
+            nome = submission.data?.nome || '';
+            if (!email) {
+                return Response.json({ error: 'Email não encontrado na inscrição.' }, { status: 400 });
+            }
+        } catch {
+            return Response.json({ error: 'Inscrição não encontrada.' }, { status: 404 });
+        }
+    } else {
+        return Response.json({ error: 'email/nome ou submissionId em falta.' }, { status: 400 });
+    }
 
     const token = crypto.randomUUID();
     const now = Date.now();

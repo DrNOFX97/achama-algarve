@@ -6,6 +6,8 @@ import { getInscricaoTokensStore } from './lib/blobs.mjs';
 // hardcoded nem guardadas neste repositório.
 const MAX_ATTACHMENT_BYTES = 8 * 1024 * 1024; // 8MB, mesmo limite do upload-document.mjs
 
+const CMD_URL = 'https://cmd.autenticacao.gov.pt/Ama.Authentication.Frontend/Processes/DigitalSignature/DigitalSignatureIntro.aspx';
+
 function buildEmailHtml({ nome, retomarUrl }) {
     const saudacao = nome ? `Olá, ${nome}.` : 'Olá.';
     return `<!doctype html>
@@ -19,7 +21,12 @@ function buildEmailHtml({ nome, retomarUrl }) {
               <td style="padding:32px 28px;">
                 <p style="margin:0 0 16px;font-size:16px;">${saudacao}</p>
                 <p style="margin:0 0 16px;font-size:16px;">Segue em anexo a sua ficha de inscrição na ACIMHA, já com os seus dados preenchidos.</p>
-                <p style="margin:0 0 24px;font-size:16px;">Para concluir a inscrição, assine o documento — com a Chave Móvel Digital, ou imprimindo e assinando à mão — e carregue o ficheiro assinado através do botão abaixo:</p>
+                <p style="margin:0 0 8px;font-size:16px;">Para concluir a inscrição, escolha uma das duas formas de assinar o documento antes de o validar oficialmente:</p>
+                <ol style="margin:0 0 16px;padding-left:20px;font-size:15px;">
+                  <li style="margin-bottom:8px;"><strong>Chave Móvel Digital:</strong> abra o ficheiro em anexo no Word ou LibreOffice, exporte-o ou imprima-o como PDF e carregue esse PDF no <a href="${CMD_URL}">site oficial da Chave Móvel Digital</a> para o assinar. É necessário ter a Chave Móvel Digital ativa; o tamanho máximo aceite pela ferramenta é 3MB — este documento é muito menor, por isso não haverá problema.</li>
+                  <li><strong>Assinatura manual:</strong> imprima o documento, assine-o à mão e digitalize-o (ou fotografe-o) num único ficheiro PDF.</li>
+                </ol>
+                <p style="margin:0 0 24px;font-size:16px;">Depois de assinado, por uma via ou outra, carregue o PDF assinado através do botão abaixo:</p>
                 <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 24px;">
                   <tr>
                     <td style="background:#8A1C1C;">

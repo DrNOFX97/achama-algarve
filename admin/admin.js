@@ -118,6 +118,10 @@ function renderInscricoes(inscricoes) {
         const acoes = mostrarApagados
             ? `<button type="button" class="admin-link-action" data-action="restaurar" data-id="${id}">Restaurar</button>`
             : `
+                <button type="button" class="admin-link-action" data-action="detalhes" data-id="${id}">Ver detalhes</button>
+                ${!i.pdfUrl
+                    ? `<button type="button" class="admin-link-action" data-action="copiar-link" data-id="${id}">Copiar link de assinatura</button>`
+                    : ''}
                 ${i.estado === 'Aprovado'
                     ? `<button type="button" class="admin-link-action" data-action="reverter" data-id="${id}">Reverter</button>`
                     : `<button type="button" class="admin-link-action" data-action="aprovar" data-id="${id}">Marcar Aprovado</button>`}
@@ -161,10 +165,115 @@ async function postAdminAction(url, body) {
     }
 }
 
+async function openInscricaoModal(inscricao) {
+    const modal = $('#admin-inscricao-modal');
+    const form = $('#admin-inscricao-modal-form');
+    const idInput = $('#admin-inscricao-modal-id');
+
+    idInput.value = inscricao.id;
+
+    // Preenche os campos do modal com os dados da inscrição
+    ['nome', 'email', 'telefone', 'nif', 'cc_bi', 'data_nascimento', 'morada',
+     'codigo_postal', 'localidade', 'concelho', 'distrito', 'profissao',
+     'meio_comunicacao', 'categoria'].forEach((field) => {
+        const input = form.elements[field];
+        if (input) input.value = inscricao[field] || '';
+    });
+
+    $('#admin-inscricao-modal-status').textContent = '';
+    modal.classList.remove('is-hidden');
+}
+
+function closeInscricaoModal() {
+    const modal = $('#admin-inscricao-modal');
+    modal.classList.add('is-hidden');
+}
+
+async function handleInscricaoModalSubmit(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const idInput = $('#admin-inscricao-modal-id');
+    const statusEl = $('#admin-inscricao-modal-status');
+    const id = idInput.value;
+
+    const formData = new FormData(form);
+    const dados = {};
+    ['nome', 'email', 'telefone', 'nif', 'cc_bi', 'data_nascimento', 'morada',
+     'codigo_postal', 'localidade', 'concelho', 'distrito', 'profissao',
+     'meio_comunicacao', 'categoria'].forEach((field) => {
+        const value = formData.get(field);
+        if (value) dados[field] = value;
+    });
+
+    try {
+        const res = await fetch('/.netlify/functions/update-inscricao-dados', {
+            method: 'POST',
+            body: JSON.stringify({ id, dados }),
+        });
+
+        if (!res.ok) {
+            let message = 'Falha ao guardar as alterações.';
+            try {
+                const data = await res.json();
+                if (data?.error) message = data.error;
+            } catch { /* corpo sem JSON válido — mantém a mensagem genérica */ }
+            statusEl.textContent = message;
+            return;
+        }
+
+        statusEl.textContent = 'Guardado com sucesso!';
+        await new Promise((r) => setTimeout(r, 1500));
+        closeInscricaoModal();
+        await refreshInscricoes();
+    } catch {
+        statusEl.textContent = 'Falha ao contactar o servidor.';
+    }
+}
+
+async function copyAssinaturLink(inscricao) {
+    // O token é criado quando o utilizador pede para assinar por email;
+    // para copiar o link de retoma, precisa da função create-inscricao-token.
+    try {
+        const res = await fetch('/.netlify/functions/create-inscricao-token', {
+            method: 'POST',
+            body: JSON.stringify({ submissionId: inscricao.id }),
+        });
+
+        if (!res.ok) {
+            let message = 'Falha ao gerar o link de assinatura.';
+            try {
+                const data = await res.json();
+                if (data?.error) message = data.error;
+            } catch { /* corpo sem JSON válido */ }
+            alert(message);
+            return;
+        }
+
+        const data = await res.json();
+        const url = `${window.location.origin}/assinatura.html?token=${data.token}`;
+        await navigator.clipboard.writeText(url);
+        alert(`Link copiado para a área de transferência:\n${url}`);
+    } catch {
+        alert('Falha ao contactar o servidor.');
+    }
+}
+
 async function handleInscricoesRowAction(e) {
     const btn = e.target.closest('button[data-action]');
     if (!btn) return;
     const { action, id, nome } = btn.dataset;
+
+    if (action === 'detalhes') {
+        const inscricao = ultimasInscricoes.find((i) => i.id === id);
+        if (inscricao) openInscricaoModal(inscricao);
+        return;
+    }
+
+    if (action === 'copiar-link') {
+        const inscricao = ultimasInscricoes.find((i) => i.id === id);
+        if (inscricao) await copyAssinaturLink(inscricao);
+        return;
+    }
 
     if (action === 'aprovar' || action === 'reverter' || action === 'restaurar') {
         btn.disabled = true;
@@ -509,6 +618,15 @@ async function loadDashboard(email) {
         e.target.textContent = mostrarApagados ? 'Ver ativas' : 'Ver apagadas';
         await refreshInscricoes();
     });
+
+    // Setup modal de edição de inscrição
+    $('#admin-inscricao-modal-form').addEventListener('submit', handleInscricaoModalSubmit);
+    $('#admin-inscricao-modal-close').addEventListener('click', closeInscricaoModal);
+    $('#admin-inscricao-modal-cancel').addEventListener('click', closeInscricaoModal);
+    $('#admin-inscricao-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'admin-inscricao-modal') closeInscricaoModal();
+    });
+
     $('#admin-queixas-body').addEventListener('click', handleQueixasRowAction);
     $('#admin-toggle-queixas-apagadas').addEventListener('click', async (e) => {
         mostrarQueixasApagadas = !mostrarQueixasApagadas;

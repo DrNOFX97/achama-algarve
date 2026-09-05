@@ -537,6 +537,112 @@
     max-width: 28rem;
 }
 
+/* ---------- Modal "Ver detalhes / Editar" ---------- */
+
+.admin-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 26, .55);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 3rem 1.25rem;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.admin-modal {
+    background: var(--color-white);
+    border: 1px solid var(--color-hairline);
+    max-width: 40rem;
+    width: 100%;
+}
+
+.admin-modal__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--color-hairline);
+}
+
+.admin-modal__title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--color-primary);
+}
+
+.admin-modal__close {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-muted);
+    padding: .25rem;
+}
+
+.admin-modal__form {
+    padding: 1.5rem;
+}
+
+.admin-modal__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1.25rem;
+}
+
+.admin-field {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    font-family: var(--font-sans);
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--color-muted);
+}
+
+.admin-field--wide {
+    grid-column: 1 / -1;
+}
+
+.admin-field input,
+.admin-field select {
+    font-family: var(--font-body);
+    font-size: .95rem;
+    color: var(--color-primary);
+    padding: .5rem .6rem;
+    border: 1px solid var(--color-hairline);
+    background: var(--color-white);
+}
+
+.admin-modal__status {
+    margin-top: 1rem;
+    font-family: var(--font-sans);
+    font-size: .82rem;
+    color: var(--color-muted);
+    min-height: 1.2em;
+}
+
+.admin-modal__status.is-error {
+    color: var(--color-error);
+}
+
+.admin-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: .75rem;
+    margin-top: 1.25rem;
+}
+
+@media (max-width: 32rem) {
+    .admin-modal__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ---------- Responsivo ---------- */
 
 @media (max-width: 56rem) {

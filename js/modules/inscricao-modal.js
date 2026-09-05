@@ -1,7 +1,6 @@
 import { handleFormSubmit } from './forms.js';
 import { setupFocusTrap } from './ui-utils.js';
 import { baixarFichaDocx } from './inscricao-docx.js';
-import { initInscricaoAssinaturaForm, resetInscricaoAssinaturaForm } from './inscricao-signature.js';
 
 export function initInscricaoModal() {
     const overlay = document.getElementById('inscricao-overlay');
@@ -10,7 +9,6 @@ export function initInscricaoModal() {
     const closeBtn = document.getElementById('inscricao-close');
     const openBtns = document.querySelectorAll('[data-modal-open="inscricao"]');
     const fieldsEl = document.getElementById('inscricao-fields');
-    const assinarEl = document.getElementById('inscricao-assinar');
     const successEl = document.getElementById('inscricao-success');
 
     let triggerBtn = null;
@@ -29,19 +27,16 @@ export function initInscricaoModal() {
     }
 
     function resetFlow() {
-        assinarEl?.classList.remove('is-visible');
         successEl?.classList.remove('is-visible');
         fieldsEl?.classList.remove('is-hidden');
         document.getElementById('inscricao-form')?.reset();
-        assinarEl?.querySelector('.ins-callout__pdf-error')?.remove();
         const retomarTextEl = overlay.querySelector('#ins-retomar-link-text');
         if (retomarTextEl) {
             retomarTextEl.textContent = 'A preparar o link de retomar…';
             retomarTextEl.hidden = true;
         }
         const envioNoteEl = overlay.querySelector('#ins-envio-note');
-        if (envioNoteEl) envioNoteEl.textContent = 'A enviar o documento por email…';
-        resetInscricaoAssinaturaForm(overlay);
+        if (envioNoteEl) envioNoteEl.textContent = 'A enviar o email…';
     }
 
     function closeModal() {
@@ -96,8 +91,6 @@ export function initInscricaoModal() {
             el.closest('.ins-radio-label')?.classList.add('is-checked');
         }
     });
-
-    initInscricaoAssinaturaForm(overlay);
 
     async function checkNifDuplicado(formEl) {
         const nif = formEl.querySelector('[name="nif"]')?.value || '';
@@ -170,40 +163,31 @@ export function initInscricaoModal() {
     handleFormSubmit(
         document.getElementById('inscricao-form'),
         fieldsEl,
-        assinarEl,
+        successEl,
         async (formEl) => {
             const email = formEl.querySelector('[name="email"]')?.value || '';
             const nome = formEl.querySelector('[name="nome"]')?.value || '';
 
-            const emailEl = overlay.querySelector('#ins-assinatura-email');
-            if (emailEl) emailEl.value = email;
-
             const tokenPromise = criarTokenRetomar(email, nome);
-
             const result = await baixarFichaDocx(formEl);
-            if (!result.ok) {
-                const callout = assinarEl?.querySelector('.ins-callout');
-                let warningEl = callout?.querySelector('.ins-callout__pdf-error');
-                if (callout && !warningEl) {
-                    warningEl = document.createElement('p');
-                    warningEl.className = 'ins-callout__note ins-callout__pdf-error';
-                    warningEl.style.color = 'var(--color-error)';
-                    warningEl.textContent = 'Não foi possível gerar o documento automaticamente. Por favor, contacte-nos por e-mail para lhe enviarmos a ficha para assinatura.';
-                    callout.appendChild(warningEl);
-                }
-            }
-
             const token = await tokenPromise;
             const envioNoteEl = overlay.querySelector('#ins-envio-note');
-            const enviado = result.ok
-                ? await enviarFichaPorEmail({ email, nome, token, filename: result.filename, blob: result.blob })
-                : false;
+
+            if (!result.ok) {
+                if (envioNoteEl) {
+                    envioNoteEl.textContent = 'Não foi possível gerar o documento automaticamente — utilize o link abaixo para continuar a assinatura, ou contacte-nos em acimha.geral@gmail.com.';
+                }
+                mostrarRetomarLink(token ? `${location.origin}/assinatura?token=${token}` : null);
+                return;
+            }
+
+            const enviado = await enviarFichaPorEmail({ email, nome, token, filename: result.filename, blob: result.blob });
 
             if (enviado) {
-                if (envioNoteEl) envioNoteEl.textContent = 'Enviámos o documento e o link para continuar a assinatura para o seu email.';
+                if (envioNoteEl) envioNoteEl.textContent = 'Enviámos o documento e as instruções de assinatura para o seu email.';
             } else {
                 if (envioNoteEl) {
-                    envioNoteEl.textContent = 'Ainda não foi possível enviar o documento por email — utilize o link abaixo para continuar a assinatura mais tarde, ou contacte-nos em acimha.geral@gmail.com.';
+                    envioNoteEl.textContent = 'Ainda não foi possível enviar o email — utilize o link abaixo para continuar a assinatura, ou contacte-nos em acimha.geral@gmail.com.';
                 }
                 mostrarRetomarLink(token ? `${location.origin}/assinatura?token=${token}` : null);
             }

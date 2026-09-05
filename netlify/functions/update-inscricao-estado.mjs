@@ -34,8 +34,15 @@ export default async (req) => {
 
     try {
         const store = getInscricoesStore();
+        // Preserva `dados` (correções manuais do painel admin) ao mudar o
+        // estado — sobrescrever ou apagar o registo inteiro perderia essas
+        // edições.
+        const existing = (await store.get(id, { type: 'json' })) || {};
         if (estado === 'Aprovado' || estado === 'Apagado') {
-            await store.setJSON(id, { estado, updatedAt: new Date().toISOString(), updatedBy: session.email });
+            await store.setJSON(id, { ...existing, estado, updatedAt: new Date().toISOString(), updatedBy: session.email });
+        } else if (existing.dados) {
+            const { estado: _drop, ...rest } = existing;
+            await store.setJSON(id, { ...rest, updatedAt: new Date().toISOString(), updatedBy: session.email });
         } else {
             await store.delete(id);
         }

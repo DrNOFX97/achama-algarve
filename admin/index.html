@@ -126,6 +126,55 @@
       </section>
 
     </main>
+
+    <!-- Modal "Ver detalhes / Editar" de uma inscrição — a submissão do
+         Netlify Forms nunca é alterada; o formulário grava correções como
+         override em Blobs (update-inscricao-dados.mjs). -->
+    <div class="admin-modal-overlay is-hidden" id="admin-inscricao-modal" role="dialog" aria-modal="true"
+      aria-labelledby="admin-inscricao-modal-title">
+      <div class="admin-modal">
+        <div class="admin-modal__head">
+          <h2 class="admin-modal__title" id="admin-inscricao-modal-title">Detalhes da inscrição</h2>
+          <button type="button" class="admin-modal__close" id="admin-inscricao-modal-close"
+            aria-label="Fechar">✕</button>
+        </div>
+        <form class="admin-modal__form" id="admin-inscricao-modal-form">
+          <input type="hidden" id="admin-inscricao-modal-id">
+          <div class="admin-modal__grid">
+            <label class="admin-field">Nome<input name="nome" type="text" required></label>
+            <label class="admin-field">Categoria
+              <select name="categoria">
+                <option value="civico">Sócio Cívico</option>
+                <option value="habitacional">Sócio Habitacional</option>
+              </select>
+            </label>
+            <label class="admin-field">Email<input name="email" type="email" required></label>
+            <label class="admin-field">Telemóvel<input name="telefone" type="tel"></label>
+            <label class="admin-field">NIF<input name="nif" type="text" maxlength="9"></label>
+            <label class="admin-field">N.º CC / BI<input name="cc_bi" type="text"></label>
+            <label class="admin-field">Data de nascimento<input name="data_nascimento" type="date"></label>
+            <label class="admin-field">Profissão<input name="profissao" type="text"></label>
+            <label class="admin-field admin-field--wide">Morada<input name="morada" type="text"></label>
+            <label class="admin-field">Código postal<input name="codigo_postal" type="text" placeholder="0000-000"></label>
+            <label class="admin-field">Localidade<input name="localidade" type="text"></label>
+            <label class="admin-field">Concelho<input name="concelho" type="text"></label>
+            <label class="admin-field">Distrito<input name="distrito" type="text"></label>
+            <label class="admin-field">Meio de comunicação preferido
+              <select name="meio_comunicacao">
+                <option value="email">E-mail</option>
+                <option value="carta">Carta / correio postal</option>
+                <option value="telemovel">Telemóvel</option>
+              </select>
+            </label>
+          </div>
+          <p class="admin-modal__status" id="admin-inscricao-modal-status" aria-live="polite"></p>
+          <div class="admin-modal__actions">
+            <button type="button" class="btn btn--outline-dark" id="admin-inscricao-modal-cancel">Cancelar</button>
+            <button type="submit" class="btn btn--primary">Guardar alterações</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <script type="module" src="admin.js"></script>

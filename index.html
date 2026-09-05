@@ -1519,58 +1519,14 @@
           </form>
         </div>
 
-        <!-- Passo de assinatura (CMD) -->
-        <div id="inscricao-assinar" class="form__step" tabindex="-1">
-          <h3 class="form__title">Assinatura Digital do Documento</h3>
-
-          <div class="ins-callout">
-            <p>Foi gerado e transferido automaticamente um documento (.docx) com os dados que preencheu.
-              Escolha uma das duas formas de o assinar antes de o validar oficialmente:</p>
-            <ol class="ins-callout__list">
-              <li><strong>Chave Móvel Digital:</strong> abra o ficheiro .docx no Word ou LibreOffice, exporte-o
-                ou imprima-o como PDF e carregue esse PDF no site oficial da Chave Móvel Digital para o assinar.</li>
-              <li><strong>Assinatura manual:</strong> imprima o documento, assine-o à mão e digitalize-o (ou
-                fotografe-o) num único ficheiro PDF.</li>
-              <li>Depois de assinado, por uma via ou outra, carregue o PDF assinado no campo abaixo.</li>
-            </ol>
-            <a class="btn btn--primary" href="https://cmd.autenticacao.gov.pt/Ama.Authentication.Frontend/Processes/DigitalSignature/DigitalSignatureIntro.aspx"
-              target="_blank" rel="noopener noreferrer">Assinar documento com a Chave Móvel Digital →</a>
-            <p class="ins-callout__note">Precisa de ter a Chave Móvel Digital ativa. O tamanho máximo aceite pela
-              ferramenta é 3MB — este documento é muito menor, por isso não haverá problema.</p>
-
-            <p class="ins-callout__note" id="ins-envio-note">A enviar o documento por email…</p>
-            <p class="ins-callout__note" id="ins-retomar-link-text" hidden>A preparar o link de retomar…</p>
-          </div>
-
-          <form id="inscricao-assinatura-form" name="inscricao-assinatura" method="POST" data-netlify="true"
-            netlify-honeypot="bot-field" enctype="multipart/form-data" novalidate>
-            <input type="hidden" name="form-name" value="inscricao-assinatura">
-            <input type="hidden" name="email" id="ins-assinatura-email">
-            <p class="visually-hidden"><label>Não preencher: <input name="bot-field" autocomplete="off"></label></p>
-
-            <div class="form__group">
-              <label class="form__label" for="ins-assinatura-file">Ficha assinada (PDF) <span
-                  aria-hidden="true">*</span></label>
-              <input class="ins-file-input" type="file" id="ins-assinatura-file" name="ficha_assinada"
-                accept="application/pdf,.pdf" required>
-              <span class="ins-file-preview__name"></span>
-              <span class="form__error" style="display:none;"></span>
-            </div>
-
-            <div class="ins-submit-row">
-              <span class="ins-submit-row__note">* Campo obrigatório</span>
-              <button type="submit" class="btn btn--primary" disabled>Confirmar envio do documento assinado</button>
-            </div>
-          </form>
-        </div>
-
         <!-- Estado de sucesso -->
         <div id="inscricao-success" class="form__success" aria-live="polite" tabindex="-1">
           <div class="form__success-icon" aria-hidden="true">✅</div>
-          <h3 class="form__success-title">Inscrição submetida!</h3>
-          <p class="form__success-text">Obrigado — recebemos o seu documento assinado. Entraremos em contacto por
-            e-mail nas próximas 48 horas para confirmar a sua inscrição e informar sobre o processo de pagamento da
-            quota.</p>
+          <h3 class="form__success-title">Inscrição recebida!</h3>
+          <p class="form__success-text">Obrigado — enviámos para o seu email a ficha de inscrição e as instruções
+            para a assinar (com a Chave Móvel Digital ou à mão) e submeter o documento assinado.</p>
+          <p class="ins-callout__note" id="ins-envio-note">A enviar o email…</p>
+          <p class="ins-callout__note" id="ins-retomar-link-text" hidden>A preparar o link de retomar…</p>
         </div>
 
       </div>

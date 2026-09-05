@@ -28,7 +28,12 @@ export default async (req) => {
     }
 
     try {
-        await getInscricoesStore().setJSON(id, {
+        const store = getInscricoesStore();
+        // Preserva `dados` (correções manuais do painel admin) — sobrescrever
+        // o registo inteiro perderia essas edições.
+        const existing = (await store.get(id, { type: 'json' })) || {};
+        await store.setJSON(id, {
+            ...existing,
             estado: 'Apagado',
             updatedAt: new Date().toISOString(),
             updatedBy: session.email,
