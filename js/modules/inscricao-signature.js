@@ -12,7 +12,19 @@ export function onAssinaturaConcluida(context) {
     console.info('[inscricao] documento assinado recebido — pronto para o passo de pagamento.', context);
 }
 
-export function initInscricaoAssinaturaForm(overlay) {
+// Dispara e esquece: os emails de confirmação (associado + admin) nunca
+// devem bloquear nem mostrar erro no ecrã de sucesso — a submissão ao
+// Netlify Forms, já concluída antes disto ser chamado, é a fonte de
+// verdade da inscrição.
+function notificarConfirmacaoAssinatura(token) {
+    if (!token) return;
+    fetch('/.netlify/functions/send-assinatura-confirmacao', {
+        method: 'POST',
+        body: JSON.stringify({ token }),
+    }).catch(() => {});
+}
+
+export function initInscricaoAssinaturaForm(overlay, token) {
     const formEl = overlay.querySelector('#inscricao-assinatura-form');
     const stepEl = overlay.querySelector('#inscricao-assinar');
     const successEl = overlay.querySelector('#inscricao-success');
@@ -83,6 +95,7 @@ export function initInscricaoAssinaturaForm(overlay) {
             stepEl.classList.remove('is-visible');
             successEl.classList.add('is-visible');
             successEl.focus();
+            notificarConfirmacaoAssinatura(token);
             onAssinaturaConcluida({ filename: fileInput?.files?.[0]?.name });
         })
         .catch(() => {
