@@ -90,6 +90,12 @@ export default async (req) => {
             distrito: sub.data?.distrito || null,
             profissao: sub.data?.profissao || null,
             meio_comunicacao: sub.data?.meio_comunicacao || null,
+            // Só usados para reconstruir o .docx ao reenviar por email
+            // (admin.js, botão "Enviar documento para assinar").
+            aceita_estatutos: Boolean(sub.data?.aceita_estatutos),
+            autoriza_dados: Boolean(sub.data?.autoriza_dados),
+            local: sub.data?.local || null,
+            data_inscricao: sub.data?.data_inscricao || null,
         };
     });
 

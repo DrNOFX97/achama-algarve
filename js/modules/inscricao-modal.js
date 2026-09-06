@@ -1,6 +1,6 @@
 import { handleFormSubmit } from './forms.js';
 import { setupFocusTrap } from './ui-utils.js';
-import { baixarFichaDocx } from './inscricao-docx.js';
+import { baixarFichaDocx, formDataParaDados } from './inscricao-docx.js';
 
 export function initInscricaoModal() {
     const overlay = document.getElementById('inscricao-overlay');
@@ -169,7 +169,7 @@ export function initInscricaoModal() {
             const nome = formEl.querySelector('[name="nome"]')?.value || '';
 
             const tokenPromise = criarTokenRetomar(email, nome);
-            const result = await baixarFichaDocx(formEl);
+            const result = await baixarFichaDocx(formDataParaDados(formEl));
             const token = await tokenPromise;
             const envioNoteEl = overlay.querySelector('#ins-envio-note');
 

@@ -1,7 +1,10 @@
 const ASSOCIACAO_NOME = 'ACIMHA';
 const ASSOCIACAO_NOME_COMPLETO = 'Associação Cívica de Munícipes e Habitação do Algarve';
 const ASSOCIACAO_NIPC = '519597265';
-const LOGO_PATH = 'assets/images/ACIMHA.png';
+// Absoluto — este módulo é importado tanto a partir de "/" (inscricao-modal.js)
+// como de "/admin/" (admin.js), onde um caminho relativo apontaria para
+// "/admin/assets/..." e falharia.
+const LOGO_PATH = '/assets/images/ACIMHA.png';
 
 // Tamanhos em meios-pontos (docx.js). Documento tem de caber numa única
 // página A4 — por isso o corpo compacto e a declaração/quotas mais pequenas.
@@ -24,16 +27,49 @@ const MEIO_COMUNICACAO_OPTIONS = [
     { value: 'telemovel', label: 'Telemóvel para contactos informais' }
 ];
 
-function getFieldValue(formEl, name) {
-    return formEl.querySelector(`[name="${name}"]`)?.value?.trim() || '';
+// `dados` é um objeto simples { tipo_associado, nome, ..., aceita_estatutos,
+// autoriza_dados, local, data_inscricao } — as mesmas chaves usadas pelos
+// campos/checkboxes do formulário de inscrição (ver index.html) e pelo
+// painel admin (list-inscricoes.mjs), para o documento poder ser gerado
+// tanto a partir do formulário ao vivo (inscricao-modal.js) como a partir
+// de uma inscrição já submetida (admin.js, reenvio de email).
+function getFieldValue(dados, name) {
+    return (dados[name] ?? '').toString().trim();
 }
 
-function getCheckedValue(formEl, name) {
-    return formEl.querySelector(`input[name="${name}"]:checked`)?.value || null;
+function getCheckedValue(dados, name) {
+    return dados[name] || null;
 }
 
-function isChecked(formEl, id) {
-    return !!formEl.querySelector(`#${id}`)?.checked;
+function isChecked(dados, name) {
+    return !!dados[name];
+}
+
+// Converte um <form> ao vivo no objeto de dados simples que buildDocument
+// espera — usado só pelo fluxo público (inscricao-modal.js); o painel admin
+// já tem os dados como objeto (vindos de list-inscricoes.mjs).
+export function formDataParaDados(formEl) {
+    const formData = new FormData(formEl);
+    return {
+        tipo_associado: formData.get('tipo_associado') || null,
+        nome: formData.get('nome') || '',
+        data_nascimento: formData.get('data_nascimento') || '',
+        nif: formData.get('nif') || '',
+        cc_bi: formData.get('cc_bi') || '',
+        morada: formData.get('morada') || '',
+        codigo_postal: formData.get('codigo_postal') || '',
+        localidade: formData.get('localidade') || '',
+        concelho: formData.get('concelho') || '',
+        distrito: formData.get('distrito') || '',
+        telefone: formData.get('telefone') || '',
+        email: formData.get('email') || '',
+        profissao: formData.get('profissao') || '',
+        meio_comunicacao: formData.get('meio_comunicacao') || null,
+        aceita_estatutos: formEl.querySelector('#ins-estatutos')?.checked || false,
+        autoriza_dados: formEl.querySelector('#ins-rgpd')?.checked || false,
+        local: formData.get('local') || '',
+        data_inscricao: formData.get('data_inscricao') || '',
+    };
 }
 
 // Localidade e Concelho aparecem como um só campo no documento: se forem
@@ -89,7 +125,7 @@ function loadDocxLib() {
     return docxLoadPromise;
 }
 
-function buildDocument(docx, formEl, logoBytes) {
+function buildDocument(docx, dados, logoBytes) {
     const {
         Document, Paragraph, TextRun, Table, TableRow, TableCell, Header, Footer,
         AlignmentType, BorderStyle, WidthType, ImageRun, HeadingLevel
@@ -175,25 +211,25 @@ function buildDocument(docx, formEl, logoBytes) {
         });
     }
 
-    const tipoAssociado = getCheckedValue(formEl, 'tipo_associado');
-    const meioComunicacao = getCheckedValue(formEl, 'meio_comunicacao');
-    const localidadeFormatada = formatLocalidade(getFieldValue(formEl, 'localidade'), getFieldValue(formEl, 'concelho'));
+    const tipoAssociado = getCheckedValue(dados, 'tipo_associado');
+    const meioComunicacao = getCheckedValue(dados, 'meio_comunicacao');
+    const localidadeFormatada = formatLocalidade(getFieldValue(dados, 'localidade'), getFieldValue(dados, 'concelho'));
 
     const identificacaoRows = [
-        ['Nome completo', getFieldValue(formEl, 'nome')],
-        ['Data de nascimento', getFieldValue(formEl, 'data_nascimento')],
-        ['NIF', getFieldValue(formEl, 'nif')],
-        ['N.º CC/BI', getFieldValue(formEl, 'cc_bi')],
-        ['Morada', getFieldValue(formEl, 'morada')],
-        ['Código Postal', getFieldValue(formEl, 'codigo_postal')],
+        ['Nome completo', getFieldValue(dados, 'nome')],
+        ['Data de nascimento', getFieldValue(dados, 'data_nascimento')],
+        ['NIF', getFieldValue(dados, 'nif')],
+        ['N.º CC/BI', getFieldValue(dados, 'cc_bi')],
+        ['Morada', getFieldValue(dados, 'morada')],
+        ['Código Postal', getFieldValue(dados, 'codigo_postal')],
         ['Localidade', localidadeFormatada],
-        ['Telemóvel', getFieldValue(formEl, 'telefone')],
-        ['E-mail', getFieldValue(formEl, 'email')],
-        ['Profissão', getFieldValue(formEl, 'profissao')]
+        ['Telemóvel', getFieldValue(dados, 'telefone')],
+        ['E-mail', getFieldValue(dados, 'email')],
+        ['Profissão', getFieldValue(dados, 'profissao')]
     ];
 
-    const local = getFieldValue(formEl, 'local');
-    const dataInscricao = getFieldValue(formEl, 'data_inscricao');
+    const local = getFieldValue(dados, 'local');
+    const dataInscricao = getFieldValue(dados, 'data_inscricao');
 
     // Cabeçalho: o único logótipo existente no repositório já inclui o
     // nome "ACIMHA" e a designação completa como parte da própria imagem
@@ -266,14 +302,14 @@ function buildDocument(docx, formEl, logoBytes) {
     body.push(new Paragraph({
         spacing: { before: 60, after: 20, ...SINGLE_LINE },
         children: [
-            new TextRun({ text: isChecked(formEl, 'ins-estatutos') ? '☑ ' : '☐ ', bold: true, size: BODY_SIZE }),
+            new TextRun({ text: isChecked(dados, 'aceita_estatutos') ? '☑ ' : '☐ ', bold: true, size: BODY_SIZE }),
             new TextRun({ text: 'Aceitação dos estatutos e regulamentos internos', size: BODY_SIZE })
         ]
     }));
     body.push(new Paragraph({
         spacing: { after: 20, ...SINGLE_LINE },
         children: [
-            new TextRun({ text: isChecked(formEl, 'ins-rgpd') ? '☑ ' : '☐ ', bold: true, size: BODY_SIZE }),
+            new TextRun({ text: isChecked(dados, 'autoriza_dados') ? '☑ ' : '☐ ', bold: true, size: BODY_SIZE }),
             new TextRun({ text: 'Autorização de tratamento de dados pessoais (RGPD)', size: BODY_SIZE })
         ]
     }));
@@ -311,7 +347,10 @@ function buildDocument(docx, formEl, logoBytes) {
     });
 }
 
-export async function baixarFichaDocx(formEl) {
+// Gera o .docx sem o descarregar — usado tanto pelo fluxo público
+// (baixarFichaDocx, abaixo) como pelo painel admin, que só precisa do blob
+// para o enviar por email (admin.js, "Enviar documento para assinar").
+export async function gerarFichaDocx(dados) {
     try {
         let docxLib;
         try {
@@ -325,27 +364,33 @@ export async function baixarFichaDocx(formEl) {
         }
 
         const logoBytes = await fetchLogoBytes();
-        const doc = buildDocument(docxLib, formEl, logoBytes);
+        const doc = buildDocument(docxLib, dados, logoBytes);
         const blob = await docxLib.Packer.toBlob(doc);
 
-        const nomeInput = formEl.querySelector('[name="nome"]');
-        const nomeNormalizado = nomeInput && nomeInput.value.trim()
-            ? normalizarNomeFicheiro(nomeInput.value.trim())
-            : String(Date.now());
+        const nome = (dados.nome || '').trim();
+        const nomeNormalizado = nome ? normalizarNomeFicheiro(nome) : String(Date.now());
         const filename = `Ficha-Inscricao-ACIMHA-${nomeNormalizado}.docx`;
-
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
 
         return { ok: true, filename, blob };
     } catch (error) {
         console.error(error);
         return { ok: false, error };
     }
+}
+
+export async function baixarFichaDocx(dados) {
+    const result = await gerarFichaDocx(dados);
+    if (!result.ok) return result;
+
+    const { filename, blob } = result;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    return result;
 }

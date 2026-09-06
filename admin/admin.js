@@ -1,3 +1,5 @@
+import { gerarFichaDocx } from '../js/modules/inscricao-docx.js';
+
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
@@ -120,7 +122,8 @@ function renderInscricoes(inscricoes) {
             : `
                 <button type="button" class="admin-link-action" data-action="detalhes" data-id="${id}">Ver detalhes</button>
                 ${!i.pdfUrl
-                    ? `<button type="button" class="admin-link-action" data-action="copiar-link" data-id="${id}">Copiar link de assinatura</button>`
+                    ? `<button type="button" class="admin-link-action" data-action="enviar-documento" data-id="${id}">Enviar documento para assinar</button>
+                <button type="button" class="admin-link-action" data-action="copiar-link" data-id="${id}">Copiar link de assinatura</button>`
                     : ''}
                 ${i.estado === 'Aprovado'
                     ? `<button type="button" class="admin-link-action" data-action="reverter" data-id="${id}">Reverter</button>`
@@ -258,6 +261,78 @@ async function copyAssinaturLink(inscricao) {
     }
 }
 
+// Reenvia (ou envia pela primeira vez) o email com a ficha em .docx e o
+// link de assinatura — para quando o utilizador teve problemas a receber o
+// email original, ou para inscrições antigas que nunca chegaram a recebê-lo
+// (ex.: antes do SMTP estar configurado). Gera o documento a partir dos
+// dados já guardados da inscrição, não pede nada de novo ao utilizador.
+async function enviarDocumentoParaAssinar(inscricao, btn) {
+    if (btn) { btn.disabled = true; btn.textContent = 'A enviar...'; }
+    try {
+        const tokenRes = await fetch('/.netlify/functions/create-inscricao-token', {
+            method: 'POST',
+            body: JSON.stringify({ submissionId: inscricao.id }),
+        });
+        if (!tokenRes.ok) {
+            let message = 'Falha ao gerar o link de assinatura.';
+            try {
+                const data = await tokenRes.json();
+                if (data?.error) message = data.error;
+            } catch { /* corpo sem JSON válido */ }
+            alert(message);
+            return;
+        }
+        const { token } = await tokenRes.json();
+
+        const dados = {
+            tipo_associado: inscricao.categoria,
+            nome: inscricao.nome,
+            data_nascimento: inscricao.data_nascimento,
+            nif: inscricao.nif,
+            cc_bi: inscricao.cc_bi,
+            morada: inscricao.morada,
+            codigo_postal: inscricao.codigo_postal,
+            localidade: inscricao.localidade,
+            concelho: inscricao.concelho,
+            distrito: inscricao.distrito,
+            telefone: inscricao.telefone,
+            email: inscricao.email,
+            profissao: inscricao.profissao,
+            meio_comunicacao: inscricao.meio_comunicacao,
+            aceita_estatutos: inscricao.aceita_estatutos,
+            autoriza_dados: inscricao.autoriza_dados,
+            local: inscricao.local,
+            data_inscricao: inscricao.data_inscricao,
+        };
+
+        const doc = await gerarFichaDocx(dados);
+        if (!doc.ok) {
+            alert('Falha ao gerar o documento: ' + (doc.error?.message || doc.error || 'erro desconhecido'));
+            return;
+        }
+
+        const arrayBuffer = await doc.blob.arrayBuffer();
+        const docxBase64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+
+        const sendRes = await fetch('/.netlify/functions/send-inscricao-docx', {
+            method: 'POST',
+            body: JSON.stringify({ email: inscricao.email, nome: inscricao.nome, token, filename: doc.filename, docxBase64 }),
+        });
+        const sendData = await sendRes.json().catch(() => ({}));
+
+        if (!sendRes.ok || !sendData.sent) {
+            alert(sendData.error || 'Falha ao enviar o email.');
+            return;
+        }
+
+        alert(`Documento enviado para ${inscricao.email}.`);
+    } catch {
+        alert('Falha ao contactar o servidor.');
+    } finally {
+        if (btn) { btn.disabled = false; btn.textContent = 'Enviar documento para assinar'; }
+    }
+}
+
 async function handleInscricoesRowAction(e) {
     const btn = e.target.closest('button[data-action]');
     if (!btn) return;
@@ -272,6 +347,12 @@ async function handleInscricoesRowAction(e) {
     if (action === 'copiar-link') {
         const inscricao = ultimasInscricoes.find((i) => i.id === id);
         if (inscricao) await copyAssinaturLink(inscricao);
+        return;
+    }
+
+    if (action === 'enviar-documento') {
+        const inscricao = ultimasInscricoes.find((i) => i.id === id);
+        if (inscricao) await enviarDocumentoParaAssinar(inscricao, btn);
         return;
     }
 
