@@ -20,11 +20,11 @@ function buildEmailHtml({ nome, retomarUrl }) {
             <tr>
               <td style="padding:32px 28px;">
                 <p style="margin:0 0 16px;font-size:16px;">${saudacao}</p>
-                <p style="margin:0 0 16px;font-size:16px;">Segue em anexo a sua ficha de inscrição na ACIMHA, já com os seus dados preenchidos.</p>
+                <p style="margin:0 0 16px;font-size:16px;">Segue em anexo, em PDF, a sua ficha de inscrição na ACIMHA, já com os seus dados preenchidos.</p>
                 <p style="margin:0 0 8px;font-size:16px;">Para concluir a inscrição, escolha uma das duas formas de assinar o documento antes de o validar oficialmente:</p>
                 <ol style="margin:0 0 16px;padding-left:20px;font-size:15px;">
-                  <li style="margin-bottom:8px;"><strong>Chave Móvel Digital:</strong> abra o ficheiro em anexo no Word ou LibreOffice, exporte-o ou imprima-o como PDF e carregue esse PDF no <a href="${CMD_URL}">site oficial da Chave Móvel Digital</a> para o assinar. É necessário ter a Chave Móvel Digital ativa; o tamanho máximo aceite pela ferramenta é 3MB — este documento é muito menor, por isso não haverá problema.</li>
-                  <li><strong>Assinatura manual:</strong> imprima o documento, assine-o à mão e digitalize-o (ou fotografe-o) num único ficheiro PDF.</li>
+                  <li style="margin-bottom:8px;"><strong>Chave Móvel Digital:</strong> carregue o PDF em anexo diretamente no <a href="${CMD_URL}">site oficial da Chave Móvel Digital</a> para o assinar. É necessário ter a Chave Móvel Digital ativa; o tamanho máximo aceite pela ferramenta é 3MB — este documento é muito menor, por isso não haverá problema.</li>
+                  <li><strong>Assinatura manual:</strong> imprima o PDF em anexo, assine-o à mão e digitalize-o (ou fotografe-o) num único ficheiro PDF.</li>
                 </ol>
                 <p style="margin:0 0 24px;font-size:16px;">Depois de assinado, por uma via ou outra, carregue o PDF assinado através do botão abaixo:</p>
                 <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 24px;">
@@ -70,8 +70,8 @@ export default async (req) => {
     const email = typeof body.email === 'string' ? body.email.trim() : '';
     const token = typeof body.token === 'string' ? body.token.trim() : '';
     const nome = typeof body.nome === 'string' ? body.nome.trim() : '';
-    const filename = typeof body.filename === 'string' ? body.filename.trim() : 'Ficha-Inscricao-ACIMHA.docx';
-    const docxBase64 = typeof body.docxBase64 === 'string' ? body.docxBase64 : '';
+    const filename = typeof body.filename === 'string' ? body.filename.trim() : 'Ficha-Inscricao-ACIMHA.pdf';
+    const pdfBase64 = typeof body.pdfBase64 === 'string' ? body.pdfBase64 : '';
 
     if (!email) {
         return Response.json({ error: 'email em falta.' }, { status: 400 });
@@ -79,13 +79,13 @@ export default async (req) => {
     if (!token) {
         return Response.json({ error: 'token em falta.' }, { status: 400 });
     }
-    if (!docxBase64) {
+    if (!pdfBase64) {
         return Response.json({ error: 'documento em falta.' }, { status: 400 });
     }
 
     let attachmentBuffer;
     try {
-        attachmentBuffer = Buffer.from(docxBase64, 'base64');
+        attachmentBuffer = Buffer.from(pdfBase64, 'base64');
     } catch {
         return Response.json({ error: 'documento inválido.' }, { status: 400 });
     }
@@ -126,7 +126,7 @@ export default async (req) => {
             to: email,
             subject: 'A sua ficha de inscrição na ACIMHA',
             html,
-            attachments: [{ filename, content: attachmentBuffer }],
+            attachments: [{ filename, content: attachmentBuffer, contentType: 'application/pdf' }],
         });
     } catch (error) {
         console.error('Falha ao enviar email de inscrição:', error);

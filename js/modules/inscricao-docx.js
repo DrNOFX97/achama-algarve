@@ -110,6 +110,11 @@ async function fetchLogoBytes() {
     return response.arrayBuffer();
 }
 
+function arrayBufferToDataUrl(buffer, mime) {
+    const binary = String.fromCharCode(...new Uint8Array(buffer));
+    return `data:${mime};base64,${btoa(binary)}`;
+}
+
 const DOCX_LIB_URL = 'https://cdn.jsdelivr.net/npm/docx@9.7.1/dist/index.iife.js';
 let docxLoadPromise = null;
 
@@ -131,6 +136,46 @@ function loadDocxLib() {
         });
     }
     return docxLoadPromise;
+}
+
+// A ficha enviada por email tem de ser um PDF pronto a assinar (Chave Móvel
+// Digital exige PDF), não o .docx — ver gerarFichaPdf. Usa pdfmake em vez de
+// converter o .docx (não há motor de conversão fiável disponível numa
+// função Netlify serverless); carregada sob pedido tal como o `docx`, acima.
+const PDFMAKE_JS_URL = 'https://cdn.jsdelivr.net/npm/pdfmake@0.3.11/build/pdfmake.min.js';
+const PDFMAKE_FONTS_URL = 'https://cdn.jsdelivr.net/npm/pdfmake@0.3.11/build/vfs_fonts.js';
+let pdfMakeLoadPromise = null;
+// vfs_fonts.js não define uma propriedade pública "carregado" em pdfMake —
+// só chama pdfMake.addVirtualFileSystem(...) internamente — por isso o
+// sinalizador de "já pronto" é nosso, não algo que se possa inspecionar em
+// window.pdfMake depois de carregado.
+let pdfMakeReady = false;
+
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = () => reject(new Error(`Falha ao carregar ${src}.`));
+        document.head.appendChild(script);
+    });
+}
+
+function loadPdfMakeLib() {
+    if (pdfMakeReady) return Promise.resolve(window.pdfMake);
+    if (!pdfMakeLoadPromise) {
+        pdfMakeLoadPromise = loadScript(PDFMAKE_JS_URL)
+            .then(() => loadScript(PDFMAKE_FONTS_URL))
+            .then(() => {
+                pdfMakeReady = true;
+                return window.pdfMake;
+            })
+            .catch((error) => {
+                pdfMakeLoadPromise = null;
+                throw error;
+            });
+    }
+    return pdfMakeLoadPromise;
 }
 
 function buildDocument(docx, dados, logoBytes) {
@@ -428,6 +473,212 @@ function buildDocument(docx, dados, logoBytes) {
     });
 }
 
+// Tamanhos em pt (pdfmake usa pt diretamente, ao contrário do docx que usa
+// meios-pontos) — mesma escala do documento acima, para que a versão em PDF
+// fique visualmente equivalente à ficha em .docx.
+const PDF_MARGIN_X = 56.7; // 1134 twips, igual ao docx
+const PDF_SECTION_SIZE = 11;
+const PDF_BODY_SIZE = 10;
+const PDF_SMALL_SIZE = 9;
+const PDF_FOOTER_SIZE = 8;
+const PDF_TITLE_SIZE = 14;
+
+function hexColor(hex) {
+    return `#${hex}`;
+}
+
+// Constrói o mesmo conteúdo de buildDocument, mas como docDefinition do
+// pdfmake em vez de Document do docx — as duas bibliotecas não partilham
+// um formato de documento comum, por isso o layout tem de ser reescrito
+// para cada uma; os dados e as regras de negócio (getFieldValue,
+// formatLocalidade, etc.) são exatamente os mesmos, acima.
+function buildPdfDocDefinition(dados, logoDataUrl) {
+    const contentWidth = 595.28 - PDF_MARGIN_X * 2; // A4 útil
+
+    function hr(color, width, marginTop, marginBottom) {
+        return {
+            canvas: [{ type: 'line', x1: 0, y1: 0, x2: contentWidth, y2: 0, lineWidth: width, lineColor: hexColor(color) }],
+            margin: [0, marginTop, 0, marginBottom]
+        };
+    }
+
+    function checkboxGlyph(checked, size = 9) {
+        const shapes = [{ type: 'rect', x: 0, y: 0, w: size, h: size, r: 1, lineColor: hexColor(checked ? ACCENT_DARK : 'DDDAD0'), lineWidth: 1 }];
+        if (checked) {
+            shapes.push({
+                type: 'polyline', lineWidth: 1.4, lineColor: hexColor(ACCENT_DARK), closePath: false,
+                points: [{ x: 1.5, y: size / 2 }, { x: size / 2 - 0.5, y: size - 2 }, { x: size - 1.5, y: 1.5 }]
+            });
+        }
+        return { width: size + 2, stack: [{ canvas: shapes }] };
+    }
+
+    function pillCell(opt, selectedValue) {
+        const checked = opt.value === selectedValue;
+        const borderColor = hexColor(checked ? ACCENT : 'DDDAD0');
+        const textColor = hexColor(checked ? ACCENT_DARK : '8A8577');
+        return {
+            table: {
+                widths: ['*'],
+                body: [[{
+                    border: [true, true, true, true],
+                    fillColor: checked ? hexColor(SAND_TINT) : undefined,
+                    margin: [8, 5, 8, 5],
+                    columns: [
+                        checkboxGlyph(checked, 9),
+                        { text: opt.label, bold: checked, color: textColor, fontSize: PDF_BODY_SIZE, margin: [4, 0, 0, 0] }
+                    ]
+                }]]
+            },
+            layout: {
+                hLineColor: () => borderColor,
+                vLineColor: () => borderColor,
+                hLineWidth: () => checked ? 1.2 : 0.8,
+                vLineWidth: () => checked ? 1.2 : 0.8,
+            }
+        };
+    }
+
+    function optionRow(options, selectedValue) {
+        return { columns: options.map(opt => pillCell(opt, selectedValue)), columnGap: 8, margin: [0, 0, 0, 5] };
+    }
+
+    function sectionHeading(number, title) {
+        return {
+            stack: [
+                hr(ACCENT, 1.3, 6, 3),
+                { text: `${number}.  ${title}`, bold: true, color: hexColor(ACCENT), fontSize: PDF_SECTION_SIZE, margin: [0, 0, 0, 3] }
+            ]
+        };
+    }
+
+    function fieldTable(rows) {
+        return {
+            table: {
+                widths: ['32%', '68%'],
+                body: rows.map(([label, value]) => ([
+                    { text: label, bold: true, color: hexColor(ACCENT), fontSize: PDF_BODY_SIZE },
+                    { text: value || '—', color: hexColor(TEXT_BODY), fontSize: PDF_BODY_SIZE }
+                ]))
+            },
+            layout: {
+                fillColor: (rowIndex) => rowIndex % 2 === 1 ? hexColor(SAND_TINT) : null,
+                hLineWidth: () => 0,
+                vLineWidth: () => 0,
+                paddingLeft: (i) => i === 0 ? 8 : 6,
+                paddingRight: () => 6,
+                paddingTop: () => 2,
+                paddingBottom: () => 2,
+            },
+            margin: [0, 0, 0, 2]
+        };
+    }
+
+    function fieldRowPair(label1, value1, label2, value2) {
+        return {
+            columns: [
+                { text: [{ text: `${label1}: `, bold: true, color: hexColor(ACCENT), fontSize: PDF_BODY_SIZE }, { text: value1 || '—', color: hexColor(TEXT_BODY), fontSize: PDF_BODY_SIZE }] },
+                { text: [{ text: `${label2}: `, bold: true, color: hexColor(ACCENT), fontSize: PDF_BODY_SIZE }, { text: value2 || '—', color: hexColor(TEXT_BODY), fontSize: PDF_BODY_SIZE }] }
+            ],
+            margin: [0, 0, 0, 4]
+        };
+    }
+
+    function checkboxLine(checked, label) {
+        return {
+            columns: [checkboxGlyph(checked, 10), { text: label, fontSize: PDF_BODY_SIZE, margin: [4, 0, 0, 0] }],
+            margin: [0, 1, 0, 1]
+        };
+    }
+
+    const tipoAssociado = getCheckedValue(dados, 'tipo_associado');
+    const meioComunicacao = getCheckedValue(dados, 'meio_comunicacao');
+    const localidadeFormatada = formatLocalidade(getFieldValue(dados, 'localidade'), getFieldValue(dados, 'concelho'));
+
+    const identificacaoRows = [
+        ['Nome completo', getFieldValue(dados, 'nome')],
+        ['Data de nascimento', getFieldValue(dados, 'data_nascimento')],
+        ['NIF', getFieldValue(dados, 'nif')],
+        ['N.º CC/BI', getFieldValue(dados, 'cc_bi')],
+        ['Morada', getFieldValue(dados, 'morada')],
+        ['Código Postal', getFieldValue(dados, 'codigo_postal')],
+        ['Localidade', localidadeFormatada],
+        ['Telemóvel', getFieldValue(dados, 'telefone')],
+        ['E-mail', getFieldValue(dados, 'email')],
+        ['Profissão', getFieldValue(dados, 'profissao')]
+    ];
+
+    const local = getFieldValue(dados, 'local');
+    const dataInscricao = getFieldValue(dados, 'data_inscricao');
+
+    const content = [
+        {
+            columns: [
+                { image: logoDataUrl, fit: [50, 38] },
+                {
+                    stack: [
+                        { text: ASSOCIACAO_NOME_COMPLETO.toUpperCase(), color: hexColor('8A8577'), fontSize: PDF_FOOTER_SIZE, margin: [0, 0, 0, 2] },
+                        { text: 'Proposta / Ficha de Inscrição de Associado', bold: true, color: hexColor(ACCENT_DARK), fontSize: PDF_TITLE_SIZE }
+                    ], margin: [8, 2, 0, 0]
+                }
+            ]
+        },
+        hr(ACCENT, 2, 4, 6),
+
+        { text: 'CATEGORIA PRETENDIDA', bold: true, color: hexColor(ACCENT), fontSize: PDF_SECTION_SIZE, margin: [0, 0, 0, 3] },
+        optionRow(TIPO_ASSOCIADO_OPTIONS, tipoAssociado),
+
+        sectionHeading(1, 'IDENTIFICAÇÃO DO CANDIDATO'),
+        fieldTable(identificacaoRows),
+
+        sectionHeading(2, 'CONTACTO E COMUNICAÇÕES'),
+        { text: 'Indique o meio preferencial para comunicações da Associação:', fontSize: PDF_BODY_SIZE, margin: [0, 0, 0, 3] },
+        optionRow(MEIO_COMUNICACAO_OPTIONS, meioComunicacao),
+
+        sectionHeading(3, 'DECLARAÇÃO DO CANDIDATO'),
+        { text: `Declaro que solicito a minha admissão na ${ASSOCIACAO_NOME} — ${ASSOCIACAO_NOME_COMPLETO}, na categoria acima indicada, e que:`, bold: true, fontSize: PDF_SMALL_SIZE, margin: [0, 0, 0, 4] },
+        {
+            ul: [
+                'tomei conhecimento de que a admissão como Sócio Cívico ou Sócio Habitacional depende de deliberação da Direção;',
+                'comprometo-me, após a admissão, a respeitar os Estatutos, regulamentos e deliberações válidas dos órgãos sociais da ACIMHA;',
+                'comprometo-me a contribuir para os fins da Associação, preservar o seu bom nome e cumprir as obrigações associativas que me sejam aplicáveis;',
+                'autorizo a utilização dos dados fornecidos nesta ficha para efeitos de análise da candidatura, gestão da relação associativa, comunicações institucionais e cumprimento das obrigações legais da Associação, nos termos da legislação aplicável.'
+            ],
+            fontSize: PDF_SMALL_SIZE, margin: [0, 0, 0, 4]
+        },
+
+        checkboxLine(isChecked(dados, 'aceita_estatutos'), 'Aceitação dos estatutos e regulamentos internos'),
+        checkboxLine(isChecked(dados, 'autoriza_dados'), 'Autorização de tratamento de dados pessoais (RGPD)'),
+
+        sectionHeading(4, 'QUOTAS E JOIA'),
+        { text: 'Quota mensal: €5,00 (cinco euros), para os associados sujeitos a quotização.', fontSize: PDF_SMALL_SIZE, margin: [0, 0, 0, 1] },
+        { text: 'Sócio Cívico: sem joia de inscrição.', fontSize: PDF_SMALL_SIZE, margin: [0, 0, 0, 1] },
+        { text: 'Sócio Habitacional: joia de inscrição de €100,00 (cem euros), sem prejuízo das regras e obrigações específicas previstas para os programas habitacionais.', fontSize: PDF_SMALL_SIZE, margin: [0, 0, 0, 1] },
+        { text: 'Pagamento de quotas: no primeiro ano recomenda-se, sem caráter obrigatório, o pagamento antecipado de 12 meses; nos anos seguintes recomenda-se o pagamento antecipado de pelo menos 6 meses, podendo o associado optar por outra periodicidade desde que mantenha as obrigações regularizadas.', fontSize: PDF_SMALL_SIZE, margin: [0, 0, 0, 1] },
+
+        sectionHeading(5, 'ASSINATURA'),
+        fieldRowPair('Local', local, 'Data', dataInscricao),
+        { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 220, y2: 0, lineWidth: 0.75, lineColor: '#000000' }], margin: [0, 20, 0, 3] },
+        { text: 'Assinatura do candidato', italics: true, alignment: 'center', fontSize: PDF_FOOTER_SIZE, margin: [0, 0, 0, 0] },
+    ];
+
+    return {
+        pageSize: 'A4',
+        pageMargins: [PDF_MARGIN_X, 24, PDF_MARGIN_X, 46],
+        defaultStyle: { font: 'Roboto' },
+        content,
+        footer() {
+            return {
+                margin: [PDF_MARGIN_X, 6, PDF_MARGIN_X, 0],
+                stack: [
+                    hr(SAND_LINE, 0.75, 0, 4),
+                    { text: `${ASSOCIACAO_NOME} · NIPC ${ASSOCIACAO_NIPC}`, alignment: 'center', fontSize: PDF_FOOTER_SIZE, color: hexColor(ACCENT) }
+                ]
+            };
+        }
+    };
+}
+
 // Gera o .docx sem o descarregar — usado tanto pelo fluxo público
 // (baixarFichaDocx, abaixo) como pelo painel admin, que só precisa do blob
 // para o enviar por email (admin.js, "Enviar documento para assinar").
@@ -474,4 +725,38 @@ export async function baixarFichaDocx(dados) {
     URL.revokeObjectURL(url);
 
     return result;
+}
+
+// Gera o PDF (pronto a assinar, ex.: via Chave Móvel Digital) sem o
+// descarregar — é o ficheiro enviado por email, tanto pelo fluxo público
+// (inscricao-modal.js) como pelo painel admin (admin.js). O download local
+// da ficha continua em .docx (baixarFichaDocx, acima) — só o anexo do email
+// precisa de ser PDF.
+export async function gerarFichaPdf(dados) {
+    try {
+        let pdfMake;
+        try {
+            pdfMake = await loadPdfMakeLib();
+        } catch (e) {
+            console.error(e);
+            return { ok: false, error: 'A biblioteca pdfmake não carregou.' };
+        }
+        if (!pdfMake) {
+            return { ok: false, error: 'A biblioteca pdfmake não carregou.' };
+        }
+
+        const logoBytes = await fetchLogoBytes();
+        const logoDataUrl = arrayBufferToDataUrl(logoBytes, 'image/png');
+        const docDefinition = buildPdfDocDefinition(dados, logoDataUrl);
+        const blob = await pdfMake.createPdf(docDefinition).getBlob();
+
+        const nome = (dados.nome || '').trim();
+        const nomeNormalizado = nome ? normalizarNomeFicheiro(nome) : String(Date.now());
+        const filename = `Ficha-Inscricao-ACIMHA-${nomeNormalizado}.pdf`;
+
+        return { ok: true, filename, blob };
+    } catch (error) {
+        console.error(error);
+        return { ok: false, error };
+    }
 }

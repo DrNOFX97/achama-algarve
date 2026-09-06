@@ -1,6 +1,6 @@
 import { handleFormSubmit } from './forms.js';
 import { setupFocusTrap } from './ui-utils.js';
-import { baixarFichaDocx, formDataParaDados } from './inscricao-docx.js';
+import { baixarFichaDocx, gerarFichaPdf, formDataParaDados } from './inscricao-docx.js';
 
 export function initInscricaoModal() {
     const overlay = document.getElementById('inscricao-overlay');
@@ -147,10 +147,10 @@ export function initInscricaoModal() {
         if (!token || !blob) return false;
         try {
             const arrayBuffer = await blob.arrayBuffer();
-            const docxBase64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+            const pdfBase64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
             const res = await fetch('/.netlify/functions/send-inscricao-docx', {
                 method: 'POST',
-                body: JSON.stringify({ email, nome, token, filename, docxBase64 }),
+                body: JSON.stringify({ email, nome, token, filename, pdfBase64 }),
             });
             if (!res.ok) return false;
             const data = await res.json();
@@ -168,8 +168,9 @@ export function initInscricaoModal() {
             const email = formEl.querySelector('[name="email"]')?.value || '';
             const nome = formEl.querySelector('[name="nome"]')?.value || '';
 
+            const dados = formDataParaDados(formEl);
             const tokenPromise = criarTokenRetomar(email, nome);
-            const result = await baixarFichaDocx(formDataParaDados(formEl));
+            const result = await baixarFichaDocx(dados);
             const token = await tokenPromise;
             const envioNoteEl = overlay.querySelector('#ins-envio-note');
 
@@ -181,7 +182,11 @@ export function initInscricaoModal() {
                 return;
             }
 
-            const enviado = await enviarFichaPorEmail({ email, nome, token, filename: result.filename, blob: result.blob });
+            const pdf = await gerarFichaPdf(dados);
+            let enviado = false;
+            if (pdf.ok) {
+                enviado = await enviarFichaPorEmail({ email, nome, token, filename: pdf.filename, blob: pdf.blob });
+            }
 
             if (enviado) {
                 if (envioNoteEl) envioNoteEl.textContent = 'Enviámos o documento e as instruções de assinatura para o seu email.';
