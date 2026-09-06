@@ -8,13 +8,21 @@ const LOGO_PATH = '/assets/images/ACIMHA.png';
 
 // Tamanhos em meios-pontos (docx.js). Documento tem de caber numa única
 // página A4 — por isso o corpo compacto e a declaração/quotas mais pequenas.
-const TITLE_SIZE = 34;   // 17pt
+const TITLE_SIZE = 34;   // 17pt (usado só como referência; o título no masthead usa 28 — ver mais abaixo)
 const SECTION_SIZE = 22; // 11pt
 const BODY_SIZE = 20;    // 10pt
 const SMALL_SIZE = 18;   // 9pt — declaração e quotas
 const FOOTER_SIZE = 16;  // 8pt
 
 const SINGLE_LINE = { line: 240, lineRule: 'auto' };
+
+// Paleta institucional: azul-ardósia profundo (confiança, civismo) + areia
+// quente (calor humano).
+const ACCENT = '1F3B4D';        // azul-ardósia — títulos de secção, linha do masthead
+const ACCENT_DARK = '152935';   // variante mais escura — texto de ênfase forte
+const SAND_LINE = 'C8C2B0';     // linha fina divisória do rodapé
+const SAND_TINT = 'F3F1EA';     // fundo suave para zebra striping e pill selecionada
+const TEXT_BODY = '2B2B2B';     // corpo de texto, ligeiramente mais suave que preto puro
 
 const TIPO_ASSOCIADO_OPTIONS = [
     { value: 'civico', label: 'Sócio Cívico' },
@@ -127,35 +135,39 @@ function loadDocxLib() {
 
 function buildDocument(docx, dados, logoBytes) {
     const {
-        Document, Paragraph, TextRun, Table, TableRow, TableCell, Header, Footer,
-        AlignmentType, BorderStyle, WidthType, ImageRun, HeadingLevel
+        Document, Paragraph, TextRun, Table, TableRow, TableCell, Footer,
+        AlignmentType, BorderStyle, WidthType, ImageRun, HeadingLevel, VerticalAlign
     } = docx;
 
     const NO_BORDER = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
     const noBorders = { top: NO_BORDER, bottom: NO_BORDER, left: NO_BORDER, right: NO_BORDER };
-    const THIN_LINE = { style: BorderStyle.SINGLE, size: 4, color: 'C8C2B0' };
-    const THICK_LINE = { style: BorderStyle.SINGLE, size: 24, color: '1A1A1A' };
+    const THICK_LINE = { style: BorderStyle.SINGLE, size: 24, color: ACCENT };
+    const ACCENT_BORDER = { style: BorderStyle.SINGLE, size: 8, color: ACCENT };
     const CELL_MARGINS = { top: 20, bottom: 20, left: 0, right: 0 };
 
-    function fieldRow(label, value) {
+    function fieldRow(label, value, zebra) {
+        const shading = zebra ? { fill: SAND_TINT } : undefined;
+        const rowMargins = { ...CELL_MARGINS, top: 12, bottom: 12, left: 60 };
         return new TableRow({
             children: [
                 new TableCell({
-                    width: { size: 30, type: WidthType.PERCENTAGE },
+                    width: { size: 32, type: WidthType.PERCENTAGE },
                     borders: noBorders,
-                    margins: { ...CELL_MARGINS, right: 80 },
+                    shading,
+                    margins: { ...rowMargins, right: 80 },
                     children: [new Paragraph({
                         spacing: SINGLE_LINE,
-                        children: [new TextRun({ text: `${label}:`, bold: true, font: 'Cambria', size: BODY_SIZE })]
+                        children: [new TextRun({ text: `${label}`, bold: true, font: 'Cambria', size: BODY_SIZE, color: ACCENT })]
                     })]
                 }),
                 new TableCell({
-                    width: { size: 70, type: WidthType.PERCENTAGE },
+                    width: { size: 68, type: WidthType.PERCENTAGE },
                     borders: noBorders,
-                    margins: CELL_MARGINS,
+                    shading,
+                    margins: { ...rowMargins, right: 60 },
                     children: [new Paragraph({
                         spacing: SINGLE_LINE,
-                        children: [new TextRun({ text: value || '—', font: 'Calibri', size: BODY_SIZE })]
+                        children: [new TextRun({ text: value || '—', font: 'Calibri', size: BODY_SIZE, color: TEXT_BODY })]
                     })]
                 })
             ]
@@ -165,48 +177,95 @@ function buildDocument(docx, dados, logoBytes) {
     function fieldTable(rows) {
         return new Table({
             width: { size: 100, type: WidthType.PERCENTAGE },
-            rows: rows.map(([label, value]) => fieldRow(label, value))
+            rows: rows.map(([label, value], i) => fieldRow(label, value, i % 2 === 1))
         });
     }
 
-    function sectionHeading(number, title) {
-        return new Paragraph({
-            heading: HeadingLevel.HEADING_2,
-            border: { top: THIN_LINE },
-            spacing: { before: 120, after: 60, ...SINGLE_LINE },
-            children: [new TextRun({ text: `${number}. ${title}`, bold: true, font: 'Cambria', size: SECTION_SIZE })]
+    // Local e Data lado a lado, na mesma linha — usado só na secção de
+    // assinatura (em vez de uma linha por campo).
+    function fieldRowPair(label1, value1, label2, value2) {
+        const rowMargins = { ...CELL_MARGINS, top: 12, bottom: 12, left: 60 };
+        function cell(label, value, width, rightPad) {
+            return new TableCell({
+                width: { size: width, type: WidthType.PERCENTAGE },
+                borders: noBorders,
+                margins: { ...rowMargins, right: rightPad },
+                children: [new Paragraph({
+                    spacing: SINGLE_LINE,
+                    children: [
+                        new TextRun({ text: `${label}: `, bold: true, font: 'Cambria', size: BODY_SIZE, color: ACCENT }),
+                        new TextRun({ text: value || '—', font: 'Calibri', size: BODY_SIZE, color: TEXT_BODY })
+                    ]
+                })]
+            });
+        }
+        return new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            rows: [new TableRow({
+                children: [
+                    cell(label1, value1, 50, 80),
+                    cell(label2, value2, 50, 60)
+                ]
+            })]
         });
+    }
+
+    // Divisória de secção em dois parágrafos: a linha separadora seguida
+    // de um espaço equivalente a uma linha em branco (via "after" da
+    // própria linha), e só depois o subtítulo.
+    function sectionHeading(number, title) {
+        return [
+            new Paragraph({
+                border: { top: ACCENT_BORDER },
+                spacing: { before: 210, after: 0 },
+                children: [new TextRun({ text: '', size: 2 })]
+            }),
+            new Paragraph({
+                heading: HeadingLevel.HEADING_2,
+                spacing: { before: 0, after: 85, ...SINGLE_LINE },
+                children: [new TextRun({ text: `${number}.  ${title}`, bold: true, font: 'Cambria', size: SECTION_SIZE, color: ACCENT })]
+            })
+        ];
     }
 
     function bodyText(text, opts = {}) {
         return new Paragraph({
-            spacing: { after: 40, ...SINGLE_LINE },
-            children: [new TextRun({ text, font: 'Calibri', size: SMALL_SIZE, ...opts })]
+            spacing: { after: 10, ...SINGLE_LINE },
+            children: [new TextRun({ text, font: 'Calibri', size: SMALL_SIZE, color: TEXT_BODY, ...opts })]
         });
     }
 
-    function checkboxOption(opt, selectedValue) {
+    // Opções de categoria/comunicação como "pill": a selecionada ganha
+    // fundo areia e moldura no azul institucional; as restantes ficam
+    // discretas em cinza claro, para o olhar ir direto à escolha feita.
+    function optionPill(opt, selectedValue) {
         const checked = opt.value === selectedValue;
-        return new Paragraph({
-            spacing: SINGLE_LINE,
-            children: [
-                new TextRun({ text: checked ? '☑ ' : '☐ ', font: 'Calibri', size: BODY_SIZE, bold: checked }),
-                new TextRun({ text: opt.label, font: 'Calibri', size: BODY_SIZE, bold: checked })
-            ]
+        const border = checked
+            ? { style: BorderStyle.SINGLE, size: 6, color: ACCENT }
+            : { style: BorderStyle.SINGLE, size: 4, color: 'DDDAD0' };
+        return new TableCell({
+            width: { size: 0, type: WidthType.AUTO },
+            borders: { top: border, bottom: border, left: border, right: border },
+            shading: checked ? { fill: SAND_TINT } : undefined,
+            verticalAlign: VerticalAlign.CENTER,
+            margins: { top: 60, bottom: 60, left: 120, right: 120 },
+            children: [new Paragraph({
+                alignment: AlignmentType.CENTER,
+                spacing: SINGLE_LINE,
+                children: [
+                    new TextRun({ text: checked ? '☑  ' : '☐  ', font: 'Calibri', size: BODY_SIZE, bold: checked, color: checked ? ACCENT_DARK : '8A8577' }),
+                    new TextRun({ text: opt.label, font: 'Calibri', size: BODY_SIZE, bold: checked, color: checked ? ACCENT_DARK : '8A8577' })
+                ]
+            })]
         });
     }
 
-    function checkboxRow(options, selectedValue) {
-        const width = Math.floor(100 / options.length);
+    function optionRow(options, selectedValue) {
         return new Table({
             width: { size: 100, type: WidthType.PERCENTAGE },
+            columnWidths: options.map(() => Math.floor(9638 / options.length)),
             rows: [new TableRow({
-                children: options.map(opt => new TableCell({
-                    width: { size: width, type: WidthType.PERCENTAGE },
-                    borders: noBorders,
-                    margins: CELL_MARGINS,
-                    children: [checkboxOption(opt, selectedValue)]
-                }))
+                children: options.map(opt => optionPill(opt, selectedValue))
             })]
         });
     }
@@ -231,57 +290,80 @@ function buildDocument(docx, dados, logoBytes) {
     const local = getFieldValue(dados, 'local');
     const dataInscricao = getFieldValue(dados, 'data_inscricao');
 
-    // Cabeçalho: o único logótipo existente no repositório já inclui o
-    // nome "ACIMHA" e a designação completa como parte da própria imagem
-    // (assets/images/ACIMHA.png, o mesmo usado na navegação do site) — por
-    // isso não se duplica esse texto ao lado, só se mostra a imagem
-    // (pequena, para caber dentro da margem de 2cm), seguida da linha
-    // grossa pedida.
-    const header = new Header({
-        children: [
-            new Paragraph({
-                border: { bottom: THICK_LINE },
-                spacing: { after: 60 },
-                children: [new ImageRun({
-                    data: logoBytes,
-                    transformation: { width: 56, height: 42 },
-                    type: 'png'
-                })]
-            })
-        ]
+    // Masthead: logótipo à esquerda, nome + título da ficha à direita, na
+    // mesma linha — substitui o antigo cabeçalho de página com o logo sozinho.
+    const masthead = new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        rows: [new TableRow({
+            children: [
+                new TableCell({
+                    width: { size: 12, type: WidthType.PERCENTAGE },
+                    borders: noBorders,
+                    verticalAlign: VerticalAlign.CENTER,
+                    margins: { ...CELL_MARGINS, right: 60 },
+                    children: [new Paragraph({
+                        children: [new ImageRun({
+                            data: logoBytes,
+                            transformation: { width: 66, height: 50 },
+                            type: 'png'
+                        })]
+                    })]
+                }),
+                new TableCell({
+                    width: { size: 88, type: WidthType.PERCENTAGE },
+                    borders: noBorders,
+                    verticalAlign: VerticalAlign.CENTER,
+                    margins: CELL_MARGINS,
+                    children: [
+                        new Paragraph({
+                            spacing: { after: 20 },
+                            children: [new TextRun({ text: ASSOCIACAO_NOME_COMPLETO.toUpperCase(), font: 'Calibri', size: FOOTER_SIZE, color: '8A8577', characterSpacing: 12 })]
+                        }),
+                        new Paragraph({
+                            spacing: { after: 0 },
+                            children: [new TextRun({ text: 'Proposta / Ficha de Inscrição de Associado', bold: true, font: 'Cambria', size: 28, color: ACCENT_DARK })]
+                        })
+                    ]
+                })
+            ]
+        })]
+    });
+
+    const mastheadDivider = new Paragraph({
+        border: { bottom: THICK_LINE },
+        spacing: { before: 90, after: 100 },
+        children: [new TextRun({ text: '', size: 2 })]
     });
 
     const footer = new Footer({
         children: [new Paragraph({
             alignment: AlignmentType.CENTER,
-            spacing: SINGLE_LINE,
-            children: [new TextRun({ text: `${ASSOCIACAO_NOME} · NIPC ${ASSOCIACAO_NIPC}`, font: 'Calibri', size: FOOTER_SIZE, color: '595959' })]
+            border: { top: { style: BorderStyle.SINGLE, size: 4, color: SAND_LINE } },
+            spacing: { before: 60, ...SINGLE_LINE },
+            children: [new TextRun({ text: `${ASSOCIACAO_NOME} · NIPC ${ASSOCIACAO_NIPC}`, font: 'Calibri', size: FOOTER_SIZE, color: ACCENT })]
         })]
     });
 
     const body = [
-        new Paragraph({
-            alignment: AlignmentType.CENTER,
-            spacing: { after: 120, ...SINGLE_LINE },
-            children: [new TextRun({ text: 'PROPOSTA / FICHA DE INSCRIÇÃO DE ASSOCIADO', bold: true, font: 'Cambria', size: TITLE_SIZE })]
-        }),
-        new Paragraph({
-            spacing: { after: 60, ...SINGLE_LINE },
-            children: [new TextRun({ text: 'CATEGORIA PRETENDIDA', bold: true, font: 'Cambria', size: SECTION_SIZE })]
-        }),
-        checkboxRow(TIPO_ASSOCIADO_OPTIONS, tipoAssociado),
-
-        sectionHeading(1, 'IDENTIFICAÇÃO DO CANDIDATO'),
-        fieldTable(identificacaoRows),
-
-        sectionHeading(2, 'CONTACTO E COMUNICAÇÕES'),
+        masthead,
+        mastheadDivider,
         new Paragraph({
             spacing: { after: 40, ...SINGLE_LINE },
+            children: [new TextRun({ text: 'CATEGORIA PRETENDIDA', bold: true, font: 'Cambria', size: SECTION_SIZE, color: ACCENT })]
+        }),
+        optionRow(TIPO_ASSOCIADO_OPTIONS, tipoAssociado),
+
+        ...sectionHeading(1, 'IDENTIFICAÇÃO DO CANDIDATO'),
+        fieldTable(identificacaoRows),
+
+        ...sectionHeading(2, 'CONTACTO E COMUNICAÇÕES'),
+        new Paragraph({
+            spacing: { after: 25, ...SINGLE_LINE },
             children: [new TextRun({ text: 'Indique o meio preferencial para comunicações da Associação:', font: 'Calibri', size: BODY_SIZE })]
         }),
-        checkboxRow(MEIO_COMUNICACAO_OPTIONS, meioComunicacao),
+        optionRow(MEIO_COMUNICACAO_OPTIONS, meioComunicacao),
 
-        sectionHeading(3, 'DECLARAÇÃO DO CANDIDATO'),
+        ...sectionHeading(3, 'DECLARAÇÃO DO CANDIDATO'),
         bodyText(
             `Declaro que solicito a minha admissão na ${ASSOCIACAO_NOME} — ${ASSOCIACAO_NOME_COMPLETO}, na categoria acima indicada, e que:`,
             { bold: true }
@@ -295,35 +377,35 @@ function buildDocument(docx, dados, logoBytes) {
         'autorizo a utilização dos dados fornecidos nesta ficha para efeitos de análise da candidatura, gestão da relação associativa, comunicações institucionais e cumprimento das obrigações legais da Associação, nos termos da legislação aplicável.'
     ].forEach(text => body.push(new Paragraph({
         bullet: { level: 0 },
-        spacing: { after: 30, ...SINGLE_LINE },
+        spacing: { after: 8, ...SINGLE_LINE },
         children: [new TextRun({ text, font: 'Calibri', size: SMALL_SIZE })]
     })));
 
     body.push(new Paragraph({
-        spacing: { before: 60, after: 20, ...SINGLE_LINE },
+        spacing: { before: 40, after: 12, ...SINGLE_LINE },
         children: [
             new TextRun({ text: isChecked(dados, 'aceita_estatutos') ? '☑ ' : '☐ ', bold: true, size: BODY_SIZE }),
             new TextRun({ text: 'Aceitação dos estatutos e regulamentos internos', size: BODY_SIZE })
         ]
     }));
     body.push(new Paragraph({
-        spacing: { after: 20, ...SINGLE_LINE },
+        spacing: { after: 12, ...SINGLE_LINE },
         children: [
             new TextRun({ text: isChecked(dados, 'autoriza_dados') ? '☑ ' : '☐ ', bold: true, size: BODY_SIZE }),
             new TextRun({ text: 'Autorização de tratamento de dados pessoais (RGPD)', size: BODY_SIZE })
         ]
     }));
 
-    body.push(sectionHeading(4, 'QUOTAS E JOIA'));
+    body.push(...sectionHeading(4, 'QUOTAS E JOIA'));
     body.push(bodyText('Quota mensal: €5,00 (cinco euros), para os associados sujeitos a quotização.'));
     body.push(bodyText('Sócio Cívico: sem joia de inscrição.'));
     body.push(bodyText('Sócio Habitacional: joia de inscrição de €100,00 (cem euros), sem prejuízo das regras e obrigações específicas previstas para os programas habitacionais.'));
     body.push(bodyText('Pagamento de quotas: no primeiro ano recomenda-se, sem caráter obrigatório, o pagamento antecipado de 12 meses; nos anos seguintes recomenda-se o pagamento antecipado de pelo menos 6 meses, podendo o associado optar por outra periodicidade desde que mantenha as obrigações regularizadas.'));
 
-    body.push(sectionHeading(5, 'ASSINATURA'));
-    body.push(fieldTable([['Local', local], ['Data', dataInscricao]]));
+    body.push(...sectionHeading(5, 'ASSINATURA'));
+    body.push(fieldRowPair('Local', local, 'Data', dataInscricao));
     body.push(new Paragraph({
-        spacing: { before: 150, ...SINGLE_LINE },
+        spacing: { before: 470, ...SINGLE_LINE },
         border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: '000000' } },
         children: [new TextRun({ text: '', size: 2 })]
     }));
@@ -337,10 +419,9 @@ function buildDocument(docx, dados, logoBytes) {
         sections: [{
             properties: {
                 page: {
-                    margin: { top: 1134, bottom: 1134, left: 1134, right: 1134, header: 250, footer: 300 }
+                    margin: { top: 650, bottom: 850, left: 1134, right: 1134, header: 250, footer: 300 }
                 }
             },
-            headers: { default: header },
             footers: { default: footer },
             children: body
         }]
