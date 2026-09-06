@@ -1,4 +1,4 @@
-import { gerarFichaDocx } from '../js/modules/inscricao-docx.js';
+import { gerarFichaPdf } from '../js/modules/inscricao-docx.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -305,18 +305,18 @@ async function enviarDocumentoParaAssinar(inscricao, btn) {
             data_inscricao: inscricao.data_inscricao,
         };
 
-        const doc = await gerarFichaDocx(dados);
+        const doc = await gerarFichaPdf(dados);
         if (!doc.ok) {
             alert('Falha ao gerar o documento: ' + (doc.error?.message || doc.error || 'erro desconhecido'));
             return;
         }
 
         const arrayBuffer = await doc.blob.arrayBuffer();
-        const docxBase64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+        const pdfBase64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
 
         const sendRes = await fetch('/.netlify/functions/send-inscricao-docx', {
             method: 'POST',
-            body: JSON.stringify({ email: inscricao.email, nome: inscricao.nome, token, filename: doc.filename, docxBase64 }),
+            body: JSON.stringify({ email: inscricao.email, nome: inscricao.nome, token, filename: doc.filename, pdfBase64 }),
         });
         const sendData = await sendRes.json().catch(() => ({}));
 
