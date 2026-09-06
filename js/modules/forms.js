@@ -26,6 +26,17 @@ export function handleFormSubmit(formEl, fieldsEl, successEl, onSuccess, preSubm
     formEl.addEventListener('submit', async function (e) {
         e.preventDefault();
 
+        // fieldsEl/successEl são resolvidos uma vez, à parte, quando o módulo do
+        // modal inicializa (init corre em DOMContentLoaded). Em produção — nunca
+        // reproduzido em deploy previews com o mesmo código, causa raiz não
+        // isolada — essa resolução por vezes captura null mesmo com o elemento
+        // presente no HTML, e falhava silenciosamente ao mostrar o ecrã de
+        // sucesso (nem envio de email chegava a acontecer). Reobter aqui, a
+        // partir da estrutura real do form (fields = pai direto do <form>,
+        // success = irmão seguinte), corrige isto independentemente da causa.
+        const fields = fieldsEl || formEl.parentElement;
+        const success = successEl || (fields && fields.nextElementSibling);
+
         let valid = true;
         const inputs = formEl.querySelectorAll('input, select, textarea');
         inputs.forEach(function (input) {
@@ -103,9 +114,9 @@ export function handleFormSubmit(formEl, fieldsEl, successEl, onSuccess, preSubm
                     throw new Error('HTTP error ' + response.status);
                 }
                 // Sucesso
-                fieldsEl.classList.add('is-hidden');
-                successEl.classList.add('is-visible');
-                successEl.focus();
+                fields.classList.add('is-hidden');
+                success.classList.add('is-visible');
+                success.focus();
                 if (typeof onSuccess === 'function') {
                     try { onSuccess(formEl); } catch (err) { console.error(err); }
                 }
