@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { getInscricaoTokensStore } from './lib/blobs.mjs';
+import { getInscricaoTokensStore, getInscricoesStore } from './lib/blobs.mjs';
 import { getSubmission } from './lib/netlify-api.mjs';
 import { verifySession } from './lib/session.mjs';
 
@@ -50,11 +50,23 @@ export default async (req) => {
             const submission = await getSubmission(body.submissionId, netlifyToken);
             email = submission.data?.email || '';
             nome = submission.data?.nome || '';
-            if (!email) {
-                return Response.json({ error: 'Email não encontrado na inscrição.' }, { status: 400 });
-            }
         } catch {
             return Response.json({ error: 'Inscrição não encontrada.' }, { status: 404 });
+        }
+        // Correções manuais gravadas pelo painel admin (update-inscricao-dados.mjs)
+        // têm prioridade sobre os dados originais — sem isto, corrigir o email
+        // de uma inscrição e depois reenviar o documento gerava um token para
+        // o email antigo, incompatível com o que send-inscricao-docx.mjs recebe.
+        try {
+            const override = await getInscricoesStore().get(body.submissionId, { type: 'json' });
+            if (override?.dados?.email) email = override.dados.email;
+            if (override?.dados?.nome) nome = override.dados.nome;
+        } catch {
+            // Falha a ler o override não deve bloquear o envio — segue com os
+            // dados originais da submissão.
+        }
+        if (!email) {
+            return Response.json({ error: 'Email não encontrado na inscrição.' }, { status: 400 });
         }
     } else {
         return Response.json({ error: 'email/nome ou submissionId em falta.' }, { status: 400 });
