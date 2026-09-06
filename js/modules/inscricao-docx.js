@@ -614,12 +614,12 @@ function buildPdfDocDefinition(dados, logoDataUrl) {
     const content = [
         {
             columns: [
-                { image: logoDataUrl, fit: [50, 38] },
+                { image: logoDataUrl, fit: [50, 38], width: 54 },
                 {
                     stack: [
                         { text: ASSOCIACAO_NOME_COMPLETO.toUpperCase(), color: hexColor('8A8577'), fontSize: PDF_FOOTER_SIZE, margin: [0, 0, 0, 2] },
                         { text: 'Proposta / Ficha de Inscrição de Associado', bold: true, color: hexColor(ACCENT_DARK), fontSize: PDF_TITLE_SIZE }
-                    ], margin: [8, 2, 0, 0]
+                    ], width: '*', margin: [8, 2, 0, 0]
                 }
             ]
         },
@@ -658,8 +658,8 @@ function buildPdfDocDefinition(dados, logoDataUrl) {
 
         sectionHeading(5, 'ASSINATURA'),
         fieldRowPair('Local', local, 'Data', dataInscricao),
-        { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 220, y2: 0, lineWidth: 0.75, lineColor: '#000000' }], margin: [0, 20, 0, 3] },
-        { text: 'Assinatura do candidato', italics: true, alignment: 'center', fontSize: PDF_FOOTER_SIZE, margin: [0, 0, 0, 0] },
+        { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 220, y2: 0, lineWidth: 0.75, lineColor: '#000000' }], margin: [0, 34, 0, 3] },
+        { text: 'Assinatura do candidato', italics: true, fontSize: PDF_FOOTER_SIZE, margin: [0, 0, 0, 0] },
     ];
 
     return {
