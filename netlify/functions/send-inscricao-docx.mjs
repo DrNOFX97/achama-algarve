@@ -34,7 +34,7 @@ function buildEmailHtml({ nome, retomarUrl }) {
                     </td>
                   </tr>
                 </table>
-                <p style="margin:0;font-size:13px;color:#595959;">Este link é válido por 30 dias. Se não foi você quem submeteu esta inscrição, ignore este e-mail ou contacte-nos em acimha.geral@gmail.com.</p>
+                <p style="margin:0;font-size:13px;color:#595959;">Este link é válido por 30 dias. Se não foi você quem submeteu esta inscrição, ignore este e-mail ou contacte-nos em geral@acimha.pt.</p>
               </td>
             </tr>
           </table>

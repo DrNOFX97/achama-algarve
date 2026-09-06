@@ -104,7 +104,7 @@ export function initInscricaoModal() {
             if (data.duplicado) {
                 return {
                     ok: false,
-                    message: 'Já existe uma inscrição com este NIF. Se for um engano ou precisar de ajuda, contacte-nos em acimha.geral@gmail.com.',
+                    message: 'Já existe uma inscrição com este NIF. Se for um engano ou precisar de ajuda, contacte-nos em geral@acimha.pt.',
                 };
             }
             return { ok: true };
@@ -139,7 +139,7 @@ export function initInscricaoModal() {
             link.rel = 'noopener noreferrer';
             textEl.appendChild(link);
         } else {
-            textEl.textContent = 'Não foi possível preparar o link de retomar agora — contacte-nos em acimha.geral@gmail.com se precisar dele mais tarde.';
+            textEl.textContent = 'Não foi possível preparar o link de retomar agora — contacte-nos em geral@acimha.pt se precisar dele mais tarde.';
         }
     }
 
@@ -175,7 +175,7 @@ export function initInscricaoModal() {
 
             if (!result.ok) {
                 if (envioNoteEl) {
-                    envioNoteEl.textContent = 'Não foi possível gerar o documento automaticamente — utilize o link abaixo para continuar a assinatura, ou contacte-nos em acimha.geral@gmail.com.';
+                    envioNoteEl.textContent = 'Não foi possível gerar o documento automaticamente — utilize o link abaixo para continuar a assinatura, ou contacte-nos em geral@acimha.pt.';
                 }
                 mostrarRetomarLink(token ? `${location.origin}/assinatura?token=${token}` : null);
                 return;
@@ -187,7 +187,7 @@ export function initInscricaoModal() {
                 if (envioNoteEl) envioNoteEl.textContent = 'Enviámos o documento e as instruções de assinatura para o seu email.';
             } else {
                 if (envioNoteEl) {
-                    envioNoteEl.textContent = 'Ainda não foi possível enviar o email — utilize o link abaixo para continuar a assinatura, ou contacte-nos em acimha.geral@gmail.com.';
+                    envioNoteEl.textContent = 'Ainda não foi possível enviar o email — utilize o link abaixo para continuar a assinatura, ou contacte-nos em geral@acimha.pt.';
                 }
                 mostrarRetomarLink(token ? `${location.origin}/assinatura?token=${token}` : null);
             }
